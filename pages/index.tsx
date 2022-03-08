@@ -1,6 +1,7 @@
 import { IconButton, Stack } from "@mui/material"
-import { useState } from "react"
+import React, { useState } from "react"
 import { DualColourSpan } from "../components/lib/styling"
+import { FilmCarousel, FilmCarouselData } from "../components/common/carousel"
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows"
 
 interface MainCarouselData {
@@ -14,8 +15,8 @@ interface MainCarouselProps {
 }
 
 function MainCarousel({ data }: MainCarouselProps) {
-  const [position, setPosition] = useState(0)
-  const current = data[position]
+  const [position, setPosition] = useState(0);
+  const current = data[position];
 
   return <div style={{ position: "relative", overflowX: "hidden" }}>
     <img
@@ -55,11 +56,12 @@ function MainCarousel({ data }: MainCarouselProps) {
   </div>
 }
 
-function FilmCarousel() {
-  return <div></div>
-}
-
 const mainCarouselViewData: MainCarouselData[] = [
+  {
+    image: "https://filmatik.ru/uploads/background/original/banner1.jpg",
+    title: "Круэлла",
+    url: "",
+  },
   {
     image: "https://filmatik.ru/uploads/background/original/banner2.jpg",
     title: "Гнев Человеческий",
@@ -70,7 +72,59 @@ const mainCarouselViewData: MainCarouselData[] = [
     title: "Армия Мертвецов",
     url: "",
   },
-]
+];
+
+const filmCarouselViewData: FilmCarouselData[] = [
+  {
+    image: "https://filmatik.ru/uploads/movie/1579/poster/w342/s04r9V6BX1FO2INzc2DL21UW57T.jpg",
+    title: "Анчартед",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/21252/poster/w342/eddurPvOteKaHxSctJtikdWcG9o.jpg",
+    title: "Отчаянные фрики",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/7758/poster/w342/jGVpMWEemYCSa2p9OSCMsaBXY98.jpg",
+    title: "Как насчет любви?",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/159067/poster/w342/e4koV8iC2cCM57bqUnEnIL2a2zH.jpg",
+    title: "Сирано",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/24709/poster/w342/uHwAiiBtjPQGRABPnR2OucnHko9.jpg",
+    title: "Долгая прогулка",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/153141/poster/w342/s7nsixJ7SeJG2Pmd3W19EbfdRPe.jpg",
+    title: "Удовольствие",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/162882/poster/w342/bv9dy8mnwftdY2j6gG39gCfSFpV.jpg",
+    title: "Игра теней",
+    url: "",
+    rating: "",
+    counters: "",
+  },
+];
 
 export default function Home() {
   return <Stack direction="column" style={{ alignContent: "center", justifyContent: "center" }}>
@@ -79,7 +133,7 @@ export default function Home() {
       <DualColourSpan whiteText="Топ" orangeText="премьер" />
     </div>
     <Stack direction="column">
-      <FilmCarousel />
+      <FilmCarousel data={filmCarouselViewData} />
     </Stack>
   </Stack>
 }
