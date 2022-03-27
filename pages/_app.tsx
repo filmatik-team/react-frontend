@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app"
 import Head from "next/head"
+import "./styles.css"
 
 import { ThemeProvider, CssBaseline, createTheme, ThemeOptions } from "@mui/material"
 
@@ -34,18 +35,11 @@ const lightTheme = createTheme({
 export default function MyApp({ Component, pageProps }: AppProps) {
   return <ThemeProvider theme={darkTheme}>
     <Head>
-      <link
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        // https://fonts.googleapis.com/css2?family=Comfortaa:wght@501&family=Quantico&family=Roboto+Mono:wght@200&family=Oxanium:wght@242&display=swap
-        rel="stylesheet"
-      />
+      <title>Filmatik. Отслеживай новинки кино</title>
     </Head>
-
     <CssBaseline />
-
     <div>   {/* <AppContextProvider>  // for MobX */}
       <Header />
-
       <Component {...pageProps} />
     </div>  {/* </AppContextProvider> */}
   </ThemeProvider>

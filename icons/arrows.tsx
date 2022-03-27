@@ -1,3 +1,4 @@
+import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -13,9 +14,9 @@ export function LargeBackwardNavigationArrow() {
 }
 
 export function SmallForwardNavigationArrow() {
-  return <FontAwesomeIcon icon={['fas', 'chevron-right']} />
+  return <FontAwesomeIcon icon={["fas", "chevron-right"]} />
 }
 
 export function SmallBackwardNavigationArrow() {
-  return <FontAwesomeIcon icon={['fas', 'chevron-left']} />
+  return <FontAwesomeIcon icon={["fas", "chevron-left"]} />
 }

@@ -1,7 +1,7 @@
 import { IconButton, Stack } from "@mui/material"
 import React, { useState } from "react"
 import { DualColourSpan } from "../components/lib/styling"
-import { FilmCarousel, FilmCarouselData } from "../components/common/carousel"
+import { FilmCarousel, FilmCarouselData } from "../components/ui/carousel"
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows"
 
 interface MainCarouselData {
@@ -79,49 +79,63 @@ const filmCarouselViewData: FilmCarouselData[] = [
     image: "https://filmatik.ru/uploads/movie/1579/poster/w342/s04r9V6BX1FO2INzc2DL21UW57T.jpg",
     title: "Анчартед",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/21252/poster/w342/eddurPvOteKaHxSctJtikdWcG9o.jpg",
     title: "Отчаянные фрики",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/7758/poster/w342/jGVpMWEemYCSa2p9OSCMsaBXY98.jpg",
     title: "Как насчет любви?",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/159067/poster/w342/e4koV8iC2cCM57bqUnEnIL2a2zH.jpg",
     title: "Сирано",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/24709/poster/w342/uHwAiiBtjPQGRABPnR2OucnHko9.jpg",
     title: "Долгая прогулка",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/153141/poster/w342/s7nsixJ7SeJG2Pmd3W19EbfdRPe.jpg",
     title: "Удовольствие",
     url: "",
-    rating: "",
+    rating: "80%",
     counters: "",
   },
   {
     image: "https://filmatik.ru/uploads/movie/162882/poster/w342/bv9dy8mnwftdY2j6gG39gCfSFpV.jpg",
     title: "Игра теней",
     url: "",
-    rating: "",
+    rating: "80%",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/7166/poster/w342/22FWO9Z2SYZh5JVI3nyxmwGaG7G.jpg",
+    title: "Глубокие воды",
+    url: "",
+    rating: "80%",
+    counters: "",
+  },
+  {
+    image: "https://filmatik.ru/uploads/movie/5048/poster/w342/qt8X2xLDxZc5luYyYUvgHqePppn.jpg",
+    title: "Бэтмен",
+    url: "",
+    rating: "80%",
     counters: "",
   },
 ];
@@ -129,11 +143,19 @@ const filmCarouselViewData: FilmCarouselData[] = [
 export default function Home() {
   return <Stack direction="column" style={{ alignContent: "center", justifyContent: "center" }}>
     <MainCarousel data={mainCarouselViewData} />
+
     <div style={{ textAlign: "center", fontSize: 34 }}>
       <DualColourSpan whiteText="Топ" orangeText="премьер" />
     </div>
     <Stack direction="column">
-      <FilmCarousel data={filmCarouselViewData} />
+      <FilmCarousel
+        data={filmCarouselViewData}
+        carouselWidth={1166}
+        filmWidth={186}
+        filmHeight={279}
+        filmMargin={10}
+        filmScrollStep={5}
+      />
     </Stack>
   </Stack>
 }

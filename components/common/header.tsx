@@ -1,8 +1,9 @@
+import React from "react";
 import { AppBar, Button, Stack, Toolbar } from "@mui/material"
 
-const headerHeight = 70
+const headerHeight = 70;
 
-const pages = ["Каталог", "Киноафиша", "Новинки", "Топ персон"]
+const pages = ["Каталог", "Киноафиша", "Новинки", "Топ персон"];
 
 export default function Header() {
   return <div style={{ paddingTop: 0 }}>
