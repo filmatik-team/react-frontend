@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { IconButton } from "@mui/material";
 
 export const BaseImgStyle = {
   width: "100%",
@@ -11,14 +10,15 @@ export const BaseImgStyle = {
   verticalAlign: "middle",
 } as const;
 
-export const ArrowButton = styled(IconButton)({
+export const ArrowButton = styled.button({
   position: "absolute",
-  bottom: "45%",
+  bottom: "calc(50% - 8px)",
   margin: 0,
   background: "transparent",
   color: "#8C8C8C",
   cursor: "pointer",
   fontSize: "20px",
+  border: 0,
 });
 
 export const CarouselScrollbar = styled.div`

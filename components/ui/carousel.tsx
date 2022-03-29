@@ -1,9 +1,10 @@
 import React from "react";
-import { SmallBackwardNavigationArrow, SmallForwardNavigationArrow } from "../../icons/arrows";
+import {SmallBackwardNavigationArrow, SmallForwardNavigationArrow} from "../../icons/arrows";
 import {EyeCounter, HeartCounter, StarCounter} from "../../icons/counters";
-import { FilmCard, HoverElement } from "../lib/styling";
-import { BaseImgStyle, ArrowButton, CarouselScrollbar } from "./carousel-style";
-import { Container } from "@mui/material";
+import {FilmCard} from "./filmCard"
+import {DivHoverElement} from "../lib/styling";
+import {BaseImgStyle, ArrowButton, CarouselScrollbar} from "./carousel-style";
+import {Box} from "@mui/material";
 
 export interface FilmCarouselData {
   image: string
@@ -22,32 +23,38 @@ interface FilmCarouselProps {
   filmScrollStep: number // сколько обложек прокручивать
 }
 
-export function FilmCarousel({ data, carouselWidth, filmWidth,filmMargin, filmHeight, filmScrollStep}: FilmCarouselProps) {
+export function FilmCarousel({data, carouselWidth, filmWidth, filmMargin, filmHeight, filmScrollStep}: FilmCarouselProps) {
   const filmScrollOffset = filmWidth + filmMargin;
 
-  const slideLeft = () => {
-    const slider = document.querySelector('.slider')!;
+  const slideLeft = (e: Event & { target: HTMLElement }) => {
+    const slider = e.target.closest('.slider') as HTMLElement;
+    const buttons = slider.getElementsByClassName('slider-button') as HTMLCollectionOf<HTMLElement>;
+    let buttonForward: HTMLElement | undefined, buttonBackward: HTMLElement | undefined;
 
-    slider.addEventListener('scroll', () => {
-      if (slider.scrollLeft >= filmScrollOffset * (data.length - Math.round(carouselWidth/filmScrollOffset))) {
-        document.querySelector<HTMLElement>('.slider-button-forward')!.style.cssText += `
-          visibility: hidden;
-          opacity: 0;
-        `;
-      } else if (slider.scrollLeft === 0) {
-        document.querySelector<HTMLElement>('.slider-button-backward')!.style.cssText += `
-          visibility: hidden;
-          opacity: 0;
-        `;
+    for (let i = 0; i < buttons.length; i++) {
+      if (buttons[i].classList.contains('slider-button-forward')) {
+        buttonForward = buttons[i];
       } else {
-        document.querySelector<HTMLElement>('.slider-button-forward')!.style.cssText += `
-          visibility: visible;
-          opacity: 1;
-        `;
-        document.querySelector<HTMLElement>('.slider-button-backward')!.style.cssText += `
-          visibility: visible;
-          opacity: 1;
-        `;
+        buttonBackward = buttons[i];
+      }
+    }
+
+    slider.addEventListener('scroll', function (this: typeof slider) {
+      if (this.scrollLeft >= filmScrollOffset * (data.length - Math.round(carouselWidth / filmScrollOffset))) {
+        if (buttonForward !== undefined) {
+          buttonForward.style.cssText += `display: none;`;
+        }
+      } else if (this.scrollLeft === 0) {
+        if (buttonBackward !== undefined) {
+          buttonBackward.style.cssText += `display: none;`;
+        }
+      } else {
+        if (buttonForward !== undefined) {
+          buttonForward.style.cssText += `display: block;`;
+        }
+        if (buttonBackward !== undefined) {
+          buttonBackward.style.cssText += `display: block;`;
+        }
       }
     });
 
@@ -66,26 +73,26 @@ export function FilmCarousel({ data, carouselWidth, filmWidth,filmMargin, filmHe
     }
   };
 
-  const slideRight = () => {
-    const slider = document.querySelector('.slider')!;
+  const slideRight = (e: Event & { target: HTMLElement }) => {
+    const slider = e.target.closest('.slider') as HTMLElement;
 
     if (slider.scrollLeft % filmScrollOffset === 0) {
       slider.scrollBy({
         top: 0,
-        left: - filmScrollOffset * filmScrollStep,
+        left: -filmScrollOffset * filmScrollStep,
         behavior: 'smooth'
       });
     } else {
       slider.scrollBy({
         top: 0,
-        left: - (filmScrollOffset * filmScrollStep + Math.abs(slider.scrollLeft % filmScrollOffset)),
+        left: -(filmScrollOffset * filmScrollStep + Math.abs(slider.scrollLeft % filmScrollOffset)),
         behavior: 'smooth'
       });
     }
   };
 
-  return <Container disableGutters sx={{ width: `${carouselWidth}px`, padding: 0}}>
-    <div style={{ position: "relative"}}>
+  return (
+    <Box sx={{position: "relative", width: `${carouselWidth}px`}}>
       <CarouselScrollbar className="slider">
         {data.map((item, i) => (
           <FilmCard
@@ -95,9 +102,9 @@ export function FilmCarousel({ data, carouselWidth, filmWidth,filmMargin, filmHe
             key={i}
           >
             <img src={data[i].image} alt={data[i].title} style={BaseImgStyle}/>
-            <HoverElement
-              opacitynative={0}
-              opacityhover={1}
+            <DivHoverElement
+              opacityNative={0}
+              opacityHover={1}
               style={{
                 position: "absolute",
                 top: 0,
@@ -150,34 +157,34 @@ export function FilmCarousel({ data, carouselWidth, filmWidth,filmMargin, filmHe
                 <div><HeartCounter/><span>20</span></div>
                 <div><StarCounter/><span>20</span></div>
               </div>
-            </HoverElement>
+            </DivHoverElement>
           </FilmCard>
         ))}
-        {data.length <= Math.round(carouselWidth/filmScrollOffset) ? null :
+        {data.length <= Math.round(carouselWidth / filmScrollOffset) ? null :
           <>
-            <HoverElement
-              colorhover="#fff"
+            <DivHoverElement
               as={ArrowButton}
-              className="slider-button-forward"
+              colorHover="#fff"
+              className="slider-button slider-button-forward"
               disableRipple
               onClick={slideLeft}
-              style={{right:"-35px"}}
+              style={{right: "-35px"}}
             >
               <SmallForwardNavigationArrow/>
-            </HoverElement>
-            <HoverElement
-              colorhover="#fff"
+            </DivHoverElement>
+            <DivHoverElement
               as={ArrowButton}
-              className="slider-button-backward"
+              colorHover="#fff"
+              className="slider-button slider-button-backward"
               disableRipple
               onClick={slideRight}
-              style={{left:"-35px", visibility: "hidden", opacity: 0}}
+              style={{left: "-35px", display: "none"}}
             >
               <SmallBackwardNavigationArrow/>
-            </HoverElement>
+            </DivHoverElement>
           </>
         }
       </CarouselScrollbar>
-    </div>
-  </Container>
+    </Box>
+  )
 }

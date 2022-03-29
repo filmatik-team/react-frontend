@@ -1,7 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEye, faHeart, faStar } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faEye, faHeart, faStar} from '@fortawesome/free-solid-svg-icons'
 
 library.add(faEye, faHeart, faStar);
 

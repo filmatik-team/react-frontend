@@ -1,8 +1,11 @@
-import { IconButton, Stack } from "@mui/material"
-import React, { useState } from "react"
-import { DualColourSpan } from "../components/lib/styling"
-import { FilmCarousel, FilmCarouselData } from "../components/ui/carousel"
-import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows"
+import React from "react"
+import {IconButton, Stack, Box, Container} from "@mui/material"
+import {DualColourSpan} from "../components/lib/styling"
+import {NavTabs} from "../components/ui/tabs"
+import {FilmCarousel, FilmCarouselData} from "../components/ui/carousel"
+import {LargeBackwardNavigationArrow, LargeForwardNavigationArrow} from "../icons/arrows"
+
+const containerWidth = 1166;
 
 interface MainCarouselData {
   image: string
@@ -14,17 +17,24 @@ interface MainCarouselProps {
   data: MainCarouselData[]
 }
 
-function MainCarousel({ data }: MainCarouselProps) {
-  const [position, setPosition] = useState(0);
+function MainCarousel({data}: MainCarouselProps) {
+  const [position, setPosition] = React.useState(0);
   const current = data[position];
 
-  return <div style={{ position: "relative", overflowX: "hidden" }}>
+  return <div style={{position: "relative", overflowX: "hidden", lineHeight: 0}}>
     <img
       src={current.image}
       alt="alt"
-      style={{ objectFit: "cover", width: "100%", height: 700, objectPosition: "100% 0" }}
+      style={{objectFit: "cover", width: "100%", height: 700, objectPosition: "100% 0"}}
     />
-    <span style={{ position: "absolute", color: "#555", bottom: "2%", right: "2%", margin: 0, fontSize: 18 }}>
+    <span style={{
+      position: "absolute",
+      color: "#555",
+      bottom: "2%",
+      right: "2%",
+      margin: 0,
+      fontSize: 18
+    }}>
       {current.title}
     </span>
     <IconButton
@@ -38,7 +48,7 @@ function MainCarousel({ data }: MainCarouselProps) {
         background: "transparent",
       }}
     >
-      <LargeForwardNavigationArrow />
+      <LargeForwardNavigationArrow/>
     </IconButton>
     <IconButton
       disableRipple
@@ -51,9 +61,22 @@ function MainCarousel({ data }: MainCarouselProps) {
         background: "transparent",
       }}
     >
-      <LargeBackwardNavigationArrow />
+      <LargeBackwardNavigationArrow/>
     </IconButton>
   </div>
+}
+
+interface NavTabsData {
+  tabName: string,
+  content: React.ReactNode
+}
+
+interface NavTabsProps {
+  data: NavTabsData[]
+}
+
+function NavTabsTopPrime({data}: NavTabsProps) {
+  return <NavTabs data={data} defaultTab={0} style={{margin: "0 0 50px 0"}}/>
 }
 
 const mainCarouselViewData: MainCarouselData[] = [
@@ -140,22 +163,69 @@ const filmCarouselViewData: FilmCarouselData[] = [
   },
 ];
 
-export default function Home() {
-  return <Stack direction="column" style={{ alignContent: "center", justifyContent: "center" }}>
-    <MainCarousel data={mainCarouselViewData} />
-
-    <div style={{ textAlign: "center", fontSize: 34 }}>
-      <DualColourSpan whiteText="Топ" orangeText="премьер" />
-    </div>
-    <Stack direction="column">
+const NavTabsTopPremieresData: NavTabsData[] = [
+  {
+    tabName: "Сейчас",
+    content:
       <FilmCarousel
         data={filmCarouselViewData}
-        carouselWidth={1166}
+        carouselWidth={containerWidth}
         filmWidth={186}
         filmHeight={279}
         filmMargin={10}
         filmScrollStep={5}
-      />
-    </Stack>
+      />,
+  },
+  {
+    tabName: "Скоро",
+    content:
+      <FilmCarousel
+        data={filmCarouselViewData.concat([]).reverse()}
+        carouselWidth={containerWidth}
+        filmWidth={186}
+        filmHeight={279}
+        filmMargin={10}
+        filmScrollStep={5}
+      />,
+  },
+  {
+    tabName: "Позже",
+    content:
+      <FilmCarousel
+        data={filmCarouselViewData}
+        carouselWidth={containerWidth}
+        filmWidth={186}
+        filmHeight={279}
+        filmMargin={10}
+        filmScrollStep={5}
+      />,
+  },
+];
+
+export default function Home() {
+  return <Stack direction="column" style={{alignContent: "center", justifyContent: "center"}}>
+    <MainCarousel data={mainCarouselViewData}/>
+    <Box sx={{margin: "0 0 50px 0"}}>
+      <Container disableGutters sx={{width: `${containerWidth}px`, margin: "0 auto", padding: 0}}>
+        <div style={{
+          textAlign: "center",
+          fontSize: 34,
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "20px",
+        }}>
+          <h2 style={{
+            fontSize: "26px",
+            fontWeight: "700",
+            color: "#e6e6e6",
+            margin: 0,
+            textAlign: "center",
+          }}>
+            <DualColourSpan whiteText="Топ" orangeText="премьер"/>
+          </h2>
+        </div>
+        <NavTabsTopPrime data={NavTabsTopPremieresData}/>
+      </Container>
+    </Box>
   </Stack>
 }

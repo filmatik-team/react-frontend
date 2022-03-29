@@ -1,12 +1,12 @@
 import React from "react";
-import { AppBar, Button, Stack, Toolbar } from "@mui/material"
+import {AppBar, Button, Stack, Toolbar} from "@mui/material"
 
 const headerHeight = 70;
 
 const pages = ["Каталог", "Киноафиша", "Новинки", "Топ персон"];
 
 export default function Header() {
-  return <div style={{ paddingTop: 0 }}>
+  return <div style={{paddingTop: 0}}>
     <AppBar
       elevation={0}
       style={{
@@ -21,12 +21,12 @@ export default function Header() {
         paddingLeft: 10,
       }}
     >
-      <Toolbar style={{ maxWidth: 1200, margin: "auto" }}>
-        <Stack direction="row" sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+      <Toolbar style={{maxWidth: 1200, margin: "auto"}}>
+        <Stack direction="row" sx={{flexGrow: 1, display: {xs: "none", md: "flex"}}}>
           {pages.map((page) => (
             <Button
               key={page}
-              sx={{ my: "auto", color: "white", display: "block" }}
+              sx={{my: "auto", color: "white", display: "block"}}
             >
               {page}
             </Button>
