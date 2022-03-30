@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {IconButton} from "@mui/material";
 
 export const BaseImgStyle = {
   width: "100%",
@@ -8,18 +9,23 @@ export const BaseImgStyle = {
   borderRadius: 8,
   borderStyle: "none",
   verticalAlign: "middle",
-} as const;
+} as React.CSSProperties;
 
-export const ArrowButton = styled.button({
-  position: "absolute",
-  bottom: "calc(50% - 8px)",
-  margin: 0,
-  background: "transparent",
-  color: "#8C8C8C",
-  cursor: "pointer",
-  fontSize: "20px",
-  border: 0,
-});
+export const ArrowButton = styled(IconButton)`
+  position: absolute;
+  display: block;
+  bottom: calc(50% - 8px);
+  margin: 0;
+  background: transparent;
+  color: #8C8C8C;
+  cursor: pointer;
+  font-size: 20px;
+  border: 0;
+
+  &:hover {
+    color: #fff;
+  }
+`;
 
 export const CarouselScrollbar = styled.div`
   display: flex;
@@ -28,11 +34,13 @@ export const CarouselScrollbar = styled.div`
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
     width: 0;
     background: transparent;
   }
+
   &::-webkit-scrollbar-thumb {
     background: transparent
   }

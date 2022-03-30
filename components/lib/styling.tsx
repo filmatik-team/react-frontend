@@ -30,9 +30,10 @@ interface DivHoverElementProps {
 }
 
 export const DivHoverElement = styled.div<DivHoverElementProps>`
-  &[style]{
+  &[style] {
     color: ${props => props.colorNative};
     opacity: ${props => props.opacityNative};
+
     &:hover {
       color: ${props => props.colorHover};
       opacity: ${props => props.opacityHover};

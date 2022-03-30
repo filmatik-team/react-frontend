@@ -5,7 +5,7 @@ import {NavTabs} from "../components/ui/tabs"
 import {FilmCarousel, FilmCarouselData} from "../components/ui/carousel"
 import {LargeBackwardNavigationArrow, LargeForwardNavigationArrow} from "../icons/arrows"
 
-const containerWidth = 1166;
+const containerWidth = 1166; // ширина контента по всему сайту
 
 interface MainCarouselData {
   image: string

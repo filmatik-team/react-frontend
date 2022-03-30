@@ -13,7 +13,6 @@ function TabPanel(props: TabPanelProps) {
   const {index, value, children} = props;
   return (
     <TabPanelStyled
-      className="tab-pane"
       data-visible={value === index ? "show" : "hide"}
       role="tabpanel"
       {...props}
@@ -24,7 +23,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 interface TabProps {
-  onChange: any,
+  onChange:  (event: React.SyntheticEvent, newValue: number) => void,
   children?: React.ReactNode,
 }
 
@@ -52,7 +51,7 @@ export function NavTabs({data, defaultTab}: NavTabsProps) {
           <Tab onChange={handleChange} key={i}>{item.tabName}</Tab>
         ))}
       </TabsListStyled>
-      <Box sx={{position: "relative", minHeight: "279px"}}>
+      <Box sx={{position: "relative"}}>
         {data.map((item, i) => (
           <TabPanel index={i} value={value} key={i}>{item.content}</TabPanel>
         ))}

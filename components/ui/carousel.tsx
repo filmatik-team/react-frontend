@@ -23,10 +23,11 @@ interface FilmCarouselProps {
   filmScrollStep: number // сколько обложек прокручивать
 }
 
-export function FilmCarousel({data, carouselWidth, filmWidth, filmMargin, filmHeight, filmScrollStep}: FilmCarouselProps) {
+export function FilmCarousel(props: FilmCarouselProps) {
+  const {data, carouselWidth, filmWidth, filmMargin, filmHeight, filmScrollStep} = props;
   const filmScrollOffset = filmWidth + filmMargin;
 
-  const slideLeft = (e: Event & { target: HTMLElement }) => {
+  const slideLeft = (e: React.MouseEvent<HTMLButtonElement> & { target: HTMLElement }) => {
     const slider = e.target.closest('.slider') as HTMLElement;
     const buttons = slider.getElementsByClassName('slider-button') as HTMLCollectionOf<HTMLElement>;
     let buttonForward: HTMLElement | undefined, buttonBackward: HTMLElement | undefined;
@@ -34,7 +35,7 @@ export function FilmCarousel({data, carouselWidth, filmWidth, filmMargin, filmHe
     for (let i = 0; i < buttons.length; i++) {
       if (buttons[i].classList.contains('slider-button-forward')) {
         buttonForward = buttons[i];
-      } else {
+      } else if (buttons[i].classList.contains('slider-button-backward')) {
         buttonBackward = buttons[i];
       }
     }
@@ -73,7 +74,7 @@ export function FilmCarousel({data, carouselWidth, filmWidth, filmMargin, filmHe
     }
   };
 
-  const slideRight = (e: Event & { target: HTMLElement }) => {
+  const slideRight = (e: React.MouseEvent<HTMLButtonElement> & { target: HTMLElement }) => {
     const slider = e.target.closest('.slider') as HTMLElement;
 
     if (slider.scrollLeft % filmScrollOffset === 0) {
@@ -162,26 +163,22 @@ export function FilmCarousel({data, carouselWidth, filmWidth, filmMargin, filmHe
         ))}
         {data.length <= Math.round(carouselWidth / filmScrollOffset) ? null :
           <>
-            <DivHoverElement
-              as={ArrowButton}
-              colorHover="#fff"
+            <ArrowButton
               className="slider-button slider-button-forward"
               disableRipple
               onClick={slideLeft}
               style={{right: "-35px"}}
             >
               <SmallForwardNavigationArrow/>
-            </DivHoverElement>
-            <DivHoverElement
-              as={ArrowButton}
-              colorHover="#fff"
+            </ArrowButton>
+            <ArrowButton
               className="slider-button slider-button-backward"
               disableRipple
               onClick={slideRight}
               style={{left: "-35px", display: "none"}}
             >
               <SmallBackwardNavigationArrow/>
-            </DivHoverElement>
+            </ArrowButton>
           </>
         }
       </CarouselScrollbar>

@@ -1,5 +1,5 @@
+import React from "react";
 import styled from "styled-components";
-import {Box} from "@mui/material";
 import {
   buttonUnstyledClasses,
   TabPanelUnstyled,
@@ -16,15 +16,24 @@ export const TabPanelStyled = styled(TabPanelUnstyled)`
     top: 0;
     left: 0;
   }
+
   @keyframes showNav {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @keyframes hideNav {
-    from {opacity: 1;}
-    to {opacity: 0;}
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
-  
+
   &[data-visible=show] {
     opacity: 1;
     visibility: visible;
@@ -38,7 +47,9 @@ export const TabPanelStyled = styled(TabPanelUnstyled)`
   }
 `;
 
-export const TabStyled = styled(TabUnstyled)`
+export const TabStyled = styled(TabUnstyled).attrs(props => ({
+  onChange: props.onChange as (event: React.SyntheticEvent, newValue: number) => void
+}))`
   min-width: auto;
   min-height: auto;
   margin: 0 35px 0 0;
@@ -61,11 +72,11 @@ export const TabStyled = styled(TabUnstyled)`
     color: #fff;
     cursor: default;
   }
-  
+
   &.${tabUnstyledClasses.selected} {
     color: #fff;
   }
-  
+
   &.${buttonUnstyledClasses.disabled} {
     opacity: 0.5;
     cursor: not-allowed;
@@ -74,18 +85,4 @@ export const TabStyled = styled(TabUnstyled)`
 
 export const TabsListStyled = styled(TabsListUnstyled)`
   margin: 0 0 20px 0;
-`;
-
-export const BoxStyled = styled(Box)`  
-  &[data-visible=show] {
-    opacity: 1;
-    visibility: visible;
-    animation: showNav .3s linear;
-  }
-
-  &[data-visible=hide] {
-    opacity: 0;
-    visibility: hidden;
-    animation: hideNav .3s linear;
-  }
 `;
