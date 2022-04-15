@@ -1,21 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  buttonUnstyledClasses,
-  TabPanelUnstyled,
-  TabsListUnstyled,
-  TabUnstyled,
-  tabUnstyledClasses
-} from "@mui/base";
+import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
 
 export const TabPanelStyled = styled(TabPanelUnstyled)`
-  &:not(:first-child) {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
 
   @keyframes showNav {
     from {
@@ -25,6 +16,7 @@ export const TabPanelStyled = styled(TabPanelUnstyled)`
       opacity: 1;
     }
   }
+
   @keyframes hideNav {
     from {
       opacity: 1;
@@ -34,21 +26,27 @@ export const TabPanelStyled = styled(TabPanelUnstyled)`
     }
   }
 
-  &[data-visible=show] {
+  &.show {
     opacity: 1;
     visibility: visible;
-    animation: showNav .3s linear;
+    position: relative;
+    animation: showNav 0.3s linear;
   }
 
-  &[data-visible=hide] {
+  &.hide {
     opacity: 0;
     visibility: hidden;
-    animation: hideNav .3s linear;
+    position: absolute;
+    animation: hideNav 0.3s linear;
+  }
+
+  &.no-animation {
+    animation: showNav, hideNav 0s linear;
   }
 `;
 
-export const TabStyled = styled(TabUnstyled).attrs(props => ({
-  onChange: props.onChange as (event: React.SyntheticEvent, newValue: number) => void
+export const TabStyled = styled(TabUnstyled).attrs((props) => ({
+  onChange: props.onChange as (event: React.SyntheticEvent, newValue: number) => void,
 }))`
   min-width: auto;
   min-height: auto;
@@ -56,7 +54,7 @@ export const TabStyled = styled(TabUnstyled).attrs(props => ({
   padding: 0;
   font-family: inherit;
   font-size: 18px;
-  color: #8C8C8C;
+  color: #8c8c8c;
   letter-spacing: inherit;
   cursor: pointer;
   background: 0;
@@ -75,11 +73,12 @@ export const TabStyled = styled(TabUnstyled).attrs(props => ({
 
   &.${tabUnstyledClasses.selected} {
     color: #fff;
+    cursor: default;
   }
 
   &.${buttonUnstyledClasses.disabled} {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: default;
   }
 `;
 

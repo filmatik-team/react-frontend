@@ -1,22 +1,44 @@
 import React from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
-
-library.add(faChevronLeft, faChevronRight);
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { Box } from "@mui/material";
 
 export function LargeForwardNavigationArrow() {
-  return <div>hey</div>
+  return <div>hey</div>;
 }
 
 export function LargeBackwardNavigationArrow() {
-  return <div>yeh</div>
+  return <div>yeh</div>;
 }
 
 export function SmallForwardNavigationArrow() {
-  return <FontAwesomeIcon icon={["fas", "chevron-right"]}/>
+  return <FontAwesomeIcon icon={faChevronRight} />;
 }
 
 export function SmallBackwardNavigationArrow() {
-  return <FontAwesomeIcon icon={["fas", "chevron-left"]}/>
+  return <FontAwesomeIcon icon={faChevronLeft} />;
+}
+
+interface SelectArrowProps {
+  className?: string;
+}
+
+export function SelectArrow(props: SelectArrowProps) {
+  return (
+    <Box
+      sx={{
+        content: '" "',
+        display: "block",
+        width: "15px",
+        height: "8px",
+        background: "url(https://filmatik.ru/resources/app/img/select-arrow.svg) no-repeat",
+        transition: "all 0.3s ease",
+
+        "&.active": {
+          transform: "rotate(-180deg)",
+        },
+      }}
+      {...props}
+    />
+  );
 }

@@ -1,89 +1,112 @@
-import React from "react"
-import {IconButton, Stack, Box, Container} from "@mui/material"
-import {DualColourSpan} from "../components/lib/styling"
-import {NavTabs} from "../components/ui/tabs"
-import {FilmCarousel, FilmCarouselData} from "../components/ui/carousel"
-import {LargeBackwardNavigationArrow, LargeForwardNavigationArrow} from "../icons/arrows"
-
-const containerWidth = 1166; // ширина контента по всему сайту
+import React from "react";
+import { IconButton, Stack, Box, Link, Typography } from "@mui/material";
+import {
+  ContainerStyled,
+  containerWidth,
+  DualColourSpan,
+  filmCardVisible,
+  filmCarouselMargin,
+} from "../components/lib/styling";
+import { NavData, NavTabs } from "../components/ui/tabs";
+import { FilmCarousel, FilmCarouselData } from "../components/ui/carousel";
+import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
 
 interface MainCarouselData {
-  image: string
-  title: string
-  url: string
+  image: string;
+  title: string;
+  url: string;
 }
 
 interface MainCarouselProps {
-  data: MainCarouselData[]
+  data: MainCarouselData[];
 }
 
-function MainCarousel({data}: MainCarouselProps) {
+function MainCarousel({ data }: MainCarouselProps) {
   const [position, setPosition] = React.useState(0);
   const current = data[position];
 
-  return <div style={{position: "relative", overflowX: "hidden", lineHeight: 0}}>
-    <img
-      src={current.image}
-      alt="alt"
-      style={{objectFit: "cover", width: "100%", height: 700, objectPosition: "100% 0"}}
-    />
-    <span style={{
-      position: "absolute",
-      color: "#555",
-      bottom: "2%",
-      right: "2%",
-      margin: 0,
-      fontSize: 18
-    }}>
-      {current.title}
-    </span>
-    <IconButton
-      disableRipple
-      onClick={() => setPosition((position + data.length - 1) % data.length)}
-      style={{
-        position: "absolute",
-        bottom: "50%",
-        right: "1%",
-        margin: 0,
-        background: "transparent",
-      }}
-    >
-      <LargeForwardNavigationArrow/>
-    </IconButton>
-    <IconButton
-      disableRipple
-      onClick={() => setPosition((position + 1) % data.length)}
-      style={{
-        position: "absolute",
-        bottom: "50%",
-        left: "1%",
-        margin: 0,
-        background: "transparent",
-      }}
-    >
-      <LargeBackwardNavigationArrow/>
-    </IconButton>
-  </div>
-}
-
-interface NavTabsData {
-  tabName: string,
-  content: React.ReactNode
-}
-
-interface NavTabsProps {
-  data: NavTabsData[]
-}
-
-function NavTabsTopPrime({data}: NavTabsProps) {
-  return <NavTabs data={data} defaultTab={0} style={{margin: "0 0 50px 0"}}/>
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        height: { mobileS: "60vh", laptop: "80vh" },
+        minHeight: { mobileS: 320, laptop: 580 },
+        mt: 0,
+      }}>
+      <Box
+        component={"img"}
+        src={current.image}
+        alt="alt"
+        sx={{
+          width: "100%",
+          height: "100%",
+          minHeight: "580px",
+          objectFit: "cover",
+          objectPosition: { mobileS: "50% 50px", mobileL: "50% 20%" },
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          left: 0,
+          top: 0,
+          background:
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.07) 43.71%, rgba(8, 8, 8, 0.35) 77.63%, rgba(3, 3, 3, 0.32) 91.3%)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          display: { mobileS: "none", mobileL: "block" },
+          bottom: 3,
+          right: 10,
+          color: "#8C8C8C",
+        }}>
+        <Link
+          href={current.url}
+          sx={{
+            color: "#555",
+            fontSize: 14,
+            textShadow: "1px 1px 0 #000",
+          }}>
+          {current.title}
+        </Link>
+      </Box>
+      <IconButton
+        disableRipple
+        onClick={() => setPosition((position + data.length - 1) % data.length)}
+        sx={{
+          position: "absolute",
+          bottom: "50%",
+          right: "1%",
+          margin: 0,
+          background: "transparent",
+        }}>
+        <LargeForwardNavigationArrow />
+      </IconButton>
+      <IconButton
+        disableRipple
+        onClick={() => setPosition((position + 1) % data.length)}
+        sx={{
+          position: "absolute",
+          bottom: "50%",
+          left: "1%",
+          margin: 0,
+          background: "transparent",
+        }}>
+        <LargeBackwardNavigationArrow />
+      </IconButton>
+    </Box>
+  );
 }
 
 const mainCarouselViewData: MainCarouselData[] = [
   {
     image: "https://filmatik.ru/uploads/background/original/banner1.jpg",
     title: "Круэлла",
-    url: "",
+    url: "https://filmatik.ru/movies/48561-stervella-2021",
   },
   {
     image: "https://filmatik.ru/uploads/background/original/banner2.jpg",
@@ -163,69 +186,72 @@ const filmCarouselViewData: FilmCarouselData[] = [
   },
 ];
 
-const NavTabsTopPremieresData: NavTabsData[] = [
+const NavTabsTopPremieresData: NavData[] = [
   {
     tabName: "Сейчас",
-    content:
+    content: (
       <FilmCarousel
         data={filmCarouselViewData}
+        filmCardVisible={filmCardVisible}
         carouselWidth={containerWidth}
-        filmWidth={186}
-        filmHeight={279}
-        filmMargin={10}
+        filmMargin={filmCarouselMargin}
         filmScrollStep={5}
-      />,
+      />
+    ),
   },
   {
     tabName: "Скоро",
-    content:
+    content: (
       <FilmCarousel
         data={filmCarouselViewData.concat([]).reverse()}
+        filmCardVisible={filmCardVisible}
         carouselWidth={containerWidth}
-        filmWidth={186}
-        filmHeight={279}
-        filmMargin={10}
+        filmMargin={filmCarouselMargin}
         filmScrollStep={5}
-      />,
+      />
+    ),
   },
   {
     tabName: "Позже",
-    content:
+    content: (
       <FilmCarousel
         data={filmCarouselViewData}
+        filmCardVisible={filmCardVisible}
         carouselWidth={containerWidth}
-        filmWidth={186}
-        filmHeight={279}
-        filmMargin={10}
+        filmMargin={filmCarouselMargin}
         filmScrollStep={5}
-      />,
+      />
+    ),
   },
 ];
 
 export default function Home() {
-  return <Stack direction="column" style={{alignContent: "center", justifyContent: "center"}}>
-    <MainCarousel data={mainCarouselViewData}/>
-    <Box sx={{margin: "0 0 50px 0"}}>
-      <Container disableGutters sx={{width: `${containerWidth}px`, margin: "0 auto", padding: 0}}>
-        <div style={{
-          textAlign: "center",
-          fontSize: 34,
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "20px",
-        }}>
-          <h2 style={{
-            fontSize: "26px",
-            fontWeight: "700",
-            color: "#e6e6e6",
-            margin: 0,
-            textAlign: "center",
-          }}>
-            <DualColourSpan whiteText="Топ" orangeText="премьер"/>
-          </h2>
-        </div>
-        <NavTabsTopPrime data={NavTabsTopPremieresData}/>
-      </Container>
-    </Box>
-  </Stack>
+  return (
+    <Stack direction="column" sx={{ alignContent: "center", justifyContent: "center" }}>
+      <MainCarousel data={mainCarouselViewData} />
+      <Box sx={{ margin: "0 0 50px 0" }}>
+        <ContainerStyled>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "20px",
+            }}>
+            <Typography
+              component="h2"
+              sx={{
+                fontSize: "26px",
+                fontWeight: "700",
+                color: "#e6e6e6",
+                margin: 0,
+                textAlign: "center",
+              }}>
+              <DualColourSpan whiteText="Топ" orangeText="премьер" />
+            </Typography>
+          </Box>
+          <NavTabs data={NavTabsTopPremieresData} defaultTab={0} sx={{ m: "0 0 50px 0" }} />
+        </ContainerStyled>
+      </Box>
+    </Stack>
+  );
 }

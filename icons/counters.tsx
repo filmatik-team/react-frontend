@@ -1,18 +1,19 @@
 import React from "react";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faEye, faHeart, faStar} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faEye, faHeart, faStar);
+const counterStyles = {
+  margin: "0 5px 0 0",
+};
 
 export function EyeCounter() {
-  return <FontAwesomeIcon icon={["fas", "eye"]} color="#3164DB" style={{margin: "0 5px 0 0"}}/>
+  return <FontAwesomeIcon icon={faEye} color="#3164DB" style={counterStyles} />;
 }
 
 export function HeartCounter() {
-  return <FontAwesomeIcon icon={["fas", "heart"]} color="#ff403d" style={{margin: "0 5px 0 0"}}/>
+  return <FontAwesomeIcon icon={faHeart} color="#ff403d" style={counterStyles} />;
 }
 
 export function StarCounter() {
-  return <FontAwesomeIcon icon={["fas", "star"]} color="#ff6d21" style={{margin: "0 5px 0 0"}}/>
+  return <FontAwesomeIcon icon={faStar} color="#ff6d21" style={counterStyles} />;
 }
