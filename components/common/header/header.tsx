@@ -189,8 +189,11 @@ export default function Header() {
               ml: "auto",
             }}>
             <Search />
+            {/*If Guest:*/}
             <UserModal />
+            {/*Else:
             <UserMenu />
+            */}
             <SwiperTemporaryDrawer />
           </Stack>
         </Toolbar>

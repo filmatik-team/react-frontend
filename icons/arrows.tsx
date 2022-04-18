@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { Box } from "@mui/material";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
 
 export function LargeForwardNavigationArrow() {
   return <div>hey</div>;
@@ -21,9 +23,10 @@ export function SmallBackwardNavigationArrow() {
 
 interface SelectArrowProps {
   className?: string;
+  sx?: SxProps<Theme>;
 }
 
-export function SelectArrow(props: SelectArrowProps) {
+export function SelectArrow({ sx, ...other }: SelectArrowProps) {
   return (
     <Box
       sx={{
@@ -37,8 +40,9 @@ export function SelectArrow(props: SelectArrowProps) {
         "&.active": {
           transform: "rotate(-180deg)",
         },
+        ...sx,
       }}
-      {...props}
+      {...other}
     />
   );
 }

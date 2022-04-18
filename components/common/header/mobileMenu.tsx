@@ -105,6 +105,7 @@ export function SwiperTemporaryDrawer() {
                     {menuItem.submenu.length ? (
                       <SelectArrow
                         className={menuItemOpen[menuItem.title as keyof typeof menuItemOpen] ? "active" : undefined}
+                        sx={{ filter: "brightness(5)" }}
                       />
                     ) : null}
                   </ListItemButton>
