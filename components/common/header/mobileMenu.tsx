@@ -10,7 +10,7 @@ import {
   Stack,
   SwipeableDrawer,
 } from "@mui/material";
-import { SocialTwitter, SocialVk } from "../../../icons/social";
+import { SocialTwitterButton, SocialVkButton } from "../../../icons/social";
 import MenuIcon from "@mui/icons-material/Menu";
 import { menuItems } from "./header";
 import { SelectArrow } from "../../../icons/arrows";
@@ -164,10 +164,10 @@ export function SwiperTemporaryDrawer() {
               listStyle: "none",
             }}>
             <Box component="li" sx={{ mr: "12px" }}>
-              <SocialVk />
+              <SocialVkButton />
             </Box>
             <Box component="li">
-              <SocialTwitter />
+              <SocialTwitterButton />
             </Box>
           </Stack>
         </Box>

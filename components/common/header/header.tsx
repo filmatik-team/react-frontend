@@ -1,10 +1,9 @@
 import React from "react";
-import { AppBar, Box, Button, Link, Stack, Toolbar } from "@mui/material";
-import { ContainerStyled } from "../../lib/styling";
+import { AppBar, Box, Button, IconButton, Link, Stack, Toolbar } from "@mui/material";
+import { ContainerStyled, transitionDefault } from "../../lib/styling";
 import { Search } from "./search";
-import { UserModal } from "./loginModal";
+import { LoginModal } from "./loginModal";
 import { SwiperTemporaryDrawer } from "./mobileMenu";
-import { UserMenu } from "./userMenu";
 
 export const menuItems = [
   {
@@ -25,10 +24,16 @@ export const menuItems = [
   },
 ];
 
+export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
+  false,
+  () => {},
+]);
+
 export default function Header() {
   const headerHeight = 50;
 
   const [scroll, setScroll] = React.useState<boolean>(false);
+  const [openUserModal, setOpenUserModal] = React.useState(false);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<boolean>(false);
 
@@ -64,7 +69,7 @@ export default function Header() {
         p: 0,
         background: { mobileS: "#273037", laptop: "rgba(39, 48, 55, 0.8)" },
         height: { mobileS: "56px", laptop: headerHeight },
-        transition: "all 0.3s ease",
+        transition: transitionDefault,
         zIndex: 100,
 
         "&:hover": {
@@ -106,7 +111,7 @@ export default function Header() {
                       p: "0 20px",
                       color: "#dedede",
                       fontSize: "16px",
-                      transition: "all 0.3s ease",
+                      transition: transitionDefault,
 
                       "&:hover": {
                         background: "#394249",
@@ -168,7 +173,7 @@ export default function Header() {
                               height: "100%",
                               p: "0 20px",
                               color: "#dedede",
-                              transition: "all 0.3s ease",
+                              transition: transitionDefault,
                             }}>
                             {submenuItem}
                           </Link>
@@ -190,7 +195,22 @@ export default function Header() {
             }}>
             <Search />
             {/*If Guest:*/}
-            <UserModal />
+            <IconButton
+              disableRipple
+              onClick={() => setOpenUserModal(true)}
+              sx={{ display: "flex", ml: "25px", p: 0, background: "none" }}>
+              <Box
+                component={"img"}
+                src="https://filmatik.ru/resources/app/img/login.svg"
+                alt="login"
+                sx={{
+                  height: "22px",
+                }}
+              />
+            </IconButton>
+            <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
+              <LoginModal />
+            </UserLoginModalContext.Provider>
             {/*Else:
             <UserMenu />
             */}

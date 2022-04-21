@@ -1,6 +1,7 @@
 import React from "react";
-import { IconButton, Stack, Box, Link, Typography } from "@mui/material";
+import { Stack, Box, Link, Typography, Fade } from "@mui/material";
 import {
+  ButtonFilmatik,
   ContainerStyled,
   containerWidth,
   DualColourSpan,
@@ -10,6 +11,8 @@ import {
 import { NavData, NavTabs } from "../components/ui/tabs";
 import { FilmCarousel, FilmCarouselData } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
+import { LoginModal } from "../components/common/header/loginModal";
+import { UserLoginModalContext } from "../components/common/header/header";
 
 interface MainCarouselData {
   image: string;
@@ -22,29 +25,54 @@ interface MainCarouselProps {
 }
 
 function MainCarousel({ data }: MainCarouselProps) {
-  const [position, setPosition] = React.useState(0);
+  const [position, setPosition] = React.useState<number>(0);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
+  const pauseRef = React.useRef<boolean>(false);
   const current = data[position];
+
+  const handleClickRightArrow = () => {
+    setPosition((position + data.length - 1) % data.length);
+  };
+
+  const handleClickLeftArrow = () => {
+    setPosition((position + 1) % data.length);
+  };
+
+  React.useEffect(() => {
+    setOpen(true);
+
+    const interval = setInterval(() => {
+      if (!pauseRef.current) handleClickRightArrow();
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [position]);
 
   return (
     <Box
+      onMouseOver={() => (pauseRef.current = true)}
+      onMouseOut={() => (pauseRef.current = false)}
       sx={{
         position: "relative",
         height: { mobileS: "60vh", laptop: "80vh" },
         minHeight: { mobileS: 320, laptop: 580 },
         mt: 0,
       }}>
-      <Box
-        component={"img"}
-        src={current.image}
-        alt="alt"
-        sx={{
-          width: "100%",
-          height: "100%",
-          minHeight: "580px",
-          objectFit: "cover",
-          objectPosition: { mobileS: "50% 50px", mobileL: "50% 20%" },
-        }}
-      />
+      <Fade in={open} timeout={500} key={position}>
+        <Box
+          component={"img"}
+          src={current.image}
+          alt="alt"
+          sx={{
+            width: "100%",
+            height: "100%",
+            minHeight: "580px",
+            objectFit: "cover",
+            objectPosition: { mobileS: "50% 50px", mobileL: "50% 20%" },
+          }}
+        />
+      </Fade>
       <Box
         sx={{
           position: "absolute",
@@ -56,6 +84,58 @@ function MainCarousel({ data }: MainCarouselProps) {
             "linear-gradient(180deg, rgba(0, 0, 0, 0.07) 43.71%, rgba(8, 8, 8, 0.35) 77.63%, rgba(3, 3, 3, 0.32) 91.3%)",
         }}
       />
+      <Box
+        component={ContainerStyled}
+        sx={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: "14%",
+          width: "100%",
+          zIndex: "10",
+        }}>
+        <Box
+          component="img"
+          src="https://filmatik.ru/resources/app/img/separator.svg"
+          sx={{ display: { mobileS: "none", laptop: "block" }, m: "0 auto" }}
+        />
+        <Typography
+          component="h1"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            m: { mobileS: "5px 0 20px 0", laptop: "5px 0 45px 0" },
+            color: "#dbdbdb",
+            fontSize: { mobileS: "24px", laptop: "44px" },
+            textShadow: "1px 1px 10px #000",
+            fontWeight: 700,
+            textAlign: "center",
+            whiteSpace: "nowrap",
+          }}>
+          Отслеживай новинки кино
+        </Typography>
+        <ButtonFilmatik
+          text="начать!"
+          uppercase
+          theme="dark"
+          onClick={() => setOpenUserModal(true)}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: { mobileS: "125px", laptop: "155px" },
+            height: { mobileS: "33px", laptop: "44px" },
+            m: "0 auto",
+            borderRadius: "7px",
+            fontSize: { mobileS: "14px", laptop: "20px" },
+            color: "#E6E6E6",
+            textShadow: "1px 1px 3px rgb(0 0 0 / 40%)",
+          }}
+        />
+        <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
+          <LoginModal />
+        </UserLoginModalContext.Provider>
+      </Box>
       <Box
         sx={{
           position: "absolute",
@@ -74,30 +154,8 @@ function MainCarousel({ data }: MainCarouselProps) {
           {current.title}
         </Link>
       </Box>
-      <IconButton
-        disableRipple
-        onClick={() => setPosition((position + data.length - 1) % data.length)}
-        sx={{
-          position: "absolute",
-          bottom: "50%",
-          right: "1%",
-          margin: 0,
-          background: "transparent",
-        }}>
-        <LargeForwardNavigationArrow />
-      </IconButton>
-      <IconButton
-        disableRipple
-        onClick={() => setPosition((position + 1) % data.length)}
-        sx={{
-          position: "absolute",
-          bottom: "50%",
-          left: "1%",
-          margin: 0,
-          background: "transparent",
-        }}>
-        <LargeBackwardNavigationArrow />
-      </IconButton>
+      <LargeForwardNavigationArrow onClick={handleClickRightArrow} />
+      <LargeBackwardNavigationArrow onClick={handleClickLeftArrow} />
     </Box>
   );
 }

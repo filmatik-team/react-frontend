@@ -1,5 +1,5 @@
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import React from "react";
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
@@ -7,9 +7,9 @@ import { Theme } from "@mui/material/styles";
 const inputStyle = {
   color: "inherit",
 
-  "&:-webkit-autofill": {
-    webkitBoxShadow: "0 0 0 100px #e8f0fe inset",
-    webkitTextFillColor: "#000",
+  "& .MuiOutlinedInput-input:-webkit-autofill": {
+    boxShadow: "0 0 0 100px #e8f0fe inset",
+    textFillColor: "#000",
     caretColor: "#000",
     borderRadius: "inherit",
   },
@@ -35,15 +35,15 @@ const inputStyle = {
 
 interface UserProps {
   text?: string;
-  tab?: number;
+  tab?: number | string;
   sx?: SxProps<Theme>;
 }
 
-export function MailLoginForm({ text, tab, sx, ...rest }: UserProps) {
+export function LoginForm({ text, tab, sx, ...rest }: UserProps) {
   return (
     <FormControl sx={{ width: "100%", ...sx }} variant="outlined" {...rest}>
       <InputLabel
-        htmlFor={`signIn-email${tab}`}
+        htmlFor={`signIn-email-${tab}`}
         sx={{
           fontSize: "16px",
           lineHeight: 1.5,
@@ -58,7 +58,7 @@ export function MailLoginForm({ text, tab, sx, ...rest }: UserProps) {
         {text}
       </InputLabel>
       <OutlinedInput
-        id={`signIn-email${tab}`}
+        id={`signIn-email-${tab}`}
         required
         autoFocus
         sx={{ ...inputStyle }}
@@ -69,7 +69,7 @@ export function MailLoginForm({ text, tab, sx, ...rest }: UserProps) {
   );
 }
 
-export function PasswordLoginForm({ tab, sx, ...rest }: UserProps) {
+export function PasswordForm({ tab, sx, ...rest }: UserProps) {
   interface State {
     password: string;
     showPassword: boolean;
@@ -98,7 +98,7 @@ export function PasswordLoginForm({ tab, sx, ...rest }: UserProps) {
   return (
     <FormControl sx={{ width: "100%", ...sx }} variant="outlined" {...rest}>
       <InputLabel
-        htmlFor={`signIn-password${tab}`}
+        htmlFor={`signIn-password-${tab}`}
         sx={{
           fontSize: "16px",
           lineHeight: 1.5,
@@ -113,7 +113,7 @@ export function PasswordLoginForm({ tab, sx, ...rest }: UserProps) {
         Введите пароль
       </InputLabel>
       <OutlinedInput
-        id={`signIn-password${tab}`}
+        id={`signIn-password-${tab}`}
         required
         type={values.showPassword ? "text" : "password"}
         value={values.password}

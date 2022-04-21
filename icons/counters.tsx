@@ -1,19 +1,26 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
+import { FaEye, FaHeart, FaStar } from "react-icons/fa";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
 const counterStyles = {
-  margin: "0 5px 0 0",
+  m: "0 5px 0 0",
+  fontSize: { mobileS: "14px", desktop: "16px" },
 };
 
-export function EyeCounter() {
-  return <FontAwesomeIcon icon={faEye} color="#3164DB" style={counterStyles} />;
+interface CountersProps {
+  sx?: SxProps<Theme>;
 }
 
-export function HeartCounter() {
-  return <FontAwesomeIcon icon={faHeart} color="#ff403d" style={counterStyles} />;
+export function EyeCounter({ sx }: CountersProps) {
+  return <Box component={FaEye} sx={{ ...counterStyles, color: "#3164DB", ...sx }} />;
 }
 
-export function StarCounter() {
-  return <FontAwesomeIcon icon={faStar} color="#ff6d21" style={counterStyles} />;
+export function HeartCounter({ sx }: CountersProps) {
+  return <Box component={FaHeart} sx={{ ...counterStyles, color: "#ff403d", ...sx }} />;
+}
+
+export function StarCounter({ sx }: CountersProps) {
+  return <Box component={FaStar} sx={{ ...counterStyles, color: "#ff6d21", ...sx }} />;
 }

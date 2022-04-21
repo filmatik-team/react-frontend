@@ -4,6 +4,7 @@ import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
 import { FilmCard } from "./filmCard";
 import { ArrowButtonStyled, BaseImgStyle } from "./carousel-styles";
 import { Box } from "@mui/material";
+import { transitionDefault } from "../lib/styling";
 
 export interface FilmCarouselData {
   image: string;
@@ -195,26 +196,39 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
                   height: "20%",
                   p: { mobileS: "0 10px", desktop: "0 15px" },
                   fontSize: { mobileS: "13px", desktop: "15px" },
+                  lineHeight: 1.2,
                   color: "#d2d2d2",
                   zIndex: 2,
-                  transition: "all 0.3s ease",
+                  transition: transitionDefault,
                   background:
                     "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 20%, rgba(0, 0, 0, 0.6) 40%, " +
                     "rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.2) 80%," +
                     "rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0) 100%)",
                 }}>
-                <div>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}>
                   <EyeCounter />
                   <span>20</span>
-                </div>
-                <div>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}>
                   <HeartCounter />
                   <span>20</span>
-                </div>
-                <div>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}>
                   <StarCounter />
                   <span>20</span>
-                </div>
+                </Box>
               </Box>
             </Box>
           </FilmCard>
@@ -226,7 +240,7 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
               className="slider-button slider-button-forward"
               disableRipple
               onClick={slideLeft}
-              sx={{ right: "-35px" }}>
+              sx={{ right: "-40px" }}>
               <SmallForwardNavigationArrow />
             </ArrowButtonStyled>
             <ArrowButtonStyled
@@ -234,7 +248,7 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
               className="slider-button slider-button-backward slider-button--hidden"
               disableRipple
               onClick={slideRight}
-              sx={{ left: "-35px" }}>
+              sx={{ left: "-40px" }}>
               <SmallBackwardNavigationArrow />
             </ArrowButtonStyled>
           </>

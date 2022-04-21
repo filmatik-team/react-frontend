@@ -1,8 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faVk } from "@fortawesome/free-brands-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { Link } from "@mui/material";
+import { Box, Link } from "@mui/material";
+import { transitionDefault } from "../components/lib/styling";
+import { FaVk, FaTwitter } from "react-icons/fa";
 
 const SocialLinkStyled = {
   display: "flex",
@@ -15,7 +14,7 @@ const SocialLinkStyled = {
   borderRadius: "50%",
   textAlign: "center",
   color: "#ddd",
-  transition: "all 0.3s ease",
+  transition: transitionDefault,
 
   "&:hover": {
     background: "#575E63",
@@ -26,18 +25,18 @@ const SocialIconStyled = {
   width: "46px",
 };
 
-export function SocialVk() {
+export function SocialVkButton() {
   return (
     <Link href="https://vk.com/filmatik" sx={{ ...SocialLinkStyled }} rel="noopener noreferrer" target="_blank">
-      <FontAwesomeIcon icon={faVk as IconProp} color="#ddd" style={SocialIconStyled} />
+      <Box component={FaVk} sx={{ ...SocialIconStyled }} />
     </Link>
   );
 }
 
-export function SocialTwitter() {
+export function SocialTwitterButton() {
   return (
     <Link href="https://twitter.com/FilmatikRu" sx={{ ...SocialLinkStyled }} rel="noopener noreferrer" target="_blank">
-      <FontAwesomeIcon icon={faTwitter as IconProp} color="#ddd" style={SocialIconStyled} />
+      <Box component={FaTwitter} sx={{ ...SocialIconStyled }} />
     </Link>
   );
 }

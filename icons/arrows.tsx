@@ -1,24 +1,60 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { transitionDefault } from "../components/lib/styling";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+import styled from "styled-components";
+import { mf } from "../components/lib/deviceSize";
 
-export function LargeForwardNavigationArrow() {
-  return <div>hey</div>;
+const LargeIconButtonStyled = styled(IconButton)`
+  display: none;
+  position: absolute;
+  bottom: calc(50% - 25px);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 50px;
+  color: #8c8c8c;
+  transition: transitionDefault;
+
+  &:hover {
+    color: #fff;
+  }
+
+  @media ${mf.laptop} {
+    display: inline-flex;
+  }
+`;
+
+interface NavigationArrowProps {
+  onClick?: (event: React.SyntheticEvent) => void;
+  sx?: SxProps<Theme>;
 }
 
-export function LargeBackwardNavigationArrow() {
-  return <div>yeh</div>;
+export function LargeForwardNavigationArrow({ sx, ...rest }: NavigationArrowProps) {
+  return (
+    <LargeIconButtonStyled disableRipple sx={{ right: "1%" }} {...rest}>
+      <BsChevronRight />
+    </LargeIconButtonStyled>
+  );
+}
+
+export function LargeBackwardNavigationArrow({ sx, ...rest }: NavigationArrowProps) {
+  return (
+    <LargeIconButtonStyled disableRipple sx={{ left: "1%" }} {...rest}>
+      <BsChevronLeft />
+    </LargeIconButtonStyled>
+  );
 }
 
 export function SmallForwardNavigationArrow() {
-  return <FontAwesomeIcon icon={faChevronRight} />;
+  return <FaChevronRight />;
 }
 
 export function SmallBackwardNavigationArrow() {
-  return <FontAwesomeIcon icon={faChevronLeft} />;
+  return <FaChevronLeft />;
 }
 
 interface SelectArrowProps {
@@ -26,7 +62,7 @@ interface SelectArrowProps {
   sx?: SxProps<Theme>;
 }
 
-export function SelectArrow({ sx, ...other }: SelectArrowProps) {
+export function SelectArrow({ sx, ...rest }: SelectArrowProps) {
   return (
     <Box
       sx={{
@@ -35,14 +71,14 @@ export function SelectArrow({ sx, ...other }: SelectArrowProps) {
         width: "15px",
         height: "8px",
         background: "url(https://filmatik.ru/resources/app/img/select-arrow.svg) no-repeat",
-        transition: "all 0.3s ease",
+        transition: transitionDefault,
 
         "&.active": {
           transform: "rotate(-180deg)",
         },
         ...sx,
       }}
-      {...other}
+      {...rest}
     />
   );
 }

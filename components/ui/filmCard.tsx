@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Link } from "@mui/material";
+import { transitionDefault } from "../lib/styling";
 
 // Обложка фильма
 
@@ -23,7 +24,7 @@ export function FilmCard({ width, height, margin, children }: FilmCardProps) {
         position: "relative",
         outline: "none",
         border: 0,
-        transition: "all 0.3s ease",
+        transition: transitionDefault,
         flexShrink: 0,
       }}>
       <Link

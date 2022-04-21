@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, ClickAwayListener } from "@mui/material";
+import { transitionDefault } from "../../lib/styling";
 
 export function Search() {
   const [open, setOpen] = React.useState(false);
@@ -32,7 +33,7 @@ export function Search() {
             borderRadius: "20px",
             border: 0,
             outline: 0,
-            transition: "all 0.5s ease",
+            transition: "all 0.4s ease",
             opacity: 0,
             zIndex: 10,
             cursor: "pointer",
@@ -50,7 +51,7 @@ export function Search() {
             "&.active ~ .header__search-icon": {
               opacity: 0,
               visibility: "hidden",
-              transition: "all 0.5s ease",
+              transition: "all 0.4s ease",
             },
           }}
         />
@@ -65,7 +66,7 @@ export function Search() {
             opacity: 1,
             zIndex: 1,
             cursor: "pointer",
-            transition: "all 0.5s ease",
+            transition: "all 0.4s ease",
           }}
         />
       </Box>

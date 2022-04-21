@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Box, Container } from "@mui/material";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
 
 /* Общие значения и величины по всему сайту */
 
 export const containerWidth = 1166; // ширина контента
 export const filmCardVisible = 6; // количество видимых на странице обложек в карусели
 export const filmCarouselMargin = 10; // расстояние между обложками в карусели
+export const transitionDefault = "all 0.3s ease"; // стандартная анимация
 export const filmCatalogMargin = 3.5; // расстояние между обложками в каталоге
 
 /* Двуокрашенный заголовок */
@@ -75,12 +78,14 @@ export const ContainerStyled = styled(Container).attrs(() => ({
 interface ButtonFilmatikProps {
   text: string;
   style?: React.CSSProperties;
+  sx?: SxProps<Theme>;
   type?: "submit" | "reset" | "button";
   theme?: "dark" | "light";
   uppercase?: boolean;
+  onClick?: (event: React.SyntheticEvent) => void;
 }
 
-export function ButtonFilmatik({ text, style, theme = "dark", uppercase = false, ...rest }: ButtonFilmatikProps) {
+export function ButtonFilmatik({ text, sx, theme = "dark", uppercase = false, ...rest }: ButtonFilmatikProps) {
   const backgroundColor = {
     dark: {
       native: "#C9490C",
@@ -113,12 +118,12 @@ export function ButtonFilmatik({ text, style, theme = "dark", uppercase = false,
         lineHeight: 1.5,
         borderRadius: "0.25rem",
         cursor: "pointer",
-        transition: "all 0.3s ease",
+        transition: transitionDefault,
 
         "&:hover": {
           background: backgroundColor[theme]["hover"],
         },
-        ...style,
+        ...sx,
       }}
       {...rest}>
       {text}
