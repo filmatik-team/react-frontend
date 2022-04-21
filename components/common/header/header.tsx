@@ -4,6 +4,9 @@ import { ContainerStyled, transitionDefault } from "../../lib/styling";
 import { Search } from "./search";
 import { LoginModal } from "./loginModal";
 import { SwiperTemporaryDrawer } from "./mobileMenu";
+import { UserLogoutIcon } from "../../../icons/header";
+import { UserMenu } from "./userMenu";
+import { MainLogoIcon } from "../../../icons/logo";
 
 export const menuItems = [
   {
@@ -83,11 +86,11 @@ export default function Header() {
       <ContainerStyled>
         <Toolbar
           disableGutters
-          sx={{ minHeight: { mobileS: "55px", laptop: headerHeight }, height: "100%", m: "auto" }}>
+          sx={{ position: "inherit", minHeight: { mobileS: "55px", laptop: headerHeight }, height: "100%", m: "auto" }}>
           <Stack direction="row" alignItems="center" sx={{ height: "100%" }}>
             <Box sx={{ display: "flex" }}>
               <Link href="/" sx={{ lineHeight: 0 }}>
-                <Box component="img" src="https://filmatik.ru/resources/app/img/logo.svg" alt="Fimatik_logo" />
+                <MainLogoIcon />
               </Link>
             </Box>
             <Box
@@ -199,14 +202,7 @@ export default function Header() {
               disableRipple
               onClick={() => setOpenUserModal(true)}
               sx={{ display: "flex", ml: "25px", p: 0, background: "none" }}>
-              <Box
-                component={"img"}
-                src="https://filmatik.ru/resources/app/img/login.svg"
-                alt="login"
-                sx={{
-                  height: "22px",
-                }}
-              />
+              <UserLogoutIcon />
             </IconButton>
             <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
               <LoginModal />

@@ -5,6 +5,8 @@ import { Theme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
 const counterStyles = {
+  display: "flex",
+  alignItems: "end",
   m: "0 5px 0 0",
   fontSize: { mobileS: "14px", desktop: "16px" },
 };
@@ -14,13 +16,25 @@ interface CountersProps {
 }
 
 export function EyeCounter({ sx }: CountersProps) {
-  return <Box component={FaEye} sx={{ ...counterStyles, color: "#3164DB", ...sx }} />;
+  return (
+    <Box sx={{ ...counterStyles, color: "#3164DB", ...sx }}>
+      <FaEye />
+    </Box>
+  );
 }
 
 export function HeartCounter({ sx }: CountersProps) {
-  return <Box component={FaHeart} sx={{ ...counterStyles, color: "#ff403d", ...sx }} />;
+  return (
+    <Box sx={{ ...counterStyles, color: "#ff403d", ...sx }}>
+      <FaHeart />
+    </Box>
+  );
 }
 
 export function StarCounter({ sx }: CountersProps) {
-  return <Box component={FaStar} sx={{ ...counterStyles, color: "#ff6d21", ...sx }} />;
+  return (
+    <Box sx={{ ...counterStyles, color: "#ff6d21", ...sx }}>
+      <FaStar />
+    </Box>
+  );
 }

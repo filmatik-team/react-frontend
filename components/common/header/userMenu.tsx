@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { SelectArrow } from "../../../icons/arrows";
 import { transitionDefault } from "../../lib/styling";
+import { UserLoginIcon } from "../../../icons/header";
 
 const userMenuItems = [
   {
@@ -104,7 +105,7 @@ export function UserMenu() {
           disableRipple
           color="inherit"
           sx={{ display: { mobileS: "flex", mobileL: "none" }, p: 0, fontSize: "24px" }}>
-          <Box component="img" src="https://filmatik.ru/resources/app/img/user.svg" />
+          <UserLoginIcon />
         </IconButton>
       </Box>
       <Popper

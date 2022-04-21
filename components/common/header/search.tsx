@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, ClickAwayListener } from "@mui/material";
-import { transitionDefault } from "../../lib/styling";
+import { SearchIcon } from "../../../icons/header";
 
 export function Search() {
   const [open, setOpen] = React.useState(false);
@@ -33,17 +33,27 @@ export function Search() {
             borderRadius: "20px",
             border: 0,
             outline: 0,
-            transition: "all 0.4s ease",
             opacity: 0,
             zIndex: 10,
             cursor: "pointer",
+            transition: { mobileS: "none", laptop: "all 0.4s ease" },
 
             "::placeholder": {
               opacity: 0.65,
             },
 
+            "~ .header__search-icon": {
+              transition: { mobileS: "none", laptop: "all 0.4s ease" },
+            },
+
             "&.active": {
-              width: "200px",
+              position: { mobileS: "absolute", laptop: "relative" },
+              left: { mobileS: 0, laptop: "auto" },
+              top: { mobileS: 0, laptop: "auto" },
+              width: { mobileS: "100%", laptop: "200px" },
+              height: { mobileS: "56px", laptop: "24px" },
+              m: { mobileS: 0, laptop: "0 -18px 0 0" },
+              borderRadius: { mobileS: 0, laptop: "20px" },
               opacity: 1,
               cursor: "text",
             },
@@ -51,24 +61,11 @@ export function Search() {
             "&.active ~ .header__search-icon": {
               opacity: 0,
               visibility: "hidden",
-              transition: "all 0.4s ease",
+              transition: { mobileS: "none", laptop: "all 0.4s ease" },
             },
           }}
         />
-        <Box
-          component="img"
-          className="header__search-icon"
-          src="https://filmatik.ru/resources/app/img/search.svg"
-          alt="search"
-          sx={{
-            width: "18px",
-            height: "24px",
-            opacity: 1,
-            zIndex: 1,
-            cursor: "pointer",
-            transition: "all 0.4s ease",
-          }}
-        />
+        <SearchIcon />
       </Box>
     </ClickAwayListener>
   );

@@ -13,6 +13,7 @@ import { FilmCarousel, FilmCarouselData } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
 import { LoginModal } from "../components/common/header/loginModal";
 import { UserLoginModalContext } from "../components/common/header/header";
+import { BannerSeparator } from "../icons";
 
 interface MainCarouselData {
   image: string;
@@ -57,7 +58,7 @@ function MainCarousel({ data }: MainCarouselProps) {
         position: "relative",
         height: { mobileS: "60vh", laptop: "80vh" },
         minHeight: { mobileS: 320, laptop: 580 },
-        mt: 0,
+        m: "0 0 30px 0",
       }}>
       <Fade in={open} timeout={500} key={position}>
         <Box
@@ -94,11 +95,7 @@ function MainCarousel({ data }: MainCarouselProps) {
           width: "100%",
           zIndex: "10",
         }}>
-        <Box
-          component="img"
-          src="https://filmatik.ru/resources/app/img/separator.svg"
-          sx={{ display: { mobileS: "none", laptop: "block" }, m: "0 auto" }}
-        />
+        <BannerSeparator />
         <Typography
           component="h1"
           sx={{
