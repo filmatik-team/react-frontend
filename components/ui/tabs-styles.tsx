@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
-import { transitionDefault } from "../lib/styling";
 
 export const TabPanelStyled = styled(TabPanelUnstyled)`
   height: 100%;
@@ -61,7 +60,7 @@ export const TabStyled = styled(TabUnstyled).attrs((props) => ({
   background: 0;
   border: 0;
   outline: 0;
-  transition: ${transitionDefault};
+  transition: ${process.env.NEXT_PUBLIC_TRANSITION_DEFAULT};
 
   &:hover {
     color: #bfbfbf;

@@ -2,7 +2,6 @@ import React from "react";
 import { Box, IconButton } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-import { transitionDefault } from "../components/lib/styling";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import styled from "styled-components";
@@ -17,7 +16,7 @@ const LargeIconButtonStyled = styled(IconButton)`
   background: transparent;
   font-size: 50px;
   color: #8c8c8c;
-  transition: transitionDefault;
+  transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT;
 
   &:hover {
     color: #fff;
@@ -71,7 +70,7 @@ export function SelectArrow({ sx, ...rest }: SelectArrowProps) {
         width: "15px",
         height: "8px",
         background: "url(https://filmatik.ru/resources/app/img/select-arrow.svg) no-repeat",
-        transition: transitionDefault,
+        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
         "&.active": {
           transform: "rotate(-180deg)",

@@ -7,13 +7,17 @@ const MainLogoIconStyle = `
   .st2{fill:none;stroke:#FFFFFF;stroke-width:1.4416;stroke-miterlimit:10;}
 `;
 
-export function MainLogoIcon() {
+interface MainLogoIconProps {
+  width?: number;
+}
+
+export function MainLogoIcon({ width = 129 }: MainLogoIconProps) {
   return (
     <Box>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
-        width="129"
+        width={width}
         height="50"
         x="0px"
         y="0px"

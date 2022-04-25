@@ -14,6 +14,7 @@ import { SocialTwitterButton, SocialVkButton } from "../../../icons/social";
 import MenuIcon from "@mui/icons-material/Menu";
 import { menuItems } from "./header";
 import { SelectArrow } from "../../../icons/arrows";
+import { MainLogoIcon } from "../../../icons/logo";
 
 export function SwiperTemporaryDrawer() {
   const [toggleMenu, setToggleMenu] = React.useState<boolean>(false);
@@ -60,7 +61,7 @@ export function SwiperTemporaryDrawer() {
         }}>
         <Box sx={{ mt: "50px" }}>
           <Link href="/" sx={{ display: "flex", justifyContent: "center", mb: "50px", cursor: "pointer" }}>
-            <Box component="img" src="https://filmatik.ru/resources/app/img/logo.svg" sx={{ width: "150px" }} />
+            <MainLogoIcon width={150} />
           </Link>
           <Box component="nav" sx={{ display: "flex", justifyContent: "center", mb: "50px" }}>
             <List
@@ -188,7 +189,7 @@ export function SwiperTemporaryDrawer() {
       <SwipeableDrawer
         sx={{
           "& .MuiDrawer-paper": {
-            width: { mobileS: "72%", mobileL: "40%" },
+            width: { mobileS: "72%", mobileL: "50%", tablet: "40%" },
             height: "100%",
             display: "flex",
             justifyContent: "center",

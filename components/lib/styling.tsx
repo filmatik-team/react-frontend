@@ -1,16 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Box, Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-
-/* Общие значения и величины по всему сайту */
-
-export const containerWidth = 1166; // ширина контента
-export const filmCardVisible = 6; // количество видимых на странице обложек в карусели
-export const filmCarouselMargin = 10; // расстояние между обложками в карусели
-export const transitionDefault = "all 0.3s ease"; // стандартная анимация
-export const filmCatalogMargin = 3.5; // расстояние между обложками в каталоге
 
 /* Двуокрашенный заголовок */
 
@@ -33,27 +25,6 @@ export function DualColourSpan({ whiteText, orangeText, style, ...other }: DualC
   );
 }
 
-/* Hover Element */
-
-interface DivHoverElementProps {
-  colorNative?: string;
-  colorHover?: string;
-  opacityNative?: number;
-  opacityHover?: number;
-}
-
-export const DivHoverElement = styled.div<DivHoverElementProps>`
-  &[style] {
-    color: ${(props) => props.colorNative};
-    opacity: ${(props) => props.opacityNative};
-
-    &:hover {
-      color: ${(props) => props.colorHover};
-      opacity: ${(props) => props.opacityHover};
-    }
-  }
-`;
-
 /* Container Element */
 
 export const ContainerStyled = styled(Container).attrs(() => ({
@@ -64,16 +35,16 @@ export const ContainerStyled = styled(Container).attrs(() => ({
       mobileL: "540px",
       tablet: "720px",
       laptop: "960px",
-      desktop: `${containerWidth}px`,
+      desktop: `${Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}px`,
     },
     px: {
       mobileS: "15px",
-      laptop: "25px",
+      laptop: `${Number(process.env.NEXT_PUBLIC_CONTAINER_PADDING)}px`,
     },
   },
 }))``;
 
-/* Стилизованная кнопка */
+/* Стилизованная кнопка Filmatik */
 
 interface ButtonFilmatikProps {
   text: string;
@@ -98,8 +69,9 @@ export function ButtonFilmatik({ text, sx, theme = "dark", uppercase = false, ..
   };
 
   return (
-    <Box
-      component="button"
+    <Button
+      disableRipple
+      disableElevation
       sx={{
         display: "inline-block",
         background: backgroundColor[theme]["native"],
@@ -118,7 +90,7 @@ export function ButtonFilmatik({ text, sx, theme = "dark", uppercase = false, ..
         lineHeight: 1.5,
         borderRadius: "0.25rem",
         cursor: "pointer",
-        transition: transitionDefault,
+        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
         "&:hover": {
           background: backgroundColor[theme]["hover"],
@@ -127,6 +99,56 @@ export function ButtonFilmatik({ text, sx, theme = "dark", uppercase = false, ..
       }}
       {...rest}>
       {text}
-    </Box>
+    </Button>
+  );
+}
+
+/* Close button */
+
+interface CloseButtonProps {
+  style?: React.CSSProperties;
+  sx?: SxProps<Theme>;
+  type?: "submit" | "reset" | "button";
+  theme?: "dark" | "light";
+  onClick?: (event: React.SyntheticEvent) => void;
+}
+
+export function CloseButton({ sx, theme = "light", ...rest }: CloseButtonProps) {
+  const color = {
+    dark: "#000",
+    light: "#fff",
+  };
+
+  return (
+    <Button
+      disableRipple
+      disableElevation
+      sx={{
+        position: "absolute",
+        right: 0,
+        top: 0,
+        display: "block",
+        width: "44px",
+        minWidth: "auto",
+        height: "44px",
+        p: 0,
+        lineHeight: "44px",
+        textAlign: "center",
+        opacity: 0.65,
+        fontStyle: "normal",
+        fontSize: "28px",
+        overflow: "visible",
+        cursor: "pointer",
+        webkitAppearance: "none",
+        zIndex: 10,
+        boxShadow: "none",
+        touchAction: "manipulation",
+        color: color[theme],
+        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        ...sx,
+      }}
+      {...rest}>
+      ×
+    </Button>
   );
 }

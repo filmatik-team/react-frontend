@@ -15,6 +15,7 @@ export function Search() {
     <ClickAwayListener mouseEvent="onMouseDown" onClickAway={() => setOpen(false)}>
       <Box
         role="presentation"
+        onClick={openSearchField}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -23,7 +24,6 @@ export function Search() {
           className={open ? "active" : ""}
           component="input"
           placeholder="Поиск фильмов, персон…"
-          onClick={openSearchField}
           sx={{
             width: "18px",
             height: "24px",

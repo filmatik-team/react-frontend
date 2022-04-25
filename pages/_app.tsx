@@ -1,7 +1,9 @@
 import type { AppProps } from "next/app";
-import { createTheme, CssBaseline, ThemeOptions, ThemeProvider } from "@mui/material";
+import { createTheme, CssBaseline, Stack, ThemeOptions, ThemeProvider } from "@mui/material";
 import Header from "../components/common/header/header";
 import { sizeMobileFirst } from "../components/lib/deviceSize";
+import Footer from "../components/common/footer/footer";
+import Head from "next/head";
 
 const common = {
   typography: {
@@ -52,13 +54,17 @@ const lightTheme = createTheme({
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={darkTheme}>
+      <Head>
+        <title>Filmatik. Отслеживай новинки кино</title>
+      </Head>
       <CssBaseline />
-      <div>
+      <Stack>
         {" "}
         {/* <AppContextProvider>  // for MobX */}
         <Header />
         <Component {...pageProps} />
-      </div>
+        <Footer />
+      </Stack>
       {/* </AppContextProvider> */}
     </ThemeProvider>
   );

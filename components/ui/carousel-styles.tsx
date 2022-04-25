@@ -3,15 +3,6 @@ import styled from "styled-components";
 import { IconButton } from "@mui/material";
 import { mf } from "../lib/deviceSize";
 
-export const BaseImgStyle = {
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
-  borderRadius: "8px",
-  borderStyle: "none",
-  verticalAlign: "middle",
-} as React.CSSProperties;
-
 export const ArrowButtonStyled = styled(IconButton)`
   position: absolute;
   display: none;

@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Link } from "@mui/material";
-import { transitionDefault } from "../components/lib/styling";
 import { FaVk, FaTwitter } from "react-icons/fa";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
 
-const SocialLinkStyled = {
+const socialLinkStyled = {
   display: "flex",
   alignItems: "center",
   height: "46px",
@@ -12,31 +13,38 @@ const SocialLinkStyled = {
   fontSize: "20px",
   background: "#484d51 none repeat scroll 0 0",
   borderRadius: "50%",
-  textAlign: "center",
   color: "#ddd",
-  transition: transitionDefault,
+  transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
   "&:hover": {
     background: "#575E63",
     color: "#fff",
   },
 };
-const SocialIconStyled = {
+const socialIconStyled = {
   width: "46px",
 };
 
-export function SocialVkButton() {
+interface SocialProps {
+  sx?: SxProps<Theme>;
+}
+
+export function SocialVkButton({ sx }: SocialProps) {
   return (
-    <Link href="https://vk.com/filmatik" sx={{ ...SocialLinkStyled }} rel="noopener noreferrer" target="_blank">
-      <Box component={FaVk} sx={{ ...SocialIconStyled }} />
+    <Link href="https://vk.com/filmatik" sx={{ ...socialLinkStyled, ...sx }} rel="noopener noreferrer" target="_blank">
+      <Box component={FaVk} sx={{ ...socialIconStyled }} />
     </Link>
   );
 }
 
-export function SocialTwitterButton() {
+export function SocialTwitterButton({ sx }: SocialProps) {
   return (
-    <Link href="https://twitter.com/FilmatikRu" sx={{ ...SocialLinkStyled }} rel="noopener noreferrer" target="_blank">
-      <Box component={FaTwitter} sx={{ ...SocialIconStyled }} />
+    <Link
+      href="https://twitter.com/FilmatikRu"
+      sx={{ ...socialLinkStyled, ...sx }}
+      rel="noopener noreferrer"
+      target="_blank">
+      <Box component={FaTwitter} sx={{ ...socialIconStyled }} />
     </Link>
   );
 }

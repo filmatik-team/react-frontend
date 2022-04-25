@@ -1,11 +1,10 @@
 import React from "react";
 import { AppBar, Box, Button, IconButton, Link, Stack, Toolbar } from "@mui/material";
-import { ContainerStyled, transitionDefault } from "../../lib/styling";
+import { ContainerStyled } from "../../lib/styling";
 import { Search } from "./search";
-import { LoginModal } from "./loginModal";
+import { LoginModal, UserLoginModalContext } from "./loginModal";
 import { SwiperTemporaryDrawer } from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
-import { UserMenu } from "./userMenu";
 import { MainLogoIcon } from "../../../icons/logo";
 
 export const menuItems = [
@@ -27,16 +26,11 @@ export const menuItems = [
   },
 ];
 
-export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
-  false,
-  () => {},
-]);
-
 export default function Header() {
   const headerHeight = 50;
 
   const [scroll, setScroll] = React.useState<boolean>(false);
-  const [openUserModal, setOpenUserModal] = React.useState(false);
+  const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<boolean>(false);
 
@@ -72,7 +66,7 @@ export default function Header() {
         p: 0,
         background: { mobileS: "#273037", laptop: "rgba(39, 48, 55, 0.8)" },
         height: { mobileS: "56px", laptop: headerHeight },
-        transition: transitionDefault,
+        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
         zIndex: 100,
 
         "&:hover": {
@@ -114,7 +108,7 @@ export default function Header() {
                       p: "0 20px",
                       color: "#dedede",
                       fontSize: "16px",
-                      transition: transitionDefault,
+                      transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
                       "&:hover": {
                         background: "#394249",
@@ -176,7 +170,7 @@ export default function Header() {
                               height: "100%",
                               p: "0 20px",
                               color: "#dedede",
-                              transition: transitionDefault,
+                              transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
                             }}>
                             {submenuItem}
                           </Link>

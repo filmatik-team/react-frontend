@@ -12,9 +12,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { SelectArrow } from "../../../icons/arrows";
-import { transitionDefault } from "../../lib/styling";
 import { UserLoginIcon } from "../../../icons/header";
 
 const userMenuItems = [
@@ -39,7 +37,7 @@ export function UserMenu() {
   const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
   const userButtonRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleOpenUserMenu = (e: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = () => {
     if (userButtonRef.current) userButtonRef.current.classList.add("active");
     setMenuOpen((prev) => !prev);
   };
@@ -76,7 +74,7 @@ export function UserMenu() {
           color: "#8C8C8C",
           border: "none",
           cursor: "pointer",
-          transition: transitionDefault,
+          transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
           "&:hover": {
             filter: "brightness(2)",
@@ -160,7 +158,7 @@ export function UserMenu() {
                           color: "#dfdfdf",
                           fontSize: { mobileS: "17px", mobileL: "15px" },
                           fontWeight: { mobileS: "bold", mobileL: "normal" },
-                          transition: transitionDefault,
+                          transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
                         }}>
                         {userMenuItem.title}
                       </Link>

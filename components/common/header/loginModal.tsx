@@ -1,22 +1,26 @@
 import React from "react";
-import { Backdrop, Box, Button, Checkbox, Fade, FormControlLabel, IconButton, Link, Modal, Stack } from "@mui/material";
+import { Backdrop, Box, Checkbox, Fade, FormControlLabel, Link, Modal, Stack } from "@mui/material";
 import { LoginForm, PasswordForm } from "../../ui/forms";
-import { ButtonFilmatik, transitionDefault } from "../../lib/styling";
+import { ButtonFilmatik, CloseButton } from "../../lib/styling";
 import { NavData, NavTabs } from "../../ui/tabs";
-import { UserLoginModalContext } from "./header";
+
+export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
+  false,
+  () => {},
+]);
 
 const UserModalLogin = () => {
   return (
     <Box component="form">
       <Box sx={{ mb: "16px" }}>
-        <LoginForm text="Введите e-mail" tab="0" sx={{ mb: "16px" }} />
-        <PasswordForm tab={0} sx={{ mb: "5px" }} />
+        <LoginForm text="Введите e-mail" autoFocus tab="0" sx={{ mb: "16px" }} />
+        <PasswordForm tab="0" sx={{ mb: "5px" }} />
         <Link
           href=""
           sx={{
             display: "inline-block",
             color: "#484d51",
-            transition: transitionDefault,
+            transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
             "&:hover": {
               color: "#0b0b0b",
@@ -45,9 +49,9 @@ const UserModalRegistration = () => {
   return (
     <Box component="form">
       <Box sx={{ mb: "16px" }}>
-        <LoginForm text="Введите e-mail" tab="1 - 0" sx={{ mb: "16px" }} />
-        <LoginForm text="Введите имя пользователя" tab="1 - 1" sx={{ mb: "16px" }} />
-        <PasswordForm tab={1} sx={{ mb: "16px" }} />
+        <LoginForm text="Введите e-mail" tab="1-0" sx={{ mb: "16px" }} />
+        <LoginForm text="Введите имя пользователя" tab="1-1" sx={{ mb: "16px" }} />
+        <PasswordForm tab="1" sx={{ mb: "16px" }} />
         <FormControlLabel
           control={
             <Checkbox
@@ -109,35 +113,7 @@ export const LoginModal = () => {
             position: "relative",
             background: "#fff",
           }}>
-          <Button
-            disableRipple
-            disableElevation
-            onClick={() => setOpen(false)}
-            sx={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              display: "block",
-              width: "44px",
-              minWidth: "auto",
-              height: "44px",
-              p: 0,
-              lineHeight: "44px",
-              textAlign: "center",
-              opacity: 0.65,
-              fontStyle: "normal",
-              fontSize: "28px",
-              overflow: "visible",
-              cursor: "pointer",
-              webkitAppearance: "none",
-              zIndex: 10,
-              boxShadow: "none",
-              touchAction: "manipulation",
-              color: "#000",
-              transition: transitionDefault,
-            }}>
-            ×
-          </Button>
+          <CloseButton theme="dark" onClick={() => setOpen(false)} />
           <Box
             sx={{
               color: "#000",

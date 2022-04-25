@@ -1,42 +1,57 @@
 import React from "react";
 import { SmallBackwardNavigationArrow, SmallForwardNavigationArrow } from "../../icons/arrows";
-import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
-import { FilmCard } from "./filmCard";
-import { ArrowButtonStyled, BaseImgStyle } from "./carousel-styles";
+import { ArrowButtonStyled } from "./carousel-styles";
 import { Box } from "@mui/material";
-import { transitionDefault } from "../lib/styling";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
 
-export interface FilmCarouselData {
+interface CarouselData {
   image: string;
   title: string;
-  url: string;
-  rating: string;
-  counters: string;
+  url?: string;
+  rating?: number;
+  counters?: number[];
+  date?: string;
+  commentsCount?: number;
 }
 
-interface FilmCarouselProps {
+interface CarouselProps {
+  /*Тип карточек для карусели*/
+  component: React.ComponentType<any> | keyof JSX.IntrinsicElements;
   /*Массив с данными для обложек*/
-  data: FilmCarouselData[];
+  data: CarouselData[];
   /*Количество видимых обложек на странице*/
-  filmCardVisible: number;
-  /*Ширина карусели*/
+  movieCardVisible: number;
+  /*Ширина карусели в px*/
   carouselWidth: number;
-  /*Отступ между обложками*/
-  filmMargin: number;
+  /*Отступ между обложками в px*/
+  movieMargin: number;
   /*Сколько обложек прокручивать*/
-  filmScrollStep: number;
+  movieScrollStep: number;
+  /*Стили*/
+  sx?: SxProps<Theme>;
 }
 
-export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin, filmScrollStep }: FilmCarouselProps) {
-  const [carouselSize, setCarouselSize] = React.useState<number>(carouselWidth);
+export function Carousel({
+  component,
+  data,
+  movieCardVisible,
+  carouselWidth,
+  movieMargin,
+  movieScrollStep,
+  sx,
+}: CarouselProps) {
+  const realCarouselWidth = carouselWidth - 2 * Number(process.env.NEXT_PUBLIC_CONTAINER_PADDING);
+  const [carouselSize, setCarouselSize] = React.useState<number>(realCarouselWidth);
   const sliderRef = React.useRef<HTMLDivElement>(null);
   const buttonForwardRef = React.useRef<HTMLButtonElement>(null);
   const buttonBackwardRef = React.useRef<HTMLButtonElement>(null);
   const carouselWidthRef = React.useRef(0);
+  const Component = component;
 
-  const filmWidth = (carouselSize + filmMargin) / filmCardVisible - filmMargin;
-  const filmHeight = ((carouselSize + filmMargin) / filmCardVisible - filmMargin) * 1.5;
-  const filmScrollOffset = Math.floor(filmWidth + filmMargin);
+  const movieWidth = (carouselSize + movieMargin) / movieCardVisible - movieMargin;
+  const movieHeight = ((carouselSize + movieMargin) / movieCardVisible - movieMargin) * 1.5;
+  const movieScrollOffset = Math.floor(movieWidth + movieMargin);
 
   React.useEffect(() => {
     const slider = sliderRef.current as HTMLElement;
@@ -45,7 +60,7 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
       if (slider.clientWidth < carouselSize) {
         setCarouselSize(slider.clientWidth);
       } else {
-        setCarouselSize(carouselWidth);
+        setCarouselSize(realCarouselWidth);
       }
     };
 
@@ -56,7 +71,7 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
     };
   }, []);
 
-  carouselWidthRef.current = filmScrollOffset * (data.length - Math.round(carouselSize / filmScrollOffset));
+  carouselWidthRef.current = movieScrollOffset * (data.length - Math.round(carouselSize / movieScrollOffset));
 
   React.useEffect(() => {
     const slider = sliderRef.current as HTMLElement;
@@ -83,16 +98,16 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
   const slideLeft = (e: React.MouseEvent<HTMLButtonElement>) => {
     const slider = e.currentTarget.closest(".slider") as HTMLElement;
 
-    if (slider.scrollLeft % filmScrollOffset === 0) {
+    if (slider.scrollLeft % movieScrollOffset === 0) {
       slider.scrollBy({
         top: 0,
-        left: filmScrollOffset * filmScrollStep,
+        left: movieScrollOffset * movieScrollStep,
         behavior: "smooth",
       });
     } else {
       slider.scrollBy({
         top: 0,
-        left: 2 * filmScrollOffset * filmScrollStep - Math.abs(slider.scrollLeft % filmScrollOffset),
+        left: 2 * movieScrollOffset * movieScrollStep - Math.abs(slider.scrollLeft % movieScrollOffset),
         behavior: "smooth",
       });
     }
@@ -101,23 +116,23 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
   const slideRight = (e: React.MouseEvent<HTMLButtonElement>) => {
     const slider = e.currentTarget.closest(".slider") as HTMLElement;
 
-    if (slider.scrollLeft % filmScrollOffset === 0) {
+    if (slider.scrollLeft % movieScrollOffset === 0) {
       slider.scrollBy({
         top: 0,
-        left: -filmScrollOffset * filmScrollStep,
+        left: -movieScrollOffset * movieScrollStep,
         behavior: "smooth",
       });
     } else {
       slider.scrollBy({
         top: 0,
-        left: -(filmScrollOffset * filmScrollStep + Math.abs(slider.scrollLeft % filmScrollOffset)),
+        left: -(movieScrollOffset * movieScrollStep + Math.abs(slider.scrollLeft % movieScrollOffset)),
         behavior: "smooth",
       });
     }
   };
 
   return (
-    <Box sx={{ position: "relative", width: "100%" }}>
+    <Box sx={{ position: "relative", width: "100%", ...sx }}>
       <Box
         ref={sliderRef}
         className="slider"
@@ -140,100 +155,17 @@ export function FilmCarousel({ data, filmCardVisible, carouselWidth, filmMargin,
           },
         }}>
         {data.map((item, i) => (
-          <FilmCard
-            width={`${filmWidth}px`}
-            height={`${filmHeight}px`}
-            margin={i === data.length - 1 ? "0" : `0 ${filmMargin}px 0 0`}
-            key={item.image}>
-            <Box component={"img"} src={data[i].image} alt={data[i].title} sx={BaseImgStyle} />
-            <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: 1,
-                width: "100%",
-                height: "100%",
-                borderRadius: "8px",
-                borderStyle: "none",
-                transition: "all 0.1s ease",
-                backgroundColor: "rgba(0, 0, 0, 0.65)",
-                opacity: 0,
-
-                ":hover": {
-                  opacity: 1,
-                },
-              }}>
-              <Box
-                component={"img"}
-                src="https://filmatik.ru/resources/app/img/gradient-cover-1.svg"
-                alt="Gradient"
-                sx={BaseImgStyle}
-              />
-              <Box
-                component={"p"}
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: 0,
-                  width: "100%",
-                  margin: 0,
-                  color: "#fff",
-                  fontSize: { mobileS: "24px", laptop: "30px", desktop: "36px" },
-                  textAlign: "center",
-                }}>
-                {data[i].rating}
-              </Box>
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  display: { mobileS: "none", laptop: "flex" },
-                  alignItems: "center",
-                  justifyItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  height: "20%",
-                  p: { mobileS: "0 10px", desktop: "0 15px" },
-                  fontSize: { mobileS: "13px", desktop: "15px" },
-                  lineHeight: 1.2,
-                  color: "#d2d2d2",
-                  zIndex: 2,
-                  transition: transitionDefault,
-                  background:
-                    "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 20%, rgba(0, 0, 0, 0.6) 40%, " +
-                    "rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.2) 80%," +
-                    "rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0) 100%)",
-                }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}>
-                  <EyeCounter />
-                  <span>20</span>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}>
-                  <HeartCounter />
-                  <span>20</span>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}>
-                  <StarCounter />
-                  <span>20</span>
-                </Box>
-              </Box>
-            </Box>
-          </FilmCard>
+          <Component
+            data={item}
+            width={`${movieWidth}px`}
+            height={`${movieHeight}px`}
+            margin={i === data.length - 1 ? "0" : `0 ${movieMargin}px 0 0`}
+            date={item.date ? item.date : undefined}
+            commentsCount={item.commentsCount ? item.commentsCount : undefined}
+            key={item.image}
+          />
         ))}
-        {data.length <= Math.round(carouselSize / filmScrollOffset) ? null : (
+        {data.length <= Math.round(carouselSize / movieScrollOffset) ? null : (
           <>
             <ArrowButtonStyled
               ref={buttonForwardRef}
