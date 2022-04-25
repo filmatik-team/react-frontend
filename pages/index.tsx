@@ -263,9 +263,10 @@ const TopPopularData = (
 
 interface MainPageBannerCarouselProps {
   data: MainPageBannerCarouselData[];
+  mouseAnimationStop?: boolean;
 }
 
-function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
+function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBannerCarouselProps) {
   const [position, setPosition] = React.useState<number>(0);
   const [open, setOpen] = React.useState<boolean>(false);
   const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
@@ -290,7 +291,7 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
     return () => clearInterval(interval);
   }, [position]);
 
-  const handlers = useSwipeable({
+  const swipeable = useSwipeable({
     onSwipedLeft: () => handleClickRightArrow(),
     onSwipedRight: () => handleClickLeftArrow(),
     preventDefaultTouchmoveEvent: true,
@@ -300,15 +301,15 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
 
   return (
     <Box
-      onMouseOver={() => (pauseRef.current = true)}
-      onMouseOut={() => (pauseRef.current = false)}
+      onMouseOver={mouseAnimationStop ? () => (pauseRef.current = true) : undefined}
+      onMouseOut={mouseAnimationStop ? () => (pauseRef.current = false) : undefined}
       sx={{
         position: "relative",
         height: { mobileS: "60vh", laptop: "80vh" },
         minHeight: { mobileS: 320, laptop: 580 },
         m: "0 0 30px 0",
       }}
-      {...handlers}>
+      {...swipeable}>
       <Fade in={open} timeout={500} key={position}>
         <Box
           component="img"
@@ -367,7 +368,7 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
           theme="dark"
           onClick={() => setOpenUserModal(true)}
           sx={{
-            display: "flex",
+            display: "flex" /*If (User) display: none*/,
             alignItems: "center",
             justifyContent: "center",
             width: { mobileS: "125px", laptop: "155px" },
@@ -457,9 +458,12 @@ export default function Home() {
       alignContent="center"
       sx={{
         flex: "1 0 auto",
-        m: { mobileS: "0 0 50px 0", laptop: "0 0 100px 0" },
+        m: {
+          mobileS: "0 0 50px 0",
+          laptop: "0 0 100px 0",
+        } /*If (User) margin: {mobileS: "100px 0 50px 0"", laptop: "100px 0 50px 0"} ?*/,
       }}>
-      <MainPageBannerCarousel data={MainPageBannerCarouselViewData} />
+      <MainPageBannerCarousel data={MainPageBannerCarouselViewData} /*If (User) display: none?*/ />
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="премьер" />}
         carouselData={
