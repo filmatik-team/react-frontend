@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Box, Link, Typography, Fade, Divider } from "@mui/material";
-import { ButtonFilmatik, ContainerStyled, DualColourSpan } from "../components/lib/styling";
+import { FilmatikButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
 import { NavData, NavTabs } from "../components/ui/tabs";
 import { Carousel } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
@@ -10,6 +10,7 @@ import { MovieCard, MovieCardData } from "../components/ui/movieCard";
 import { NewsCard, NewsCardData } from "../components/ui/newsCard";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { useSwipeable } from "react-swipeable";
 
 interface MainPageBannerCarouselData {
   image: string;
@@ -111,7 +112,7 @@ const TopPremieresData: NavData[] = [
         movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
         carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
         movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
+        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
       />
     ),
   },
@@ -124,7 +125,7 @@ const TopPremieresData: NavData[] = [
         movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
         carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
         movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
+        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
       />
     ),
   },
@@ -137,7 +138,7 @@ const TopPremieresData: NavData[] = [
         movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
         carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
         movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
+        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
       />
     ),
   },
@@ -153,7 +154,7 @@ const TopOnlineData: NavData[] = [
         movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
         carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
         movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
+        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
       />
     ),
   },
@@ -166,7 +167,7 @@ const TopOnlineData: NavData[] = [
         movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
         carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
         movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
+        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
       />
     ),
   },
@@ -194,7 +195,7 @@ const TopSelectionsData = (
     movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
     carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
     movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-    movieScrollStep={5}
+    movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
     sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}
   />
 );
@@ -244,7 +245,7 @@ const NewsData = (
     movieCardVisible={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_VISIBLE)}
     carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
     movieMargin={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_MARGIN)}
-    movieScrollStep={3}
+    movieScrollStep={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_VISIBLE) - 1}
     sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}
   />
 );
@@ -256,7 +257,7 @@ const TopPopularData = (
     movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
     carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
     movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-    movieScrollStep={5}
+    movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
   />
 );
 
@@ -289,6 +290,14 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
     return () => clearInterval(interval);
   }, [position]);
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleClickRightArrow(),
+    onSwipedRight: () => handleClickLeftArrow(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+    delta: 30,
+  });
+
   return (
     <Box
       onMouseOver={() => (pauseRef.current = true)}
@@ -298,7 +307,8 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
         height: { mobileS: "60vh", laptop: "80vh" },
         minHeight: { mobileS: 320, laptop: 580 },
         m: "0 0 30px 0",
-      }}>
+      }}
+      {...handlers}>
       <Fade in={open} timeout={500} key={position}>
         <Box
           component="img"
@@ -351,7 +361,7 @@ function MainPageBannerCarousel({ data }: MainPageBannerCarouselProps) {
           }}>
           Отслеживай новинки кино
         </Typography>
-        <ButtonFilmatik
+        <FilmatikButton
           text="начать!"
           uppercase
           theme="dark"

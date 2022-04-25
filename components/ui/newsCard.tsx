@@ -85,6 +85,7 @@ export function NewsCard({ data, width, margin }: NewsCardProps) {
                 alignItems: "center",
                 pl: "10px",
                 color: "#757575",
+                transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
 
                 ":hover": {
                   color: "#999",

@@ -46,7 +46,7 @@ export const ContainerStyled = styled(Container).attrs(() => ({
 
 /* Стилизованная кнопка Filmatik */
 
-interface ButtonFilmatikProps {
+interface FilmatikButtonProps {
   text: string;
   style?: React.CSSProperties;
   sx?: SxProps<Theme>;
@@ -56,7 +56,7 @@ interface ButtonFilmatikProps {
   onClick?: (event: React.SyntheticEvent) => void;
 }
 
-export function ButtonFilmatik({ text, sx, theme = "dark", uppercase = false, ...rest }: ButtonFilmatikProps) {
+export function FilmatikButton({ text, sx, theme = "dark", uppercase = false, ...rest }: FilmatikButtonProps) {
   const backgroundColor = {
     dark: {
       native: "#C9490C",

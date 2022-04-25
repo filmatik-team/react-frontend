@@ -1,7 +1,7 @@
 import React from "react";
 import { Backdrop, Box, Checkbox, Fade, FormControlLabel, Link, Modal, Stack } from "@mui/material";
 import { LoginForm, PasswordForm } from "../../ui/forms";
-import { ButtonFilmatik, CloseButton } from "../../lib/styling";
+import { FilmatikButton, CloseButton } from "../../lib/styling";
 import { NavData, NavTabs } from "../../ui/tabs";
 
 export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
@@ -29,7 +29,7 @@ const UserModalLogin = () => {
           Забыли пароль?
         </Link>
       </Box>
-      <ButtonFilmatik text="войти" uppercase type="submit" theme="light" />
+      <FilmatikButton text="войти" uppercase type="submit" theme="light" />
     </Box>
   );
 };
@@ -74,7 +74,7 @@ const UserModalRegistration = () => {
           }}
         />
       </Box>
-      <ButtonFilmatik text="зарегистрироваться" uppercase type="submit" theme="light" />
+      <FilmatikButton text="зарегистрироваться" uppercase type="submit" theme="light" />
     </Box>
   );
 };
