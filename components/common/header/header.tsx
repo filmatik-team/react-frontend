@@ -7,7 +7,7 @@ import SwiperTemporaryDrawer from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
-import { LoggedInContext, UserLoginModalContext } from "../../../src/context";
+import { UserLoggedInContext, UserLoginModalContext } from "../../../src/context";
 import UserMenu from "./userMenu";
 
 export const menuItems = [
@@ -36,7 +36,7 @@ export default function Header() {
   const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useContext(LoggedInContext);
+  const [isLoggedIn, setIsLoggedIn] = React.useContext(UserLoggedInContext);
 
   scrollRef.current = scroll;
 

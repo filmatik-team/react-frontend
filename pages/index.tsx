@@ -14,7 +14,7 @@ import { useSwipeable } from "react-swipeable";
 import { TabsListStyled, TabStyled } from "../components/ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
-import { LoggedInContext, UserLoginModalContext } from "../src/context";
+import { UserLoggedInContext, UserLoginModalContext, UserSubscriptionsContext } from "../src/context";
 
 interface MainPageBannerCarouselData {
   image: string;
@@ -402,7 +402,8 @@ const MainPageMovieCarousel = ({ children, article, divider = true, ...rest }: M
 export default function Home() {
   const [topPremieresValue, setTopPremieresValue] = React.useState<number>(0);
   const [topOnlineValue, setTopOnlineValue] = React.useState<number>(0);
-  const [isLoggedIn, setIsLoggedIn] = React.useContext(LoggedInContext);
+  const [isLoggedIn, setIsLoggedIn] = React.useContext(UserLoggedInContext);
+  const [userSubscriptions, setUserSubscriptions] = React.useContext(UserSubscriptionsContext);
 
   const handleChangeTopPremieres = (event: React.SyntheticEvent, newValue: number | string) => {
     setTopPremieresValue(newValue as number);
@@ -465,16 +466,22 @@ export default function Home() {
           onChange={handleChangeTopOnline}
           sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
           <TabsListStyled>
-            <TabStyled>Мои подписки</TabStyled>
+            {isLoggedIn && userSubscriptions ? <TabStyled>Мои подписки</TabStyled> : null}
             <TabStyled>Все</TabStyled>
             <TabStyled>Бесплатно</TabStyled>
           </TabsListStyled>
           <Box sx={{ position: "relative" }}>
-            {topOnlineData.map((viewData, i) => (
-              <FTabPanel index={topOnlineValue} value={i} key={viewData.data[i].image}>
-                <Carousel {...viewData} />
+            {isLoggedIn && userSubscriptions ? (
+              <FTabPanel index={topOnlineValue} value={0}>
+                <Carousel {...topOnlineData[0]} />
               </FTabPanel>
-            ))}
+            ) : null}
+            <FTabPanel index={topOnlineValue} value={isLoggedIn && userSubscriptions ? 1 : 0}>
+              <Carousel {...topOnlineData[1]} />
+            </FTabPanel>
+            <FTabPanel index={topOnlineValue} value={isLoggedIn && userSubscriptions ? 2 : 1}>
+              <Carousel {...topOnlineData[2]} />
+            </FTabPanel>
           </Box>
         </TabsUnstyled>
       </MainPageMovieCarousel>

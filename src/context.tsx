@@ -10,7 +10,12 @@ export const FeedbackModalContext = React.createContext<[boolean, React.Dispatch
   () => {},
 ]);
 
-export const LoggedInContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
-  true,
+export const UserLoggedInContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
+  false,
+  () => {},
+]);
+
+export const UserSubscriptionsContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
+  false,
   () => {},
 ]);
