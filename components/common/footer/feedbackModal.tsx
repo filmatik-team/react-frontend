@@ -47,10 +47,14 @@ export default function FeedbackModal() {
                 <LoginForm text="Введите e-mail" tab="0-0" autoFocus sx={{ mb: "16px" }} />
                 <LoginForm text="Введите имя пользователя" tab="0-1" sx={{ mb: "16px" }} />
                 <TextForm text="Введите сообщение" tab="0" sx={{ mb: "16px" }} />
-                <ReCAPTCHA
-                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as "string"}
-                  style={{ margin: "0 0 16px 0" }}
-                />
+                {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                  <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as "string"}
+                    style={{ margin: "0 0 16px 0" }}
+                  />
+                ) : (
+                  console.error("RECAPTCHA_SITE_KEY is missing, update env.local")
+                )}
                 <FButton text="отправить" uppercase type="submit" theme="light" />
               </Box>
             </Stack>
