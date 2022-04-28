@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Link, Stack, Typography } from "@mui/material";
 import { NewsComment } from "../../icons/comments";
+import { TRANSITION_DEFAULT } from "../../src/constants";
 
 /*Обложка новости*/
 
@@ -85,7 +86,7 @@ export function NewsCard({ data, width, margin }: NewsCardProps) {
                 alignItems: "center",
                 pl: "10px",
                 color: "#757575",
-                transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+                transition: TRANSITION_DEFAULT,
 
                 ":hover": {
                   color: "#999",

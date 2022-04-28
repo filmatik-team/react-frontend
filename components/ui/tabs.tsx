@@ -1,81 +1,30 @@
 import React from "react";
-import { TabPanelStyled, TabStyled, TabsListStyled } from "./tabs-styles";
+import { TabPanelStyled } from "./tabs-styles";
 import { Box } from "@mui/material";
-import { TabsUnstyled } from "@mui/base";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
+import TabPanelUnstyledProps from "@mui/base/TabPanelUnstyled/TabPanelUnstyledProps";
 
-interface TabPanelProps {
+interface FTabPanelProps extends TabPanelUnstyledProps {
   index: number;
-  value: number;
   animate?: boolean;
-  children?: React.ReactNode;
-  sx?: SxProps<Theme>;
-  components?: { Root?: React.ElementType };
+  saveContent?: boolean; // для срабатывания опции поменять значения index и value местами при вызове компоненты
 }
 
-function TabPanel(props: TabPanelProps) {
-  const { index, value, animate, children } = props;
-  return (
-    <TabPanelStyled
-      className={`${value === index ? "show" : "hide"} ${!animate ? "no-animation" : undefined}`}
-      role="tabpanel"
-      {...props}>
-      {children}
-    </TabPanelStyled>
-  );
-}
+export const FTabPanel = (props: FTabPanelProps) => {
+  const { index, value, children, animate = true, saveContent = false } = props;
 
-interface TabProps {
-  onChange: (event: React.SyntheticEvent, newValue: number) => void;
-  children?: React.ReactNode;
-}
-
-function Tab(props: TabProps) {
-  const { children } = props;
-  return (
-    <TabStyled className="nav-tabs__tab" {...props}>
-      {children}
-    </TabStyled>
-  );
-}
-
-export interface NavData {
-  tabName: string;
-  content: React.ReactNode;
-}
-
-interface NavTabsProps {
-  data: NavData[];
-  defaultTab: number;
-  animate?: boolean;
-  style?: React.CSSProperties;
-  sx?: SxProps<Theme>;
-}
-
-export function NavTabs({ data, defaultTab, animate = true, ...rest }: NavTabsProps) {
-  const [value, setValue] = React.useState(defaultTab);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const tabPanelAttrs = (saveContent?: boolean) => {
+    return {
+      role: "tabpanel",
+      className: `${value === index ? "show" : "hide"}${!animate ? " no-animation" : ""}`,
+      components: { Root: Box },
+      ...(saveContent && { id: undefined }),
+      ...(saveContent && { hidden: false }),
+    };
   };
 
   return (
-    <TabsUnstyled component={Box} value={value} {...rest}>
-      <TabsListStyled>
-        {data.map((item) => (
-          <Tab onChange={handleChange} key={item.tabName}>
-            {item.tabName}
-          </Tab>
-        ))}
-      </TabsListStyled>
-      <Box sx={{ position: "relative" }}>
-        {data.map((item, i) => (
-          <TabPanel animate={animate} components={{ Root: Box }} index={i} value={value} key={item.tabName}>
-            {item.content}
-          </TabPanel>
-        ))}
-      </Box>
-    </TabsUnstyled>
+    <TabPanelStyled {...tabPanelAttrs(saveContent)} {...props}>
+      {children}
+    </TabPanelStyled>
   );
-}
+};

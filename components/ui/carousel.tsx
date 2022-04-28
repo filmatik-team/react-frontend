@@ -4,6 +4,7 @@ import { ArrowButtonStyled } from "./carousel-styles";
 import { Box } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { CONTAINER_PADDING, CONTAINER_WIDTH, MOVIE_CAROUSEL_MARGIN, MOVIE_CAROUSEL_VISIBLE } from "../../src/constants";
 
 interface CarouselData {
   image: string;
@@ -15,19 +16,19 @@ interface CarouselData {
   commentsCount?: number;
 }
 
-interface CarouselProps {
+export interface CarouselProps {
   /*Тип карточек для карусели*/
   component: React.ComponentType<any> | keyof JSX.IntrinsicElements;
   /*Массив с данными для обложек*/
   data: CarouselData[];
-  /*Количество видимых обложек на странице*/
-  movieCardVisible: number;
   /*Ширина карусели в px*/
-  carouselWidth: number;
+  carouselWidth?: number;
+  /*Количество видимых обложек на странице*/
+  cardsVisible?: number;
   /*Отступ между обложками в px*/
-  movieMargin: number;
+  cardsMargin?: number;
   /*Сколько обложек прокручивать*/
-  movieScrollStep: number;
+  cardsScrollStep?: number;
   /*Стили*/
   sx?: SxProps<Theme>;
 }
@@ -35,13 +36,13 @@ interface CarouselProps {
 export function Carousel({
   component,
   data,
-  movieCardVisible,
-  carouselWidth,
-  movieMargin,
-  movieScrollStep,
+  carouselWidth = CONTAINER_WIDTH,
+  cardsVisible = MOVIE_CAROUSEL_VISIBLE,
+  cardsMargin = MOVIE_CAROUSEL_MARGIN,
+  cardsScrollStep = MOVIE_CAROUSEL_MARGIN - 1,
   sx,
 }: CarouselProps) {
-  const realCarouselWidth = carouselWidth - 2 * Number(process.env.NEXT_PUBLIC_CONTAINER_PADDING);
+  const realCarouselWidth = carouselWidth - 2 * CONTAINER_PADDING;
   const [carouselSize, setCarouselSize] = React.useState<number>(realCarouselWidth);
   const sliderRef = React.useRef<HTMLDivElement>(null);
   const buttonForwardRef = React.useRef<HTMLButtonElement>(null);
@@ -49,9 +50,9 @@ export function Carousel({
   const carouselWidthRef = React.useRef(0);
   const Component = component;
 
-  const movieWidth = (carouselSize + movieMargin) / movieCardVisible - movieMargin;
-  const movieHeight = ((carouselSize + movieMargin) / movieCardVisible - movieMargin) * 1.5;
-  const movieScrollOffset = Math.floor(movieWidth + movieMargin);
+  const movieWidth = (carouselSize + cardsMargin) / cardsVisible - cardsMargin;
+  const movieHeight = ((carouselSize + cardsMargin) / cardsVisible - cardsMargin) * 1.5;
+  const movieScrollOffset = Math.floor(movieWidth + cardsMargin);
 
   React.useEffect(() => {
     const slider = sliderRef.current as HTMLElement;
@@ -101,13 +102,13 @@ export function Carousel({
     if (slider.scrollLeft % movieScrollOffset === 0) {
       slider.scrollBy({
         top: 0,
-        left: movieScrollOffset * movieScrollStep,
+        left: movieScrollOffset * cardsScrollStep,
         behavior: "smooth",
       });
     } else {
       slider.scrollBy({
         top: 0,
-        left: 2 * movieScrollOffset * movieScrollStep - Math.abs(slider.scrollLeft % movieScrollOffset),
+        left: 2 * movieScrollOffset * cardsScrollStep - Math.abs(slider.scrollLeft % movieScrollOffset),
         behavior: "smooth",
       });
     }
@@ -119,13 +120,13 @@ export function Carousel({
     if (slider.scrollLeft % movieScrollOffset === 0) {
       slider.scrollBy({
         top: 0,
-        left: -movieScrollOffset * movieScrollStep,
+        left: -movieScrollOffset * cardsScrollStep,
         behavior: "smooth",
       });
     } else {
       slider.scrollBy({
         top: 0,
-        left: -(movieScrollOffset * movieScrollStep + Math.abs(slider.scrollLeft % movieScrollOffset)),
+        left: -(movieScrollOffset * cardsScrollStep + Math.abs(slider.scrollLeft % movieScrollOffset)),
         behavior: "smooth",
       });
     }
@@ -159,7 +160,7 @@ export function Carousel({
             data={item}
             width={`${movieWidth}px`}
             height={`${movieHeight}px`}
-            margin={i === data.length - 1 ? "0" : `0 ${movieMargin}px 0 0`}
+            margin={i === data.length - 1 ? "0" : `0 ${cardsMargin}px 0 0`}
             date={item.date ? item.date : undefined}
             commentsCount={item.commentsCount ? item.commentsCount : undefined}
             key={item.image}

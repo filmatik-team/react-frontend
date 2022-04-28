@@ -6,6 +6,7 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import styled from "styled-components";
 import { mf } from "../components/lib/deviceSize";
+import { TRANSITION_DEFAULT } from "../src/constants";
 
 const LargeIconButtonStyled = styled(IconButton)`
   display: none;
@@ -16,7 +17,7 @@ const LargeIconButtonStyled = styled(IconButton)`
   background: transparent;
   font-size: 50px;
   color: #8c8c8c;
-  transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT;
+  transition: TRANSITION_DEFAULT;
 
   &:hover {
     color: #fff;
@@ -70,7 +71,7 @@ export function SelectArrow({ sx, ...rest }: SelectArrowProps) {
         width: "15px",
         height: "8px",
         background: "url(https://filmatik.ru/resources/app/img/select-arrow.svg) no-repeat",
-        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        transition: TRANSITION_DEFAULT,
 
         "&.active": {
           transform: "rotate(-180deg)",

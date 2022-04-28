@@ -3,6 +3,7 @@ import { Box, Link } from "@mui/material";
 import { FaVk, FaTwitter } from "react-icons/fa";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { TRANSITION_DEFAULT } from "../src/constants";
 
 const socialLinkStyled = {
   display: "flex",
@@ -14,7 +15,7 @@ const socialLinkStyled = {
   background: "#484d51 none repeat scroll 0 0",
   borderRadius: "50%",
   color: "#ddd",
-  transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+  transition: TRANSITION_DEFAULT,
 
   "&:hover": {
     background: "#575E63",

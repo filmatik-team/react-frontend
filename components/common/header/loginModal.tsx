@@ -1,8 +1,11 @@
 import React from "react";
 import { Backdrop, Box, Checkbox, Fade, FormControlLabel, Link, Modal, Stack } from "@mui/material";
 import { LoginForm, PasswordForm } from "../../ui/forms";
-import { FilmatikButton, CloseButton } from "../../lib/styling";
-import { NavData, NavTabs } from "../../ui/tabs";
+import { FButton, CloseButton } from "../../lib/styling";
+import { TRANSITION_DEFAULT } from "../../../src/constants";
+import { TabsListStyled, TabStyled } from "../../ui/tabs-styles";
+import { TabsUnstyled } from "@mui/base";
+import { FTabPanel } from "../../ui/tabs";
 
 export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
   false,
@@ -20,7 +23,7 @@ const UserModalLogin = () => {
           sx={{
             display: "inline-block",
             color: "#484d51",
-            transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+            transition: TRANSITION_DEFAULT,
 
             "&:hover": {
               color: "#0b0b0b",
@@ -29,7 +32,7 @@ const UserModalLogin = () => {
           Забыли пароль?
         </Link>
       </Box>
-      <FilmatikButton text="войти" uppercase type="submit" theme="light" />
+      <FButton text="войти" uppercase type="submit" theme="light" />
     </Box>
   );
 };
@@ -74,24 +77,18 @@ const UserModalRegistration = () => {
           }}
         />
       </Box>
-      <FilmatikButton text="зарегистрироваться" uppercase type="submit" theme="light" />
+      <FButton text="зарегистрироваться" uppercase type="submit" theme="light" />
     </Box>
   );
 };
 
-const NavTabsUserModalData: NavData[] = [
-  {
-    tabName: "Вход",
-    content: <UserModalLogin />,
-  },
-  {
-    tabName: "Регистрация",
-    content: <UserModalRegistration />,
-  },
-];
-
 export const LoginModal = () => {
   const [open, setOpen] = React.useContext(UserLoginModalContext);
+  const [loginModalValue, setLoginModalValue] = React.useState<number>(0);
+
+  const handleChangeloginModal = (event: React.SyntheticEvent, newValue: number | string) => {
+    setLoginModalValue(newValue as number);
+  };
 
   return (
     <Modal
@@ -121,7 +118,20 @@ export const LoginModal = () => {
               "& .nav-tabs__tab.TabUnstyled-root.Mui-selected": { color: "#0b0b0b" },
               "& .nav-tabs__tab.TabUnstyled-root:hover": { color: "#0b0b0b" },
             }}>
-            <NavTabs data={NavTabsUserModalData} defaultTab={0} animate={false} />
+            <TabsUnstyled component={Box} value={loginModalValue} onChange={handleChangeloginModal}>
+              <TabsListStyled>
+                <TabStyled>Вход</TabStyled>
+                <TabStyled>Регистрация</TabStyled>
+              </TabsListStyled>
+              <Box sx={{ position: "relative" }}>
+                <FTabPanel index={loginModalValue} value={0}>
+                  <UserModalLogin />
+                </FTabPanel>
+                <FTabPanel index={loginModalValue} value={1}>
+                  <UserModalRegistration />
+                </FTabPanel>
+              </Box>
+            </TabsUnstyled>
             <Stack>
               <Box component="p" sx={{ mb: "5px" }}>
                 Или войдите, используя соц. сети:

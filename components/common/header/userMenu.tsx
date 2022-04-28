@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { SelectArrow } from "../../../icons/arrows";
 import { UserLoginIcon } from "../../../icons/header";
+import { TRANSITION_DEFAULT } from "../../../src/constants";
 
 const userMenuItems = [
   {
@@ -74,7 +75,7 @@ export function UserMenu() {
           color: "#8C8C8C",
           border: "none",
           cursor: "pointer",
-          transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+          transition: TRANSITION_DEFAULT,
 
           "&:hover": {
             filter: "brightness(2)",
@@ -158,7 +159,7 @@ export function UserMenu() {
                           color: "#dfdfdf",
                           fontSize: { mobileS: "17px", mobileL: "15px" },
                           fontWeight: { mobileS: "bold", mobileL: "normal" },
-                          transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+                          transition: TRANSITION_DEFAULT,
                         }}>
                         {userMenuItem.title}
                       </Link>

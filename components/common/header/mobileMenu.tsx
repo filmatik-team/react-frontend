@@ -158,10 +158,10 @@ export function SwiperTemporaryDrawer() {
           <Stack
             component="ul"
             direction="row"
+            justifyContent="center"
             sx={{
-              margin: 0,
-              padding: 0,
-              justifyContent: "center",
+              m: 0,
+              p: 0,
               listStyle: "none",
             }}>
             <Box component="li" sx={{ mr: "12px" }}>

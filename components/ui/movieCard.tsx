@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Link } from "@mui/material";
 import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
 import { GradientCoverGreen, GradientCoverRed, GradientCoverYellow } from "../../icons/movieGradients";
+import { TRANSITION_DEFAULT } from "../../src/constants";
 
 /*Обложка фильма*/
 
@@ -10,7 +11,9 @@ export interface MovieCardData {
   title: string;
   url: string;
   rating: number;
-  counters: number[];
+  eyeCounter: number;
+  heartCounter: number;
+  starCounter: number;
 }
 
 interface MovieCardDataProps {
@@ -42,7 +45,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
         position: "relative",
         outline: "none",
         border: 0,
-        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        transition: TRANSITION_DEFAULT,
         flexShrink: 0,
       }}>
       <Link
@@ -135,7 +138,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
               lineHeight: 1.2,
               color: "#d2d2d2",
               zIndex: 2,
-              transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+              transition: TRANSITION_DEFAULT,
               background:
                 "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 20%, rgba(0, 0, 0, 0.6) 40%, " +
                 "rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0.2) 80%," +
@@ -147,7 +150,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
                 alignItems: "center",
               }}>
               <EyeCounter />
-              <span>{data.counters[0]}</span>
+              <span>{data.eyeCounter}</span>
             </Box>
             <Box
               sx={{
@@ -155,7 +158,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
                 alignItems: "center",
               }}>
               <HeartCounter />
-              <span>{data.counters[1]}</span>
+              <span>{data.heartCounter}</span>
             </Box>
             <Box
               sx={{
@@ -163,7 +166,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
                 alignItems: "center",
               }}>
               <StarCounter />
-              <span>{data.counters[2]}</span>
+              <span>{data.starCounter}</span>
             </Box>
           </Box>
         </Box>

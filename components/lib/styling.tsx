@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Container } from "@mui/material";
+import { Button, ButtonProps, Container } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { CONTAINER_PADDING, CONTAINER_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
 
 /* Двуокрашенный заголовок */
 
@@ -35,28 +36,25 @@ export const ContainerStyled = styled(Container).attrs(() => ({
       mobileL: "540px",
       tablet: "720px",
       laptop: "960px",
-      desktop: `${Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}px`,
+      desktop: `${CONTAINER_WIDTH}px`,
     },
     px: {
       mobileS: "15px",
-      laptop: `${Number(process.env.NEXT_PUBLIC_CONTAINER_PADDING)}px`,
+      laptop: `${CONTAINER_PADDING}px`,
     },
   },
 }))``;
 
 /* Стилизованная кнопка Filmatik */
 
-interface FilmatikButtonProps {
+interface FButtonProps extends ButtonProps {
   text: string;
-  style?: React.CSSProperties;
-  sx?: SxProps<Theme>;
   type?: "submit" | "reset" | "button";
   theme?: "dark" | "light";
   uppercase?: boolean;
-  onClick?: (event: React.SyntheticEvent) => void;
 }
 
-export function FilmatikButton({ text, sx, theme = "dark", uppercase = false, ...rest }: FilmatikButtonProps) {
+export function FButton({ text, sx, theme = "dark", uppercase = false, ...rest }: FButtonProps) {
   const backgroundColor = {
     dark: {
       native: "#C9490C",
@@ -90,7 +88,7 @@ export function FilmatikButton({ text, sx, theme = "dark", uppercase = false, ..
         lineHeight: 1.5,
         borderRadius: "0.25rem",
         cursor: "pointer",
-        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        transition: TRANSITION_DEFAULT,
 
         "&:hover": {
           background: backgroundColor[theme]["hover"],
@@ -144,7 +142,7 @@ export function CloseButton({ sx, theme = "light", ...rest }: CloseButtonProps) 
         boxShadow: "none",
         touchAction: "manipulation",
         color: color[theme],
-        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        transition: TRANSITION_DEFAULT,
         ...sx,
       }}
       {...rest}>

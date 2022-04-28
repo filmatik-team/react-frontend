@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
+import { TRANSITION_DEFAULT } from "../../src/constants";
 
 export const TabPanelStyled = styled(TabPanelUnstyled)`
   height: 100%;
@@ -45,8 +46,8 @@ export const TabPanelStyled = styled(TabPanelUnstyled)`
   }
 `;
 
-export const TabStyled = styled(TabUnstyled).attrs((props) => ({
-  onChange: props.onChange as (event: React.SyntheticEvent, newValue: number) => void,
+export const TabStyled = styled(TabUnstyled).attrs(() => ({
+  className: "nav-tabs__tab",
 }))`
   min-width: auto;
   min-height: auto;
@@ -60,7 +61,7 @@ export const TabStyled = styled(TabUnstyled).attrs((props) => ({
   background: 0;
   border: 0;
   outline: 0;
-  transition: ${process.env.NEXT_PUBLIC_TRANSITION_DEFAULT};
+  transition: ${TRANSITION_DEFAULT};
 
   &:hover {
     color: #bfbfbf;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Backdrop, Box, Fade, Modal, Stack, Typography } from "@mui/material";
-import { FilmatikButton, CloseButton } from "../../lib/styling";
+import { FButton, CloseButton } from "../../lib/styling";
 import { LoginForm, TextForm } from "../../ui/forms";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -55,7 +55,7 @@ export const FeedbackModal = () => {
                   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as "string"}
                   style={{ margin: "0 0 16px 0" }}
                 />
-                <FilmatikButton text="отправить" uppercase type="submit" theme="light" />
+                <FButton text="отправить" uppercase type="submit" theme="light" />
               </Box>
             </Stack>
           </Box>

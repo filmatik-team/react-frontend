@@ -1,8 +1,8 @@
 import React from "react";
 import { Stack, Box, Link, Typography, Fade, Divider } from "@mui/material";
-import { FilmatikButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
-import { NavData, NavTabs } from "../components/ui/tabs";
-import { Carousel } from "../components/ui/carousel";
+import { FButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
+import { FTabPanel } from "../components/ui/tabs";
+import { Carousel, CarouselProps } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
 import { LoginModal, UserLoginModalContext } from "../components/common/header/loginModal";
 import { BannerSeparator } from "../icons";
@@ -11,6 +11,9 @@ import { NewsCard, NewsCardData } from "../components/ui/newsCard";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { useSwipeable } from "react-swipeable";
+import { TabsListStyled, TabStyled } from "../components/ui/tabs-styles";
+import { TabsUnstyled } from "@mui/base";
+import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
 
 interface MainPageBannerCarouselData {
   image: string;
@@ -42,163 +45,118 @@ const filmCarouselViewData: MovieCardData[] = [
     title: "Анчартед",
     url: "",
     rating: 80,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/21252/poster/w342/eddurPvOteKaHxSctJtikdWcG9o.jpg",
     title: "Отчаянные фрики",
     url: "",
     rating: 60,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/7758/poster/w342/jGVpMWEemYCSa2p9OSCMsaBXY98.jpg",
     title: "Как насчет любви?",
     url: "",
     rating: 45,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/159067/poster/w342/e4koV8iC2cCM57bqUnEnIL2a2zH.jpg",
     title: "Сирано",
     url: "",
     rating: 0,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/24709/poster/w342/uHwAiiBtjPQGRABPnR2OucnHko9.jpg",
     title: "Долгая прогулка",
     url: "",
     rating: 80,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/153141/poster/w342/s7nsixJ7SeJG2Pmd3W19EbfdRPe.jpg",
     title: "Удовольствие",
     url: "",
     rating: 80,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/162882/poster/w342/bv9dy8mnwftdY2j6gG39gCfSFpV.jpg",
     title: "Игра теней",
     url: "",
     rating: 80,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/7166/poster/w342/22FWO9Z2SYZh5JVI3nyxmwGaG7G.jpg",
     title: "Глубокие воды",
     url: "",
     rating: 80,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
   {
     image: "https://filmatik.ru/uploads/movie/5048/poster/w342/qt8X2xLDxZc5luYyYUvgHqePppn.jpg",
     title: "Бэтмен",
     url: "",
     rating: 10,
-    counters: [10, 20, 5],
+    eyeCounter: 10,
+    heartCounter: 20,
+    starCounter: 5,
   },
 ];
 
-const TopPremieresData: NavData[] = [
+const topPremieresData: CarouselProps[] = [
   {
-    tabName: "Сейчас",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData,
   },
   {
-    tabName: "Скоро",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData.concat([]).reverse()}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData.concat([]).reverse(),
   },
   {
-    tabName: "Позже",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData.concat([]).reverse()}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData.concat([]).reverse(),
   },
 ];
 
-const TopOnlineData: NavData[] = [
+const topOnlineData: CarouselProps[] = [
   {
-    tabName: "Все",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData.concat([]).reverse()}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData,
   },
   {
-    tabName: "Бесплатно",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData.concat([]).reverse(),
   },
-  /*If User & my_subscriptions:
   {
-    tabName: "Мои подписки",
-    content: (
-      <Carousel
-        component={MovieCard}
-        data={filmCarouselViewData.concat([]).reverse()}
-        movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-        carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-        movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-        movieScrollStep={5}
-      />
-    ),
+    component: MovieCard,
+    data: filmCarouselViewData,
   },
-  */
 ];
 
-const TopSelectionsData = (
-  <Carousel
-    component={MovieCard}
-    data={filmCarouselViewData}
-    movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-    carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-    movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-    movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-    sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}
-  />
-);
+const topSelectionsData = {
+  component: MovieCard,
+  data: filmCarouselViewData,
+};
 
 const newsViewData: NewsCardData[] = [
   {
@@ -238,28 +196,15 @@ const newsViewData: NewsCardData[] = [
   },
 ];
 
-const NewsData = (
-  <Carousel
-    component={NewsCard}
-    data={newsViewData}
-    movieCardVisible={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_VISIBLE)}
-    carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-    movieMargin={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_MARGIN)}
-    movieScrollStep={Number(process.env.NEXT_PUBLIC_NEWS_CAROUSEL_VISIBLE) - 1}
-    sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}
-  />
-);
+const newsData = {
+  component: NewsCard,
+  data: newsViewData,
+};
 
-const TopPopularData = (
-  <Carousel
-    component={MovieCard}
-    data={filmCarouselViewData}
-    movieCardVisible={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE)}
-    carouselWidth={Number(process.env.NEXT_PUBLIC_CONTAINER_WIDTH)}
-    movieMargin={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_MARGIN)}
-    movieScrollStep={Number(process.env.NEXT_PUBLIC_FILM_CAROUSEL_VISIBLE) - 1}
-  />
-);
+const topPopularData = {
+  component: MovieCard,
+  data: filmCarouselViewData,
+};
 
 interface MainPageBannerCarouselProps {
   data: MainPageBannerCarouselData[];
@@ -362,7 +307,7 @@ function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBa
           }}>
           Отслеживай новинки кино
         </Typography>
-        <FilmatikButton
+        <FButton
           text="начать!"
           uppercase
           theme="dark"
@@ -409,13 +354,13 @@ function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBa
 }
 
 interface MainPageFilmCarouselProps {
-  carouselData: React.ReactNode;
+  children: React.ReactNode;
   article?: React.ReactNode;
   divider?: boolean;
   sx?: SxProps<Theme>;
 }
 
-const MainPageMovieCarousel = ({ carouselData, article, divider = true, ...rest }: MainPageFilmCarouselProps) => {
+const MainPageMovieCarousel = ({ children, article, divider = true, ...rest }: MainPageFilmCarouselProps) => {
   return (
     <Box {...rest}>
       <ContainerStyled>
@@ -436,7 +381,7 @@ const MainPageMovieCarousel = ({ carouselData, article, divider = true, ...rest 
             <Link href="">{article}</Link>
           </Typography>
         </Stack>
-        {carouselData}
+        {children}
         {divider ? (
           <Divider
             sx={{
@@ -451,6 +396,16 @@ const MainPageMovieCarousel = ({ carouselData, article, divider = true, ...rest 
 };
 
 export default function Home() {
+  const [topPremieresValue, setTopPremieresValue] = React.useState<number>(0);
+  const [topOnlineValue, setTopOnlineValue] = React.useState<number>(0);
+
+  const handleChangeTopPremieres = (event: React.SyntheticEvent, newValue: number | string) => {
+    setTopPremieresValue(newValue as number);
+  };
+  const handleChangeTopOnline = (event: React.SyntheticEvent, newValue: number | string) => {
+    setTopOnlineValue(newValue as number);
+  };
+
   return (
     <Stack
       direction="column"
@@ -466,34 +421,70 @@ export default function Home() {
       <MainPageBannerCarousel data={MainPageBannerCarouselViewData} /*If (User) display: none?*/ />
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="премьер" />}
-        carouselData={
-          <NavTabs data={TopPremieresData} defaultTab={0} sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }} />
-        }
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}
-      />
+        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        <TabsUnstyled
+          component={Box}
+          value={topPremieresValue}
+          onChange={handleChangeTopPremieres}
+          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
+          <TabsListStyled>
+            <TabStyled>Сейчас</TabStyled>
+            <TabStyled>Скоро</TabStyled>
+            <TabStyled>Позже</TabStyled>
+          </TabsListStyled>
+          <Box sx={{ position: "relative" }}>
+            {topPremieresData.map((viewData, i) => (
+              <FTabPanel index={topPremieresValue} value={i} key={viewData.data[i].image}>
+                <Carousel {...viewData} />
+              </FTabPanel>
+            ))}
+          </Box>
+        </TabsUnstyled>
+      </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="онлайн" />}
-        carouselData={
-          <NavTabs data={TopOnlineData} defaultTab={0} sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }} />
-        }
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}
-      />
+        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        <TabsUnstyled
+          component={Box}
+          value={topOnlineValue}
+          onChange={handleChangeTopOnline}
+          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
+          <TabsListStyled>
+            <TabStyled>Мои подписки</TabStyled>
+            <TabStyled>Все</TabStyled>
+            <TabStyled>Бесплатно</TabStyled>
+          </TabsListStyled>
+          <Box sx={{ position: "relative" }}>
+            {topOnlineData.map((viewData, i) => (
+              <FTabPanel index={topOnlineValue} value={i} key={viewData.data[i].image}>
+                <Carousel {...viewData} />
+              </FTabPanel>
+            ))}
+          </Box>
+        </TabsUnstyled>
+      </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="подборок" />}
-        carouselData={TopSelectionsData}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}
-      />
+        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        <Carousel {...topSelectionsData} sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }} />
+      </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Новости" orangeText="кино" />}
-        carouselData={NewsData}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}
-      />
+        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        <Carousel
+          {...newsData}
+          cardsVisible={NEWS_CAROUSEL_VISIBLE}
+          cardsMargin={NEWS_CAROUSEL_MARGIN}
+          cardsScrollStep={NEWS_CAROUSEL_MARGIN - 1}
+          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}
+        />
+      </MainPageMovieCarousel>
       <MainPageMovieCarousel
-        carouselData={TopPopularData}
         article={<DualColourSpan whiteText="Топ" orangeText="популярных" />}
         divider={false}
-        sx={{ margin: 0 }}
-      />
+        sx={{ margin: 0 }}>
+        <Carousel {...topPopularData} />
+      </MainPageMovieCarousel>
       <style global jsx>{`
         html,
         body,

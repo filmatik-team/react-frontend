@@ -4,6 +4,7 @@ import { ContainerStyled } from "../../lib/styling";
 import { MainLogoIcon } from "../../../icons/logo";
 import { SocialTwitterButton, SocialVkButton } from "../../../icons/social";
 import { FeedbackModal, FeedbackModalContext } from "./feedbackModal";
+import { TRANSITION_DEFAULT } from "../../../src/constants";
 
 const menuItems = [
   {
@@ -80,7 +81,7 @@ export default function Footer() {
                     p: 0,
                     color: "#8C8C8C",
                     fontSize: "16px",
-                    transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+                    transition: TRANSITION_DEFAULT,
 
                     "&:hover": {
                       background: "transparent",

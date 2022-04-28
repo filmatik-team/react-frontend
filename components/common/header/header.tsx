@@ -6,6 +6,7 @@ import { LoginModal, UserLoginModalContext } from "./loginModal";
 import { SwiperTemporaryDrawer } from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
+import { TRANSITION_DEFAULT } from "../../../src/constants";
 
 export const menuItems = [
   {
@@ -66,7 +67,7 @@ export default function Header() {
         p: 0,
         background: { mobileS: "#273037", laptop: "rgba(39, 48, 55, 0.8)" },
         height: { mobileS: "56px", laptop: headerHeight },
-        transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+        transition: TRANSITION_DEFAULT,
         zIndex: 100,
 
         "&:hover": {
@@ -108,7 +109,7 @@ export default function Header() {
                       p: "0 20px",
                       color: "#dedede",
                       fontSize: "16px",
-                      transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+                      transition: TRANSITION_DEFAULT,
 
                       "&:hover": {
                         background: "#394249",
@@ -170,7 +171,7 @@ export default function Header() {
                               height: "100%",
                               p: "0 20px",
                               color: "#dedede",
-                              transition: process.env.NEXT_PUBLIC_TRANSITION_DEFAULT,
+                              transition: TRANSITION_DEFAULT,
                             }}>
                             {submenuItem}
                           </Link>
