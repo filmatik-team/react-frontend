@@ -2,7 +2,7 @@ import React from "react";
 import { Box, ClickAwayListener } from "@mui/material";
 import { SearchIcon } from "../../../icons/header";
 
-export function Search() {
+export default function Search() {
   const [open, setOpen] = React.useState(false);
 
   const openSearchField = () => {

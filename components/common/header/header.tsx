@@ -1,12 +1,14 @@
 import React from "react";
 import { AppBar, Box, Button, IconButton, Link, Stack, Toolbar } from "@mui/material";
 import { ContainerStyled } from "../../lib/styling";
-import { Search } from "./search";
-import { LoginModal, UserLoginModalContext } from "./loginModal";
-import { SwiperTemporaryDrawer } from "./mobileMenu";
+import Search from "./search";
+import LoginModal from "./loginModal";
+import SwiperTemporaryDrawer from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
+import { LoggedInContext, UserLoginModalContext } from "../../../src/context";
+import UserMenu from "./userMenu";
 
 export const menuItems = [
   {
@@ -34,6 +36,7 @@ export default function Header() {
   const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useContext(LoggedInContext);
 
   scrollRef.current = scroll;
 
@@ -192,19 +195,21 @@ export default function Header() {
               ml: "auto",
             }}>
             <Search />
-            {/*If Guest:*/}
-            <IconButton
-              disableRipple
-              onClick={() => setOpenUserModal(true)}
-              sx={{ display: "flex", ml: "25px", p: 0, background: "none" }}>
-              <UserLogoutIcon />
-            </IconButton>
-            <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
-              <LoginModal />
-            </UserLoginModalContext.Provider>
-            {/*Else:
-            <UserMenu />
-            */}
+            {isLoggedIn ? (
+              <UserMenu />
+            ) : (
+              <>
+                <IconButton
+                  disableRipple
+                  onClick={() => setOpenUserModal(true)}
+                  sx={{ display: "flex", ml: "25px", p: 0, background: "none" }}>
+                  <UserLogoutIcon />
+                </IconButton>
+                <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
+                  <LoginModal />
+                </UserLoginModalContext.Provider>
+              </>
+            )}
             <SwiperTemporaryDrawer />
           </Stack>
         </Toolbar>

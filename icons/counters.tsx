@@ -15,26 +15,26 @@ interface CountersProps {
   sx?: SxProps<Theme>;
 }
 
-export function EyeCounter({ sx }: CountersProps) {
+export const EyeCounter = ({ sx }: CountersProps) => {
   return (
     <Box sx={{ ...counterStyles, color: "#3164DB", ...sx }}>
       <FaEye />
     </Box>
   );
-}
+};
 
-export function HeartCounter({ sx }: CountersProps) {
+export const HeartCounter = ({ sx }: CountersProps) => {
   return (
     <Box sx={{ ...counterStyles, color: "#ff403d", ...sx }}>
       <FaHeart />
     </Box>
   );
-}
+};
 
-export function StarCounter({ sx }: CountersProps) {
+export const StarCounter = ({ sx }: CountersProps) => {
   return (
     <Box sx={{ ...counterStyles, color: "#ff6d21", ...sx }}>
       <FaStar />
     </Box>
   );
-}
+};

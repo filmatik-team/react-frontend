@@ -30,15 +30,15 @@ interface SocialProps {
   sx?: SxProps<Theme>;
 }
 
-export function SocialVkButton({ sx }: SocialProps) {
+export const SocialVkButton = ({ sx }: SocialProps) => {
   return (
     <Link href="https://vk.com/filmatik" sx={{ ...socialLinkStyled, ...sx }} rel="noopener noreferrer" target="_blank">
       <Box component={FaVk} sx={{ ...socialIconStyled }} />
     </Link>
   );
-}
+};
 
-export function SocialTwitterButton({ sx }: SocialProps) {
+export const SocialTwitterButton = ({ sx }: SocialProps) => {
   return (
     <Link
       href="https://twitter.com/FilmatikRu"
@@ -48,4 +48,4 @@ export function SocialTwitterButton({ sx }: SocialProps) {
       <Box component={FaTwitter} sx={{ ...socialIconStyled }} />
     </Link>
   );
-}
+};

@@ -11,7 +11,7 @@ interface MainLogoIconProps {
   width?: number;
 }
 
-export function MainLogoIcon({ width = 129 }: MainLogoIconProps) {
+export const MainLogoIcon = ({ width = 129 }: MainLogoIconProps) => {
   return (
     <Box>
       <svg
@@ -53,4 +53,4 @@ export function MainLogoIcon({ width = 129 }: MainLogoIconProps) {
       </svg>
     </Box>
   );
-}
+};

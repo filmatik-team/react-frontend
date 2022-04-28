@@ -3,13 +3,9 @@ import { Backdrop, Box, Fade, Modal, Stack, Typography } from "@mui/material";
 import { FButton, CloseButton } from "../../lib/styling";
 import { LoginForm, TextForm } from "../../ui/forms";
 import ReCAPTCHA from "react-google-recaptcha";
+import { FeedbackModalContext } from "../../../src/context";
 
-export const FeedbackModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
-  false,
-  () => {},
-]);
-
-export const FeedbackModal = () => {
+export default function FeedbackModal() {
   const [open, setOpen] = React.useContext(FeedbackModalContext);
 
   return (
@@ -63,4 +59,4 @@ export const FeedbackModal = () => {
       </Fade>
     </Modal>
   );
-};
+}

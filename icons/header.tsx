@@ -12,15 +12,15 @@ const iconStyles = {
   transition: "all 0.4s ease",
 };
 
-export function SearchIcon() {
+export const SearchIcon = () => {
   return (
     <Box className="header__search-icon" sx={{ ...iconStyles }}>
       <IoSearch />
     </Box>
   );
-}
+};
 
-export function UserLogoutIcon() {
+export const UserLogoutIcon = () => {
   return (
     <Box sx={{ ...iconStyles }}>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="22" viewBox="0 0 18 22" fill="none">
@@ -35,9 +35,9 @@ export function UserLogoutIcon() {
       </svg>
     </Box>
   );
-}
+};
 
-export function UserLoginIcon() {
+export const UserLoginIcon = () => {
   return (
     <Box sx={{ ...iconStyles }}>
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none">
@@ -48,4 +48,4 @@ export function UserLoginIcon() {
       </svg>
     </Box>
   );
-}
+};

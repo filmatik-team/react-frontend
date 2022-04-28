@@ -17,7 +17,7 @@ const LargeIconButtonStyled = styled(IconButton)`
   background: transparent;
   font-size: 50px;
   color: #8c8c8c;
-  transition: TRANSITION_DEFAULT;
+  transition: ${TRANSITION_DEFAULT};
 
   &:hover {
     color: #fff;
@@ -33,36 +33,36 @@ interface NavigationArrowProps {
   sx?: SxProps<Theme>;
 }
 
-export function LargeForwardNavigationArrow({ sx, ...rest }: NavigationArrowProps) {
+export const LargeForwardNavigationArrow = ({ sx, ...rest }: NavigationArrowProps) => {
   return (
     <LargeIconButtonStyled disableRipple sx={{ right: "1%" }} {...rest}>
       <BsChevronRight />
     </LargeIconButtonStyled>
   );
-}
+};
 
-export function LargeBackwardNavigationArrow({ sx, ...rest }: NavigationArrowProps) {
+export const LargeBackwardNavigationArrow = ({ sx, ...rest }: NavigationArrowProps) => {
   return (
     <LargeIconButtonStyled disableRipple sx={{ left: "1%" }} {...rest}>
       <BsChevronLeft />
     </LargeIconButtonStyled>
   );
-}
+};
 
-export function SmallForwardNavigationArrow() {
+export const SmallForwardNavigationArrow = () => {
   return <FaChevronRight />;
-}
+};
 
-export function SmallBackwardNavigationArrow() {
+export const SmallBackwardNavigationArrow = () => {
   return <FaChevronLeft />;
-}
+};
 
 interface SelectArrowProps {
   className?: string;
   sx?: SxProps<Theme>;
 }
 
-export function SelectArrow({ sx, ...rest }: SelectArrowProps) {
+export const SelectArrow = ({ sx, ...rest }: SelectArrowProps) => {
   return (
     <Box
       sx={{
@@ -81,4 +81,4 @@ export function SelectArrow({ sx, ...rest }: SelectArrowProps) {
       {...rest}
     />
   );
-}
+};

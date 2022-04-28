@@ -16,7 +16,7 @@ import { menuItems } from "./header";
 import { SelectArrow } from "../../../icons/arrows";
 import { MainLogoIcon } from "../../../icons/logo";
 
-export function SwiperTemporaryDrawer() {
+export default function SwiperTemporaryDrawer() {
   const [toggleMenu, setToggleMenu] = React.useState<boolean>(false);
   const [menuItemOpen, setMenuItemOpen] = React.useState<object>({});
 

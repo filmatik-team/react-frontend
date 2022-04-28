@@ -2,10 +2,10 @@ import React from "react";
 import { Stack, Box, Link, Typography, Fade, Divider } from "@mui/material";
 import { FButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
 import { FTabPanel } from "../components/ui/tabs";
-import { Carousel, CarouselProps } from "../components/ui/carousel";
+import Carousel, { CarouselProps } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
-import { LoginModal, UserLoginModalContext } from "../components/common/header/loginModal";
-import { BannerSeparator } from "../icons";
+import LoginModal from "../components/common/header/loginModal";
+import { BannerSeparator } from "../icons/mainPage";
 import { MovieCard, MovieCardData } from "../components/ui/movieCard";
 import { NewsCard, NewsCardData } from "../components/ui/newsCard";
 import { SxProps } from "@mui/system";
@@ -14,6 +14,7 @@ import { useSwipeable } from "react-swipeable";
 import { TabsListStyled, TabStyled } from "../components/ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
+import { LoggedInContext, UserLoginModalContext } from "../src/context";
 
 interface MainPageBannerCarouselData {
   image: string;
@@ -153,7 +154,7 @@ const topOnlineData: CarouselProps[] = [
   },
 ];
 
-const topSelectionsData = {
+const topSelectionsData: CarouselProps = {
   component: MovieCard,
   data: filmCarouselViewData,
 };
@@ -196,22 +197,23 @@ const newsViewData: NewsCardData[] = [
   },
 ];
 
-const newsData = {
+const newsData: CarouselProps = {
   component: NewsCard,
   data: newsViewData,
 };
 
-const topPopularData = {
+const topPopularData: CarouselProps = {
   component: MovieCard,
   data: filmCarouselViewData,
 };
 
 interface MainPageBannerCarouselProps {
   data: MainPageBannerCarouselData[];
+  sx?: SxProps<Theme>;
   mouseAnimationStop?: boolean;
 }
 
-function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBannerCarouselProps) {
+const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest }: MainPageBannerCarouselProps) => {
   const [position, setPosition] = React.useState<number>(0);
   const [open, setOpen] = React.useState<boolean>(false);
   const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
@@ -253,8 +255,10 @@ function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBa
         height: { mobileS: "60vh", laptop: "80vh" },
         minHeight: { mobileS: 320, laptop: 580 },
         m: "0 0 30px 0",
+        ...sx,
       }}
-      {...swipeable}>
+      {...swipeable}
+      {...rest}>
       <Fade in={open} timeout={500} key={position}>
         <Box
           component="img"
@@ -351,7 +355,7 @@ function MainPageBannerCarousel({ data, mouseAnimationStop = false }: MainPageBa
       <LargeBackwardNavigationArrow onClick={handleClickLeftArrow} />
     </Box>
   );
-}
+};
 
 interface MainPageFilmCarouselProps {
   children: React.ReactNode;
@@ -398,6 +402,7 @@ const MainPageMovieCarousel = ({ children, article, divider = true, ...rest }: M
 export default function Home() {
   const [topPremieresValue, setTopPremieresValue] = React.useState<number>(0);
   const [topOnlineValue, setTopOnlineValue] = React.useState<number>(0);
+  const [isLoggedIn, setIsLoggedIn] = React.useContext(LoggedInContext);
 
   const handleChangeTopPremieres = (event: React.SyntheticEvent, newValue: number | string) => {
     setTopPremieresValue(newValue as number);
@@ -411,14 +416,24 @@ export default function Home() {
       direction="column"
       justifyContent="center"
       alignContent="center"
-      sx={{
-        flex: "1 0 auto",
-        m: {
-          mobileS: "0 0 50px 0",
-          laptop: "0 0 100px 0",
-        } /*If (User) margin: {mobileS: "100px 0 50px 0"", laptop: "100px 0 50px 0"} ?*/,
-      }}>
-      <MainPageBannerCarousel data={MainPageBannerCarouselViewData} /*If (User) display: none?*/ />
+      sx={
+        isLoggedIn
+          ? {
+              flex: "1 0 auto",
+              m: {
+                mobileS: "100px 0 50px 0",
+                laptop: "100px 0 100px 0",
+              },
+            }
+          : {
+              flex: "1 0 auto",
+              m: {
+                mobileS: "0 0 50px 0",
+                laptop: "0 0 100px 0",
+              },
+            }
+      }>
+      <MainPageBannerCarousel data={MainPageBannerCarouselViewData} sx={isLoggedIn ? { display: "none" } : undefined} />
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="премьер" />}
         sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>

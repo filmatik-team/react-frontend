@@ -33,7 +33,7 @@ export interface CarouselProps {
   sx?: SxProps<Theme>;
 }
 
-export function Carousel({
+export default function Carousel({
   component,
   data,
   carouselWidth = CONTAINER_WIDTH,

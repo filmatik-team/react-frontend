@@ -6,11 +6,7 @@ import { TRANSITION_DEFAULT } from "../../../src/constants";
 import { TabsListStyled, TabStyled } from "../../ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { FTabPanel } from "../../ui/tabs";
-
-export const UserLoginModalContext = React.createContext<[boolean, React.Dispatch<React.SetStateAction<boolean>>]>([
-  false,
-  () => {},
-]);
+import { UserLoginModalContext } from "../../../src/context";
 
 const UserModalLogin = () => {
   return (
@@ -82,7 +78,7 @@ const UserModalRegistration = () => {
   );
 };
 
-export const LoginModal = () => {
+export default function LoginModal() {
   const [open, setOpen] = React.useContext(UserLoginModalContext);
   const [loginModalValue, setLoginModalValue] = React.useState<number>(0);
 
@@ -179,4 +175,4 @@ export const LoginModal = () => {
       </Fade>
     </Modal>
   );
-};
+}

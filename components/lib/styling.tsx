@@ -13,7 +13,7 @@ interface DualColourSpanProps {
   style?: React.CSSProperties;
 }
 
-export function DualColourSpan({ whiteText, orangeText, style, ...other }: DualColourSpanProps) {
+export const DualColourSpan = ({ whiteText, orangeText, style, ...other }: DualColourSpanProps) => {
   return (
     <>
       <span style={{ color: "#E6E6E6", ...style }} {...other}>
@@ -24,7 +24,7 @@ export function DualColourSpan({ whiteText, orangeText, style, ...other }: DualC
       </span>
     </>
   );
-}
+};
 
 /* Container Element */
 
@@ -54,7 +54,7 @@ interface FButtonProps extends ButtonProps {
   uppercase?: boolean;
 }
 
-export function FButton({ text, sx, theme = "dark", uppercase = false, ...rest }: FButtonProps) {
+export const FButton = ({ text, sx, theme = "dark", uppercase = false, ...rest }: FButtonProps) => {
   const backgroundColor = {
     dark: {
       native: "#C9490C",
@@ -99,7 +99,7 @@ export function FButton({ text, sx, theme = "dark", uppercase = false, ...rest }
       {text}
     </Button>
   );
-}
+};
 
 /* Close button */
 
@@ -111,7 +111,7 @@ interface CloseButtonProps {
   onClick?: (event: React.SyntheticEvent) => void;
 }
 
-export function CloseButton({ sx, theme = "light", ...rest }: CloseButtonProps) {
+export const CloseButton = ({ sx, theme = "light", ...rest }: CloseButtonProps) => {
   const color = {
     dark: "#000",
     light: "#fff",
@@ -149,4 +149,4 @@ export function CloseButton({ sx, theme = "light", ...rest }: CloseButtonProps) 
       ×
     </Button>
   );
-}
+};

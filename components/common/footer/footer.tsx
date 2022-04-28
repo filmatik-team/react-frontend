@@ -3,8 +3,9 @@ import { Box, Button, Link, Stack } from "@mui/material";
 import { ContainerStyled } from "../../lib/styling";
 import { MainLogoIcon } from "../../../icons/logo";
 import { SocialTwitterButton, SocialVkButton } from "../../../icons/social";
-import { FeedbackModal, FeedbackModalContext } from "./feedbackModal";
+import FeedbackModal from "./feedbackModal";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
+import { FeedbackModalContext } from "../../../src/context";
 
 const menuItems = [
   {

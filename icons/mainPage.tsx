@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-export function BannerSeparator() {
+export const BannerSeparator = () => {
   return (
     <Box sx={{ display: { mobileS: "none", laptop: "block" }, m: "0 auto", textAlign: "center" }}>
       <svg
@@ -15,4 +15,4 @@ export function BannerSeparator() {
       </svg>
     </Box>
   );
-}
+};
