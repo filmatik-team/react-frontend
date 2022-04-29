@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
 import { TRANSITION_DEFAULT } from "../../src/constants";
+import { Box } from "@mui/material";
 
-export const TabPanelStyled = styled(TabPanelUnstyled)`
+export const TabPanelStyled = styled(Box)`
   height: 100%;
   width: 100%;
   top: 0;
@@ -85,4 +86,27 @@ export const TabStyled = styled(TabUnstyled).attrs(() => ({
 
 export const TabsListStyled = styled(TabsListUnstyled)`
   margin: 0 0 20px 0;
+  overflow-x: scroll;
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  &::after {
+    content: " ";
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    height: 25px;
+    width: 80px;
+    background-image: linear-gradient(to left, #273037, rgba(39, 48, 55, 0.1));
+  }
 `;

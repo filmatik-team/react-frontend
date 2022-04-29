@@ -3,7 +3,7 @@ import { AppBar, Box, Button, IconButton, Link, Stack, Toolbar } from "@mui/mate
 import { ContainerStyled } from "../../lib/styling";
 import Search from "./search";
 import LoginModal from "./loginModal";
-import SwiperTemporaryDrawer from "./mobileMenu";
+import MobileMenu from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
@@ -213,7 +213,7 @@ export default function Header() {
                 <IconButton
                   disableRipple
                   onClick={() => setOpenUserModal(true)}
-                  sx={{ display: "flex", ml: "25px", p: 0, background: "none" }}>
+                  sx={{ display: "flex", ml: { mobileS: "20px", mobileL: "25px" }, p: 0, background: "none" }}>
                   <UserLogoutIcon />
                 </IconButton>
                 <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
@@ -221,7 +221,7 @@ export default function Header() {
                 </UserLoginModalContext.Provider>
               </>
             )}
-            <SwiperTemporaryDrawer />
+            <MobileMenu />
           </Stack>
         </Toolbar>
       </ContainerStyled>

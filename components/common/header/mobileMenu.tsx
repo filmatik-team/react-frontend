@@ -16,7 +16,7 @@ import { menuItems } from "./header";
 import { SelectArrow } from "../../../icons/arrows";
 import { MainLogoIcon } from "../../../icons/logo";
 
-export default function SwiperTemporaryDrawer() {
+export default function MobileMenu() {
   const [toggleMenu, setToggleMenu] = React.useState<boolean>(false);
   const [menuItemOpen, setMenuItemOpen] = React.useState<object>({});
 
@@ -176,7 +176,7 @@ export default function SwiperTemporaryDrawer() {
     </Box>
   );
   return (
-    <Box sx={{ display: { mobileS: "flex", laptop: "none" }, ml: "25px" }}>
+    <Box sx={{ display: { mobileS: "flex", laptop: "none" }, ml: { mobileS: "20px", mobileL: "25px" } }}>
       <IconButton
         disableRipple
         aria-controls="menu-appbar"
@@ -187,6 +187,11 @@ export default function SwiperTemporaryDrawer() {
         <MenuIcon fontSize="inherit" />
       </IconButton>
       <SwipeableDrawer
+        anchor={"right"}
+        open={toggleMenu}
+        onClose={toggleDrawer}
+        onOpen={toggleDrawer}
+        swipeAreaWidth={20}
         sx={{
           "& .MuiDrawer-paper": {
             width: { mobileS: "72%", mobileL: "50%", tablet: "40%" },
@@ -195,12 +200,7 @@ export default function SwiperTemporaryDrawer() {
             justifyContent: "center",
             flexShrink: 0,
           },
-        }}
-        anchor={"right"}
-        open={toggleMenu}
-        onClose={toggleDrawer}
-        onOpen={toggleDrawer}
-        swipeAreaWidth={40}>
+        }}>
         {list()}
       </SwipeableDrawer>
     </Box>

@@ -2,6 +2,13 @@ import React from "react";
 import { TabPanelStyled } from "./tabs-styles";
 import { Box } from "@mui/material";
 import TabPanelUnstyledProps from "@mui/base/TabPanelUnstyled/TabPanelUnstyledProps";
+import { TabsProps } from "@mui/material/Tabs/Tabs";
+import { TabsUnstyled } from "@mui/base";
+
+export const FTabs = (props: TabsProps) => {
+  const { children } = props;
+  return <TabsUnstyled>{children}</TabsUnstyled>;
+};
 
 interface FTabPanelProps extends TabPanelUnstyledProps {
   index: number;

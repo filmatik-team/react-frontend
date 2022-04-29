@@ -142,7 +142,6 @@ export default function Carousel({
           width: "100%",
           overflow: "hidden",
           overflowX: "scroll",
-          overflowStyle: "none",
           scrollbarWidth: "none",
 
           "::-webkit-scrollbar": {

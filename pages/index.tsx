@@ -241,7 +241,6 @@ const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest 
   const swipeable = useSwipeable({
     onSwipedLeft: () => handleClickRightArrow(),
     onSwipedRight: () => handleClickLeftArrow(),
-    preventDefaultTouchmoveEvent: true,
     trackMouse: true,
     delta: 30,
   });
@@ -266,7 +265,7 @@ const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest 
           alt="alt"
           sx={{
             width: "100%",
-            height: "100%",
+            height: { mobileS: "60vh", laptop: "80vh" },
             minHeight: "580px",
             objectFit: "cover",
             objectPosition: { mobileS: "50% 50px", mobileL: "50% 20%" },
