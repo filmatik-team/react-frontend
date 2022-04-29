@@ -102,7 +102,18 @@ export default function Header() {
                 listStyle: "none",
               }}>
               {menuItems.map((menuItem) => (
-                <Button disableRipple key={menuItem.title} sx={{ height: "100%", p: 0 }}>
+                <Button
+                  disableRipple
+                  disableFocusRipple
+                  disableElevation
+                  key={menuItem.title}
+                  sx={{
+                    height: "100%",
+                    p: 0,
+                    "&:hover": {
+                      backgroundColor: "#394249",
+                    },
+                  }}>
                   <Link
                     href=""
                     sx={{
@@ -137,7 +148,7 @@ export default function Header() {
                         m: 0,
                         p: "10px 0",
                         zIndex: 4,
-                        borderRadius: "0 0 5px 5px",
+                        borderRadius: "0",
                         background: "#394249",
                         boxSizing: "border-box",
                         fontSize: "1rem",

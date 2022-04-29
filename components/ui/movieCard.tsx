@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Link } from "@mui/material";
+import { Box, Card, Link } from "@mui/material";
 import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
 import { GradientCoverGreen, GradientCoverRed, GradientCoverYellow } from "../../icons/movieGradients";
 import { TRANSITION_DEFAULT } from "../../src/constants";
@@ -18,8 +18,8 @@ export interface MovieCardData {
 
 interface MovieCardDataProps {
   data: MovieCardData;
-  width: string;
-  height: string;
+  width: number;
+  height: number;
   margin: string;
 }
 
@@ -37,16 +37,18 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
   }
 
   return (
-    <Box
+    <Card
+      elevation={0}
       sx={{
-        width: { mobileS: `${movieCardMobileWidth}px`, laptop: width },
-        height: { mobileS: `${movieCardMobileWidth * 1.5}px`, laptop: height },
         m: { mobileS: `0 ${movieCardMobileMargin}px 0 0`, laptop: margin },
         position: "relative",
         outline: "none",
         border: 0,
         transition: TRANSITION_DEFAULT,
         flexShrink: 0,
+        boxShadow: "none",
+        backgroundImage: "none",
+        backgroundColor: "inherit",
       }}>
       <Link
         sx={{
@@ -77,8 +79,8 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
           src={data.image}
           alt={data.title}
           sx={{
-            width: "100%",
-            height: "100%",
+            width: { mobileS: `${movieCardMobileWidth}px`, laptop: `${width - 2}px` },
+            height: { mobileS: `${movieCardMobileWidth * 1.5}px`, laptop: `${height - 2}px` },
             objectFit: "cover",
             borderRadius: "8px",
             borderStyle: "none",
@@ -94,7 +96,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
             zIndex: 1,
             width: "100%",
             height: "100%",
-            borderRadius: "8px",
+            borderRadius: "7.6px !important",
             borderStyle: "none",
             transition: "all 0.1s ease",
             backgroundColor: data.rating === 0 ? "rgba(0, 0, 0, 0.45)" : "rgba(0, 0, 0, 0.65)",
@@ -138,6 +140,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
               lineHeight: 1.2,
               color: "#d2d2d2",
               zIndex: 2,
+              borderRadius: "0 0 8px 8px",
               transition: TRANSITION_DEFAULT,
               background:
                 "linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 20%, rgba(0, 0, 0, 0.6) 40%, " +
@@ -171,6 +174,6 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
           </Box>
         </Box>
       </Link>
-    </Box>
+    </Card>
   );
 }

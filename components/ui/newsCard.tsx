@@ -15,7 +15,7 @@ export interface NewsCardData {
 
 interface NewsCardProps {
   data: NewsCardData;
-  width: string;
+  width: number;
   margin: string;
 }
 
@@ -28,7 +28,7 @@ export function NewsCard({ data, width, margin }: NewsCardProps) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: { mobileS: `${NewsCardMobileWidth}px`, laptop: width },
+        width: { mobileS: `${NewsCardMobileWidth}px`, laptop: `${width}px` },
         m: { mobileS: `0 ${NewsCardMobileMargin}px 0 0`, laptop: margin },
         background: "rgba(0, 0, 0, 0.15)",
         flexShrink: 0,
@@ -42,7 +42,10 @@ export function NewsCard({ data, width, margin }: NewsCardProps) {
           height="100%"
           image={data.image}
           sx={{
+            width: { mobileS: `${NewsCardMobileWidth}px`, laptop: `${width}px` },
             borderRadius: "5px 5px 0 0",
+            objectFit: "cover",
+            verticalAlign: "middle",
           }}
         />
       </Link>

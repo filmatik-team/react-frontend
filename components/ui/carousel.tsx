@@ -158,8 +158,8 @@ export default function Carousel({
         {data.map((item, i) => (
           <Component
             data={item}
-            width={`${movieWidth}px`}
-            height={`${movieHeight}px`}
+            width={movieWidth}
+            height={movieHeight}
             margin={i === data.length - 1 ? "0" : `0 ${cardsMargin}px 0 0`}
             date={item.date ? item.date : undefined}
             commentsCount={item.commentsCount ? item.commentsCount : undefined}
