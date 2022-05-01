@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, Box, Link, Typography, Fade, Divider } from "@mui/material";
 import { FButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
-import { FTabPanel } from "../components/ui/tabs";
+import { FTabPanel, FTabsListStyled } from "../components/ui/tabs";
 import Carousel, { CarouselProps } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
 import LoginModal from "../components/common/header/loginModal";
@@ -11,7 +11,7 @@ import { NewsCard, NewsCardData } from "../components/ui/newsCard";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { useSwipeable } from "react-swipeable";
-import { TabsListStyled, TabStyled } from "../components/ui/tabs-styles";
+import { TabStyled } from "../components/ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
 import { UserLoggedInContext, UserLoginModalContext, UserSubscriptionsContext } from "../src/context";
@@ -442,11 +442,11 @@ export default function Home() {
           value={topPremieresValue}
           onChange={handleChangeTopPremieres}
           sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
-          <TabsListStyled>
+          <FTabsListStyled>
             <TabStyled>Сейчас</TabStyled>
             <TabStyled>Скоро</TabStyled>
             <TabStyled>Позже</TabStyled>
-          </TabsListStyled>
+          </FTabsListStyled>
           <Box sx={{ position: "relative" }}>
             {topPremieresData.map((viewData, i) => (
               <FTabPanel index={topPremieresValue} value={i} key={viewData.data[i].image}>
@@ -464,11 +464,11 @@ export default function Home() {
           value={topOnlineValue}
           onChange={handleChangeTopOnline}
           sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
-          <TabsListStyled>
+          <FTabsListStyled>
             {isLoggedIn && userSubscriptions ? <TabStyled>Мои подписки</TabStyled> : null}
             <TabStyled>Все</TabStyled>
             <TabStyled>Бесплатно</TabStyled>
-          </TabsListStyled>
+          </FTabsListStyled>
           <Box sx={{ position: "relative" }}>
             {isLoggedIn && userSubscriptions ? (
               <FTabPanel index={topOnlineValue} value={0}>

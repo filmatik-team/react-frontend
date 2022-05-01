@@ -1,14 +1,10 @@
 import React from "react";
-import { TabPanelStyled } from "./tabs-styles";
+import { TabPanelStyled, TabsListStyled } from "./tabs-styles";
 import { Box } from "@mui/material";
 import TabPanelUnstyledProps from "@mui/base/TabPanelUnstyled/TabPanelUnstyledProps";
-import { TabsProps } from "@mui/material/Tabs/Tabs";
-import { TabsUnstyled } from "@mui/base";
-
-export const FTabs = (props: TabsProps) => {
-  const { children } = props;
-  return <TabsUnstyled>{children}</TabsUnstyled>;
-};
+import TabsListUnstyledProps from "@mui/base/TabsListUnstyled/TabsListUnstyledProps";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
 
 interface FTabPanelProps extends TabPanelUnstyledProps {
   index: number;
@@ -22,7 +18,7 @@ export const FTabPanel = (props: FTabPanelProps) => {
   const tabPanelAttrs = (saveContent?: boolean) => {
     return {
       role: "tabpanel",
-      className: `${value === index ? "show" : "hide"}${!animate ? " no-animation" : ""}`,
+      className: `${value === index ? "show" : "hide"}${!animate ? " tabs-no-animation" : ""}`,
       components: { Root: Box },
       ...(saveContent && { id: undefined }),
       ...(saveContent && { hidden: false }),
@@ -33,5 +29,38 @@ export const FTabPanel = (props: FTabPanelProps) => {
     <TabPanelStyled {...tabPanelAttrs(saveContent)} {...props}>
       {children}
     </TabPanelStyled>
+  );
+};
+
+interface FTabsListStyledProps extends TabsListUnstyledProps {
+  scrollable?: boolean;
+  scrollableColor?: "dark" | "light";
+  sx?: SxProps<Theme>;
+}
+
+export const FTabsListStyled = (props: FTabsListStyledProps) => {
+  const { children, scrollable = true, scrollableColor = "dark" } = props;
+
+  const scrollableBackgroundColor = {
+    dark: "linear-gradient(to left, #273037, rgba(39, 48, 55, 0.1))",
+    light: "linear-gradient(to left, #FFFFFF, rgba(255, 255, 255, 0.1))",
+  };
+
+  const scrollableColorStyles = {
+    "&.tabs-scrollable::after": {
+      content: '" "',
+      position: "absolute",
+      zIndex: 1,
+      right: 0,
+      height: "25px",
+      width: "80px",
+      backgroundImage: scrollableBackgroundColor[scrollableColor],
+    },
+  };
+
+  return (
+    <TabsListStyled className={scrollable ? " tabs-scrollable" : ""} sx={{ ...scrollableColorStyles }} {...props}>
+      {children}
+    </TabsListStyled>
   );
 };

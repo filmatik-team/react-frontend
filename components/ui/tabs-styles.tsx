@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
+import { buttonUnstyledClasses, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
 import { TRANSITION_DEFAULT } from "../../src/constants";
 import { Box } from "@mui/material";
 
@@ -42,7 +42,7 @@ export const TabPanelStyled = styled(Box)`
     animation: hideNav 0.3s linear;
   }
 
-  &.no-animation {
+  &.tabs-no-animation {
     animation: showNav, hideNav 0s linear;
   }
 `;
@@ -86,9 +86,12 @@ export const TabStyled = styled(TabUnstyled).attrs(() => ({
 
 export const TabsListStyled = styled(TabsListUnstyled)`
   margin: 0 0 20px 0;
-  overflow-x: scroll;
-  white-space: nowrap;
-  scrollbar-width: none;
+
+  &.tabs-scrollable {
+    overflow-x: scroll;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -98,15 +101,5 @@ export const TabsListStyled = styled(TabsListUnstyled)`
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-  }
-
-  &::after {
-    content: " ";
-    position: absolute;
-    z-index: 1;
-    right: 0;
-    height: 25px;
-    width: 80px;
-    background-image: linear-gradient(to left, #273037, rgba(39, 48, 55, 0.1));
   }
 `;

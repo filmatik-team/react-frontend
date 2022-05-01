@@ -5,7 +5,7 @@ import { FButton, CloseButton } from "../../lib/styling";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
 import { TabsListStyled, TabStyled } from "../../ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
-import { FTabPanel } from "../../ui/tabs";
+import { FTabPanel, FTabsListStyled } from "../../ui/tabs";
 import { UserLoginModalContext } from "../../../src/context";
 
 const UserModalLogin = () => {
@@ -115,15 +115,15 @@ export default function LoginModal() {
               "& .nav-tabs__tab.TabUnstyled-root:hover": { color: "#0b0b0b" },
             }}>
             <TabsUnstyled component={Box} value={loginModalValue} onChange={handleChangeloginModal}>
-              <TabsListStyled>
+              <FTabsListStyled scrollableColor="light">
                 <TabStyled>Вход</TabStyled>
                 <TabStyled>Регистрация</TabStyled>
-              </TabsListStyled>
+              </FTabsListStyled>
               <Box sx={{ position: "relative" }}>
-                <FTabPanel index={loginModalValue} value={0}>
+                <FTabPanel index={loginModalValue} value={0} animate={false}>
                   <UserModalLogin />
                 </FTabPanel>
-                <FTabPanel index={loginModalValue} value={1}>
+                <FTabPanel index={loginModalValue} value={1} animate={false}>
                   <UserModalRegistration />
                 </FTabPanel>
               </Box>
