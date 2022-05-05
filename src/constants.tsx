@@ -2,6 +2,7 @@
 export const CONTAINER_WIDTH = 1166; // ширина контента
 export const CONTAINER_PADDING = 25; // внутренний отступ контента
 export const TRANSITION_DEFAULT = "all 0.3s ease"; //стандартная анимация
+export const HEADER_HEIGHT = 50; // высота хэдера
 export const CATALOG_MARGIN = 3.5; //расстояние между обложками в каталоге
 
 /* Карусель с фильмами*/

@@ -6,7 +6,7 @@ import LoginModal from "./loginModal";
 import MobileMenu from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
-import { TRANSITION_DEFAULT } from "../../../src/constants";
+import { HEADER_HEIGHT, TRANSITION_DEFAULT } from "../../../src/constants";
 import { UserLoggedInContext, UserLoginModalContext } from "../../../src/contexts/users/contexts";
 import UserMenu from "./userMenu";
 
@@ -30,8 +30,6 @@ export const menuItems = [
 ];
 
 export default function Header() {
-  const headerHeight = 50;
-
   const [scroll, setScroll] = React.useState<boolean>(false);
   const [, setOpenUserModal] = React.useContext(UserLoginModalContext);
   const [isLoggedIn] = React.useContext(UserLoggedInContext);
@@ -69,7 +67,7 @@ export default function Header() {
         width: "100%",
         p: 0,
         background: { mobileS: "#273037", laptop: "rgba(39, 48, 55, 0.8)" },
-        height: { mobileS: "56px", laptop: headerHeight },
+        height: { mobileS: "56px", laptop: HEADER_HEIGHT },
         transition: TRANSITION_DEFAULT,
         zIndex: 100,
 
@@ -84,7 +82,12 @@ export default function Header() {
       <ContainerStyled>
         <Toolbar
           disableGutters
-          sx={{ position: "inherit", minHeight: { mobileS: "55px", laptop: headerHeight }, height: "100%", m: "auto" }}>
+          sx={{
+            position: "inherit",
+            minHeight: { mobileS: "55px", laptop: HEADER_HEIGHT },
+            height: "100%",
+            m: "auto",
+          }}>
           <Stack direction="row" alignItems="center" sx={{ height: "100%" }}>
             <Box sx={{ display: "flex" }}>
               <Link href="/" sx={{ lineHeight: 0 }}>

@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { buttonUnstyledClasses, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
+import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
 import { TRANSITION_DEFAULT } from "../../src/constants";
-import { Box } from "@mui/material";
 
-export const TabPanelStyled = styled(Box)`
+export const TabPanelStyled = styled(TabPanelUnstyled)`
   height: 100%;
   width: 100%;
   top: 0;

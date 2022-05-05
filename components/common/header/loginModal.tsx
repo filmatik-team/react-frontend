@@ -49,6 +49,7 @@ const UserModalLoginForm = () => {
           control={control}
           render={({ field }) => (
             <TextFormInput
+              autoFocus
               text="Введите e-mail"
               sx={{ mb: "16px" }}
               value={field.value}
