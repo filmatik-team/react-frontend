@@ -22,7 +22,7 @@ export default function Footer() {
   const [openFooterModal, setOpenFooterModal] = React.useState<boolean>(false);
 
   const handlerOpenFooterModal = () => {
-    setOpenFooterModal((prev) => !prev);
+    setOpenFooterModal(false);
   };
 
   return (

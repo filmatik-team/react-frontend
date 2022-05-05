@@ -11,7 +11,7 @@ import { Controller, SubmitHandler, UnpackNestedValue, useForm } from "react-hoo
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin, schemaRegister } from "../../../src/validations";
 
-interface UserDetailsProps {
+interface UserDetailsFormProps {
   email?: string;
   name?: string;
   password?: string;
@@ -26,15 +26,16 @@ const UserModalLoginForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserDetailsProps>({
+  } = useForm<UserDetailsFormProps>({
     mode: "onTouched",
     defaultValues: {
       email: "",
     },
     resolver: yupResolver(schemaLogin),
+    delayError: 1000,
   });
 
-  const onSubmit: SubmitHandler<UserDetailsProps> = (data: UnpackNestedValue<UserDetailsProps>) => {
+  const onSubmit: SubmitHandler<UserDetailsFormProps> = (data: UnpackNestedValue<UserDetailsFormProps>) => {
     // Request
     console.log(data);
     setIsLoggedIn(true);
@@ -106,10 +107,9 @@ const UserModalRegistrationForm = () => {
     </Box>
   );
 
-  const onSubmit: SubmitHandler<UserDetailsProps> = (data: UnpackNestedValue<UserDetailsProps>) => {
+  const onSubmit: SubmitHandler<UserDetailsFormProps> = (data: UnpackNestedValue<UserDetailsFormProps>) => {
     // Request
     console.log(data);
-    setIsLoggedIn(true);
     setOpen(false);
   };
 
@@ -118,7 +118,7 @@ const UserModalRegistrationForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserDetailsProps>({
+  } = useForm<UserDetailsFormProps>({
     mode: "onTouched",
     defaultValues: {
       email: "",
@@ -126,6 +126,7 @@ const UserModalRegistrationForm = () => {
       checkbox: true,
     },
     resolver: yupResolver(schemaRegister),
+    delayError: 1000,
   });
 
   return (
@@ -136,6 +137,7 @@ const UserModalRegistrationForm = () => {
           control={control}
           render={({ field }) => (
             <TextFormInput
+              autoFocus
               text="Введите e-mail"
               sx={{ mb: "16px" }}
               value={field.value}
@@ -238,6 +240,7 @@ export default function LoginModal() {
       onClose={() => setOpen(false)}
       closeAfterTransition
       disableScrollLock
+      disableRestoreFocus
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 100,

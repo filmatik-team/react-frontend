@@ -5,6 +5,7 @@ import { sizeMobileFirst } from "../components/lib/deviceSize";
 import Footer from "../components/common/footer/footer";
 import React from "react";
 import { UserLoggedInProvider, UserLoginModalProvider } from "../src/contexts/users/providers";
+import Head from "next/head";
 
 const common = {
   typography: {
@@ -55,6 +56,9 @@ const lightTheme = createTheme({
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={darkTheme}>
+      <Head>
+        <title>Filmatik. Отслеживай новинки кино</title>
+      </Head>
       <CssBaseline />
       <Stack>
         {" "}

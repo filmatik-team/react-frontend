@@ -1,17 +1,17 @@
 import React from "react";
 import { UserLoggedInContext, UserLoginModalContext } from "./contexts";
 
-interface UsersProps {
+interface UserProps {
   children: React.ReactNode;
 }
 
-export const UserLoginModalProvider = ({ children }: UsersProps) => {
+export const UserLoginModalProvider = ({ children }: UserProps) => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   return <UserLoginModalContext.Provider value={[open, setOpen]}>{children}</UserLoginModalContext.Provider>;
 };
 
-export const UserLoggedInProvider = ({ children }: UsersProps) => {
+export const UserLoggedInProvider = ({ children }: UserProps) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
 
   return <UserLoggedInContext.Provider value={[isLoggedIn, setIsLoggedIn]}>{children}</UserLoggedInContext.Provider>;

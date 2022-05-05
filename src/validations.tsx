@@ -24,3 +24,15 @@ export const schemaRegister = yup
     checkbox: yup.boolean().oneOf([true]),
   })
   .required();
+
+export const schemaFeedback = yup
+  .object({
+    email: yup.string().required("Заполните это поле").email("Введите действительный e-mail"),
+    name: yup.string().required("Заполните это поле").max(30, "Имя может содержать максимум 30 символов"),
+    text: yup
+      .string()
+      .required("Введите текст сообщения для отправки")
+      .max(500, "Сообщение может содержать максимум 500 символов"),
+    recaptcha: yup.string().notOneOf(["false", "", null]),
+  })
+  .required();

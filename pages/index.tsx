@@ -328,7 +328,6 @@ const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest 
             textShadow: "1px 1px 3px rgb(0 0 0 / 40%)",
           }}
         />
-        <LoginModal />
       </Box>
       <Box
         sx={{
