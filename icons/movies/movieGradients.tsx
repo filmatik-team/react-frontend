@@ -8,7 +8,7 @@ export const GradientCoverGreen = () => {
       height="100%"
       viewBox="0 0 226 338"
       fill="none"
-      className="green">
+      className="gradient-green">
       <rect width="226" height="338" rx="0" />
       <g filter="url(#filter_gradient_green_dddd)">
         <g clipPath="url(#clip_green)">
@@ -76,7 +76,7 @@ export const GradientCoverYellow = () => {
       height="100%"
       viewBox="0 0 226 338"
       fill="none"
-      className="yellow">
+      className="gradient-yellow">
       <rect width="226" height="338" rx="0" />
       <g filter="url(#filter_gradient_yellow_dddd)">
         <g clipPath="url(#clip_gradient_yellow)">
@@ -144,7 +144,7 @@ export const GradientCoverRed = () => {
       height="100%"
       viewBox="0 0 226 338"
       fill="none"
-      className="red">
+      className="gradient-red">
       <rect width="226" height="338" rx="0" />
       <g filter="url(#filter_gradient_red_dddd)">
         <g clipPath="url(#clip_gradient_red)">

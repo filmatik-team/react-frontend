@@ -4,7 +4,6 @@ import { Button, ButtonProps, Container } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { CONTAINER_PADDING, CONTAINER_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
-import { buttonUnstyledClasses } from "@mui/base";
 
 /* Двуокрашенный заголовок */
 

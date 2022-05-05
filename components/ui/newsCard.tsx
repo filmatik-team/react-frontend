@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Link, Stack, Typography } from "@mui/material";
 import { NewsComment } from "../../icons/comments";
-import { TRANSITION_DEFAULT } from "../../src/constants";
+import { NEWS_CARD_MOBILE_MARGIN, NEWS_CARD_MOBILE_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
 
 /*Обложка новости*/
 
@@ -20,16 +20,13 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ data, width, margin }: NewsCardProps) {
-  const NewsCardMobileWidth = 285;
-  const NewsCardMobileMargin = 10;
-
   return (
     <Card
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: { mobileS: `${NewsCardMobileWidth}px`, laptop: `${width}px` },
-        m: { mobileS: `0 ${NewsCardMobileMargin}px 0 0`, laptop: margin },
+        width: { mobileS: `${NEWS_CARD_MOBILE_WIDTH}px`, laptop: `${width}px` },
+        m: { mobileS: `0 ${NEWS_CARD_MOBILE_MARGIN}px 0 0`, laptop: margin },
         background: "rgba(0, 0, 0, 0.15)",
         flexShrink: 0,
         borderRadius: "5px",
@@ -42,7 +39,7 @@ export function NewsCard({ data, width, margin }: NewsCardProps) {
           height="100%"
           image={data.image}
           sx={{
-            width: { mobileS: `${NewsCardMobileWidth}px`, laptop: `${width}px` },
+            width: { mobileS: `${NEWS_CARD_MOBILE_WIDTH}px`, laptop: `${width}px` },
             borderRadius: "5px 5px 0 0",
             objectFit: "cover",
             verticalAlign: "middle",

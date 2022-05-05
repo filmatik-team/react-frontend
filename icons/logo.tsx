@@ -1,12 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-const MainLogoIconStyle = `
-  .st0{fill:#FFFFFF;}
-  .st1{fill:#F97801;}
-  .st2{fill:none;stroke:#FFFFFF;stroke-width:1.4416;stroke-miterlimit:10;}
-`;
-
 interface MainLogoIconProps {
   width?: number;
 }
@@ -22,32 +16,30 @@ export const MainLogoIcon = ({ width = 129 }: MainLogoIconProps) => {
         x="0px"
         y="0px"
         viewBox="0 0 128.1 40">
-        <style type="text/css">{MainLogoIconStyle}</style>
         <g>
           <g>
             <path
-              className="st0"
               fill="#FFFFFF"
               d="M121.8,18.1l6.3,8.6h-2.3l-5.5-7.3l-2.7,2.3l-0.1,5h-2.1V13.3h2.1v6l7-6h2.8L121.8,18.1z"
             />
-            <path className="st0" d="M110.9,13.4h-2.1v13.2h2.1V13.4z" />
-            <path className="st0" d="M106.8,13.3v1.9H101v11.4h-2V15.1h-5.6v-1.8H106.8z" />
+            <path fill="#FFFFFF" d="M110.9,13.4h-2.1v13.2h2.1V13.4z" />
+            <path fill="#FFFFFF" d="M106.8,13.3v1.9H101v11.4h-2V15.1h-5.6v-1.8H106.8z" />
             <path
-              className="st0"
+              fill="#FFFFFF"
               d="M88.3,13.3L95,26.7h-2.2l-1.7-3.3h-7l-1.8,3.3h-2.2L87,13.3H88.3z M90.2,21.5l-2.6-5l-2.6,5H90.2z"
             />
-            <path className="st0" d="M78.2,13.3v13.3h-2v-9.5L71,24.5l-5-7.3v9.5h-2.1V13.3h1.7l5.4,7.8l5.4-7.8H78.2z" />
-            <path className="st0" d="M61.5,24.8v1.9H49.6V13.3h2.1v11.4H61.5z" />
-            <path className="st0" d="M45,13.4H43v13.2H45V13.4z" />
+            <path fill="#FFFFFF" d="M78.2,13.3v13.3h-2v-9.5L71,24.5l-5-7.3v9.5h-2.1V13.3h1.7l5.4,7.8l5.4-7.8H78.2z" />
+            <path fill="#FFFFFF" d="M61.5,24.8v1.9H49.6V13.3h2.1v11.4H61.5z" />
+            <path fill="#FFFFFF" d="M45,13.4H43v13.2H45V13.4z" />
             <polygon
-              className="st1"
+              fill="#F97801"
               points="25.7,25.2 14.8,14.3 25.7,3.5 25.7,10.7 20.8,15.5 21.7,16.4 25.7,12.5 25.7,18.6 24.7,19.4     25.7,20.4   "
             />
             <polygon
-              className="st0"
+              fill="#FFFFFF"
               points="14.3,14.8 25.2,25.7 14.3,36.5 14.3,29.2 19.1,24.4 18.3,23.6 14.3,27.4 14.3,21.4 15.3,20.5     14.3,19.6   "
             />
-            <circle className="st2" cx="20" cy="20" r="18.5" />
+            <circle fill="none" stroke="#FFFFFF" strokeWidth="1.4416" strokeMiterlimit="10" cx="20" cy="20" r="18.5" />
           </g>
         </g>
       </svg>

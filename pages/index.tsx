@@ -105,7 +105,7 @@ const filmCarouselViewData: MovieCardData[] = [
     starCounter: 5,
   },
   {
-    image: "https://filmatik.ru/uploads/movie/7166/poster/w342/22FWO9Z2SYZh5JVI3nyxmwGaG7G.jpg",
+    image: "",
     title: "Глубокие воды",
     url: "",
     rating: 80,

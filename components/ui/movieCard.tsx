@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Card, Link } from "@mui/material";
 import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
-import { GradientCoverGreen, GradientCoverRed, GradientCoverYellow } from "../../icons/movieGradients";
-import { TRANSITION_DEFAULT } from "../../src/constants";
+import { GradientCoverGreen, GradientCoverRed, GradientCoverYellow } from "../../icons/movies/movieGradients";
+import { MOVIE_CARD_MOBILE_MARGIN, MOVIE_CARD_MOBILE_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
 
 /*Обложка фильма*/
 
@@ -24,8 +24,6 @@ interface MovieCardDataProps {
 }
 
 export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
-  const movieCardMobileWidth = 105;
-  const movieCardMobileMargin = 5;
   let GradientCoverComponent = Box;
 
   if (data.rating >= 70) {
@@ -40,7 +38,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
     <Card
       elevation={0}
       sx={{
-        m: { mobileS: `0 ${movieCardMobileMargin}px 0 0`, laptop: margin },
+        m: { mobileS: `0 ${MOVIE_CARD_MOBILE_MARGIN}px 0 0`, laptop: margin },
         position: "relative",
         outline: "none",
         border: 0,
@@ -76,11 +74,11 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
         }}>
         <Box
           component="img"
-          src={data.image}
+          src={data.image ? data.image : "https://filmatik.ru/resources/app/img/no-cover-movie-view.svg"}
           alt={data.title}
           sx={{
-            width: { mobileS: `${movieCardMobileWidth}px`, laptop: `${width - 2}px` },
-            height: { mobileS: `${movieCardMobileWidth * 1.5}px`, laptop: `${height - 2}px` },
+            width: { mobileS: `${MOVIE_CARD_MOBILE_WIDTH}px`, laptop: `${width - 2}px` },
+            height: { mobileS: `${MOVIE_CARD_MOBILE_WIDTH * 1.5}px`, laptop: `${height - 2}px` },
             objectFit: "cover",
             borderRadius: "8px",
             borderStyle: "none",
