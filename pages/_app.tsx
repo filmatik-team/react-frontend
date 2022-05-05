@@ -3,8 +3,8 @@ import { createTheme, CssBaseline, Stack, ThemeOptions, ThemeProvider } from "@m
 import Header from "../components/common/header/header";
 import { sizeMobileFirst } from "../components/lib/deviceSize";
 import Footer from "../components/common/footer/footer";
-import { UserLoggedInContext } from "../src/context/users/context";
 import React from "react";
+import { UserLoggedInProvider, UserLoginModalProvider } from "../src/contexts/users/providers";
 
 const common = {
   typography: {
@@ -53,19 +53,19 @@ const lightTheme = createTheme({
 } as ThemeOptions);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Stack>
         {" "}
         {/* <AppContextProvider>  // for MobX */}
-        <UserLoggedInContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
-          <Header />
-          <Component {...pageProps} />
-        </UserLoggedInContext.Provider>
-        <Footer />
+        <UserLoggedInProvider>
+          <UserLoginModalProvider>
+            <Header />
+            <Component {...pageProps} />
+          </UserLoginModalProvider>
+          <Footer />
+        </UserLoggedInProvider>
       </Stack>
       {/* </AppContextProvider> */}
     </ThemeProvider>

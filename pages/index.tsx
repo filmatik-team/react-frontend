@@ -14,7 +14,7 @@ import { useSwipeable } from "react-swipeable";
 import { TabStyled } from "../components/ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
-import { UserLoggedInContext, UserLoginModalContext, UserSubscriptionsContext } from "../src/context/users/context";
+import { UserLoggedInContext, UserLoginModalContext, UserSubscriptionsContext } from "../src/contexts/users/contexts";
 
 interface MainPageBannerCarouselData {
   image: string;
@@ -216,7 +216,7 @@ interface MainPageBannerCarouselProps {
 const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest }: MainPageBannerCarouselProps) => {
   const [position, setPosition] = React.useState<number>(0);
   const [open, setOpen] = React.useState<boolean>(false);
-  const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
+  const [, setOpenUserModal] = React.useContext(UserLoginModalContext);
   const pauseRef = React.useRef<boolean>(false);
   const current = data[position];
 
@@ -328,9 +328,7 @@ const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest 
             textShadow: "1px 1px 3px rgb(0 0 0 / 40%)",
           }}
         />
-        <UserLoginModalContext.Provider value={[openUserModal, setOpenUserModal]}>
-          <LoginModal />
-        </UserLoginModalContext.Provider>
+        <LoginModal />
       </Box>
       <Box
         sx={{

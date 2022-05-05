@@ -6,7 +6,7 @@ import { TRANSITION_DEFAULT } from "../../../src/constants";
 import { TabStyled } from "../../ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { FTabPanel, FTabsListStyled } from "../../ui/tabs";
-import { UserLoggedInContext, UserLoginModalContext } from "../../../src/context/users/context";
+import { UserLoggedInContext, UserLoginModalContext } from "../../../src/contexts/users/contexts";
 import { Controller, SubmitHandler, UnpackNestedValue, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin, schemaRegister } from "../../../src/validations";
@@ -165,7 +165,7 @@ const UserModalRegistrationForm = () => {
           control={control}
           render={({ field }) => (
             <PasswordFormInput
-              sx={{ mb: "5px" }}
+              sx={{ mb: "16px" }}
               onBlur={() => field.onBlur()}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
               error={!!errors.password?.message}
@@ -179,7 +179,7 @@ const UserModalRegistrationForm = () => {
           render={({ field }) => (
             <PasswordFormInput
               confirm
-              sx={{ mb: "5px" }}
+              sx={{ mb: "16px" }}
               onBlur={() => field.onBlur()}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
               error={!!errors.passwordConfirmation?.message}
