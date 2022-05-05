@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import React from "react";
 
 export default function Document() {
   return (
@@ -9,6 +10,7 @@ export default function Document() {
           // https://fonts.googleapis.com/css2?family=Comfortaa:wght@501&family=Quantico&family=Roboto+Mono:wght@200&family=Oxanium:wght@242&display=swap
           rel="stylesheet"
         />
+        <title>Filmatik. Отслеживай новинки кино</title>
       </Head>
       <body>
         <Main />

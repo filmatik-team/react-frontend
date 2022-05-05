@@ -4,6 +4,7 @@ import { Button, ButtonProps, Container } from "@mui/material";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { CONTAINER_PADDING, CONTAINER_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
+import { buttonUnstyledClasses } from "@mui/base";
 
 /* Двуокрашенный заголовок */
 
@@ -59,10 +60,18 @@ export const FButton = ({ text, sx, theme = "dark", uppercase = false, ...rest }
     dark: {
       native: "#C9490C",
       hover: "#B6450E",
+      disabled: {
+        color: "",
+        background: "",
+      },
     },
     light: {
       native: "#FE7900",
       hover: "#E97000",
+      disabled: {
+        color: "rgba(255, 255, 255, 0.6)",
+        background: "#999",
+      },
     },
   };
 
@@ -92,6 +101,10 @@ export const FButton = ({ text, sx, theme = "dark", uppercase = false, ...rest }
 
         "&:hover": {
           background: backgroundColor[theme]["hover"],
+        },
+        "&:disabled": {
+          color: backgroundColor[theme]["disabled"]["color"],
+          background: backgroundColor[theme]["disabled"]["background"],
         },
         ...sx,
       }}

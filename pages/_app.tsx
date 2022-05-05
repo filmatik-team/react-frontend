@@ -3,7 +3,8 @@ import { createTheme, CssBaseline, Stack, ThemeOptions, ThemeProvider } from "@m
 import Header from "../components/common/header/header";
 import { sizeMobileFirst } from "../components/lib/deviceSize";
 import Footer from "../components/common/footer/footer";
-import Head from "next/head";
+import { UserLoggedInContext } from "../src/context/users/context";
+import React from "react";
 
 const common = {
   typography: {
@@ -52,17 +53,18 @@ const lightTheme = createTheme({
 } as ThemeOptions);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+
   return (
     <ThemeProvider theme={darkTheme}>
-      <Head>
-        <title>Filmatik. Отслеживай новинки кино</title>
-      </Head>
       <CssBaseline />
       <Stack>
         {" "}
         {/* <AppContextProvider>  // for MobX */}
-        <Header />
-        <Component {...pageProps} />
+        <UserLoggedInContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
+          <Header />
+          <Component {...pageProps} />
+        </UserLoggedInContext.Provider>
         <Footer />
       </Stack>
       {/* </AppContextProvider> */}

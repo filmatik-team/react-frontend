@@ -13,7 +13,7 @@ interface FTabPanelProps extends TabPanelUnstyledProps {
 }
 
 export const FTabPanel = (props: FTabPanelProps) => {
-  const { index, value, children, animate = true, saveContent = false } = props;
+  const { index, value, children, animate = true, saveContent = false, ...rest } = props;
 
   const tabPanelAttrs = (saveContent?: boolean) => {
     return {
@@ -26,7 +26,7 @@ export const FTabPanel = (props: FTabPanelProps) => {
   };
 
   return (
-    <TabPanelStyled {...tabPanelAttrs(saveContent)} {...props}>
+    <TabPanelStyled {...tabPanelAttrs(saveContent)} {...rest}>
       {children}
     </TabPanelStyled>
   );
@@ -39,7 +39,7 @@ interface FTabsListStyledProps extends TabsListUnstyledProps {
 }
 
 export const FTabsListStyled = (props: FTabsListStyledProps) => {
-  const { children, scrollable = true, scrollableColor = "dark" } = props;
+  const { children, scrollable = true, scrollableColor = "dark", ...rest } = props;
 
   const scrollableBackgroundColor = {
     dark: "linear-gradient(to left, #273037, rgba(39, 48, 55, 0.1))",
@@ -59,7 +59,7 @@ export const FTabsListStyled = (props: FTabsListStyledProps) => {
   };
 
   return (
-    <TabsListStyled className={scrollable ? " tabs-scrollable" : ""} sx={{ ...scrollableColorStyles }} {...props}>
+    <TabsListStyled className={scrollable ? " tabs-scrollable" : ""} sx={{ ...scrollableColorStyles }} {...rest}>
       {children}
     </TabsListStyled>
   );

@@ -7,7 +7,7 @@ import MobileMenu from "./mobileMenu";
 import { UserLogoutIcon } from "../../../icons/header";
 import { MainLogoIcon } from "../../../icons/logo";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
-import { UserLoggedInContext, UserLoginModalContext } from "../../../src/context";
+import { UserLoggedInContext, UserLoginModalContext } from "../../../src/context/users/context";
 import UserMenu from "./userMenu";
 
 export const menuItems = [
@@ -34,9 +34,9 @@ export default function Header() {
 
   const [scroll, setScroll] = React.useState<boolean>(false);
   const [openUserModal, setOpenUserModal] = React.useState<boolean>(false);
+  const [isLoggedIn] = React.useContext(UserLoggedInContext);
   const headerRef = React.useRef<HTMLDivElement>(null);
   const scrollRef = React.useRef<boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useContext(UserLoggedInContext);
 
   scrollRef.current = scroll;
 

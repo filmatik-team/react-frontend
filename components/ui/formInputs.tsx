@@ -1,8 +1,16 @@
 import React from "react";
-import { Box, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
+import { TextFieldProps } from "@mui/material/TextField/TextField";
+import { FormControlProps } from "@mui/material/FormControl/FormControl";
 
 const inputStyle = {
   "& .MuiOutlinedInput-input:-webkit-autofill": {
@@ -22,6 +30,18 @@ const inputStyle = {
     "&.Mui-focused": {
       color: "#fe7900",
     },
+
+    "&.Mui-error": {
+      color: "#f44336",
+    },
+
+    "&.Mui-error ~ .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#f44336",
+    },
+  },
+
+  "& .MuiFormHelperText-root": {
+    fontSize: "12px",
   },
 
   "& .MuiOutlinedInput-input": {
@@ -44,35 +64,32 @@ const inputStyle = {
   },
 };
 
-interface UserProps {
+type TextFormInputProps = TextFieldProps & {
   text?: string;
-  tab?: number | string;
-  sx?: SxProps<Theme>;
-  autoFocus?: boolean;
+};
+
+export function TextFormInput({ text, sx, ...rest }: TextFormInputProps) {
+  return <TextField variant="outlined" label={text} sx={{ ...inputStyle, width: "100%", ...sx }} {...rest} />;
 }
 
-export function LoginForm({ text, tab, sx, autoFocus = false, ...rest }: UserProps) {
-  return (
-    <FormControl sx={{ ...inputStyle, width: "100%", ...sx }} variant="outlined" {...rest}>
-      <InputLabel htmlFor={`signIn-email-${tab}`}>{text}</InputLabel>
-      <OutlinedInput id={`signIn-email-${tab}`} autoFocus={autoFocus} required label="Введите e-mail" {...rest} />
-    </FormControl>
-  );
+interface PasswordFormInputProps extends FormControlProps {
+  helperText?: string;
+  confirm?: boolean;
 }
 
-export function PasswordForm({ tab, sx, ...rest }: UserProps) {
-  interface State {
+export function PasswordFormInput({ helperText, sx, confirm = false, ...rest }: PasswordFormInputProps) {
+  interface ValuesStateProps {
     password: string;
     showPassword: boolean;
   }
 
-  const [values, setValues] = React.useState<State>({
+  const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
   });
 
-  const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const handleChange = (prop: keyof ValuesStateProps) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [prop]: e.target.value });
   };
 
   const handleClickShowPassword = () => {
@@ -82,16 +99,14 @@ export function PasswordForm({ tab, sx, ...rest }: UserProps) {
     });
   };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
 
   return (
     <FormControl sx={{ ...inputStyle, width: "100%", ...sx }} variant="outlined" {...rest}>
-      <InputLabel htmlFor={`signIn-password-${tab}`}>Введите пароль</InputLabel>
+      <InputLabel>{confirm ? "Повторите пароль" : "Введите пароль"}</InputLabel>
       <OutlinedInput
-        id={`signIn-password-${tab}`}
-        required
         type={values.showPassword ? "text" : "password"}
         value={values.password}
         onChange={handleChange("password")}
@@ -108,22 +123,9 @@ export function PasswordForm({ tab, sx, ...rest }: UserProps) {
             </IconButton>
           </InputAdornment>
         }
-        label="Введите пароль"
+        label={confirm ? "Повторите пароль" : "Введите пароль"}
       />
+      <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
-  );
-}
-
-interface MessageFormProps {
-  text?: string;
-  tab?: number | string;
-  sx?: SxProps<Theme>;
-}
-
-export function TextForm({ text, tab, sx, ...rest }: MessageFormProps) {
-  return (
-    <Box sx={{ ...inputStyle, ...sx }}>
-      <TextField id={`outlined-multiline-static-${tab}`} label={text} multiline fullWidth rows={5} {...rest} />
-    </Box>
   );
 }

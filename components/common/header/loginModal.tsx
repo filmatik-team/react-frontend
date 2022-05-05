@@ -1,19 +1,77 @@
 import React from "react";
 import { Backdrop, Box, Checkbox, Fade, FormControlLabel, Link, Modal, Stack } from "@mui/material";
-import { LoginForm, PasswordForm } from "../../ui/forms";
+import { PasswordFormInput, TextFormInput } from "../../ui/formInputs";
 import { FButton, CloseButton } from "../../lib/styling";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
-import { TabsListStyled, TabStyled } from "../../ui/tabs-styles";
+import { TabStyled } from "../../ui/tabs-styles";
 import { TabsUnstyled } from "@mui/base";
 import { FTabPanel, FTabsListStyled } from "../../ui/tabs";
-import { UserLoginModalContext } from "../../../src/context";
+import { UserLoggedInContext, UserLoginModalContext } from "../../../src/context/users/context";
+import { Controller, SubmitHandler, UnpackNestedValue, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaLogin, schemaRegister } from "../../../src/validations";
 
-const UserModalLogin = () => {
+interface UserDetailsProps {
+  email?: string;
+  name?: string;
+  password?: string;
+  passwordConfirmation?: string;
+  checkbox?: boolean;
+}
+
+const UserModalLoginForm = () => {
+  const [, setIsLoggedIn] = React.useContext(UserLoggedInContext);
+  const [, setOpen] = React.useContext(UserLoginModalContext);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserDetailsProps>({
+    mode: "onTouched",
+    defaultValues: {
+      email: "",
+    },
+    resolver: yupResolver(schemaLogin),
+  });
+
+  const onSubmit: SubmitHandler<UserDetailsProps> = (data: UnpackNestedValue<UserDetailsProps>) => {
+    // Request
+    console.log(data);
+    setIsLoggedIn(true);
+    setOpen(false);
+  };
+
   return (
-    <Box component="form">
+    <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
       <Box sx={{ mb: "16px" }}>
-        <LoginForm text="Введите e-mail" autoFocus tab="0" sx={{ mb: "16px" }} />
-        <PasswordForm tab="0" sx={{ mb: "5px" }} />
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextFormInput
+              text="Введите e-mail"
+              sx={{ mb: "16px" }}
+              value={field.value}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <PasswordFormInput
+              sx={{ mb: "5px" }}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.password?.message}
+              helperText={errors.password?.message}
+            />
+          )}
+        />
         <Link
           href=""
           sx={{
@@ -28,12 +86,14 @@ const UserModalLogin = () => {
           Забыли пароль?
         </Link>
       </Box>
-      <FButton text="войти" uppercase type="submit" theme="light" />
+      <FButton text="войти" type="submit" uppercase theme="light" />
     </Box>
   );
 };
+const UserModalRegistrationForm = () => {
+  const [, setIsLoggedIn] = React.useContext(UserLoggedInContext);
+  const [, setOpen] = React.useContext(UserLoginModalContext);
 
-const UserModalRegistration = () => {
   const label = (
     <Box>
       Я согласен на обработку персональных данных согласно{" "}
@@ -45,35 +105,120 @@ const UserModalRegistration = () => {
     </Box>
   );
 
-  return (
-    <Box component="form">
-      <Box sx={{ mb: "16px" }}>
-        <LoginForm text="Введите e-mail" tab="1-0" sx={{ mb: "16px" }} />
-        <LoginForm text="Введите имя пользователя" tab="1-1" sx={{ mb: "16px" }} />
-        <PasswordForm tab="1" sx={{ mb: "16px" }} />
-        <FormControlLabel
-          control={
-            <Checkbox
-              disableRipple
-              required
-              sx={{
-                color: "#000",
+  const onSubmit: SubmitHandler<UserDetailsProps> = (data: UnpackNestedValue<UserDetailsProps>) => {
+    // Request
+    console.log(data);
+    setIsLoggedIn(true);
+    setOpen(false);
+  };
 
-                "&.Mui-checked": {
-                  color: "#FE7900",
+  const {
+    watch,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserDetailsProps>({
+    mode: "onTouched",
+    defaultValues: {
+      email: "",
+      name: "",
+      checkbox: true,
+    },
+    resolver: yupResolver(schemaRegister),
+  });
+
+  return (
+    <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+      <Box sx={{ mb: "16px" }}>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextFormInput
+              text="Введите e-mail"
+              sx={{ mb: "16px" }}
+              value={field.value}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
+        <Controller
+          name="name"
+          control={control}
+          render={({ field }) => (
+            <TextFormInput
+              text="Введите логин"
+              sx={{ mb: "16px" }}
+              value={field.value}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.name?.message}
+              helperText={errors.name?.message}
+            />
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <PasswordFormInput
+              sx={{ mb: "5px" }}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.password?.message}
+              helperText={errors.password?.message}
+            />
+          )}
+        />
+        <Controller
+          name="passwordConfirmation"
+          control={control}
+          render={({ field }) => (
+            <PasswordFormInput
+              confirm
+              sx={{ mb: "5px" }}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.onChange(e)}
+              error={!!errors.passwordConfirmation?.message}
+              helperText={errors.passwordConfirmation?.message}
+            />
+          )}
+        />
+        <Controller
+          name="checkbox"
+          control={control}
+          render={({ field }) => (
+            <FormControlLabel
+              checked={!!field.value}
+              value={field.value}
+              onBlur={() => field.onBlur()}
+              onChange={(e: React.SyntheticEvent) => field.onChange(e)}
+              control={
+                <Checkbox
+                  disableRipple
+                  sx={{
+                    color: "#000",
+
+                    "&.Mui-checked": {
+                      color: "#FE7900",
+                    },
+                  }}
+                />
+              }
+              label={label}
+              sx={{
+                "& .MuiFormControlLabel-label": {
+                  fontSize: "16px",
                 },
               }}
             />
-          }
-          label={label}
-          sx={{
-            "& .MuiFormControlLabel-label": {
-              fontSize: "16px",
-            },
-          }}
+          )}
         />
       </Box>
-      <FButton text="зарегистрироваться" uppercase type="submit" theme="light" />
+      <FButton disabled={!watch("checkbox", true)} text="зарегистрироваться" type="submit" uppercase theme="light" />
     </Box>
   );
 };
@@ -94,7 +239,7 @@ export default function LoginModal() {
       disableScrollLock
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 200,
+        timeout: 100,
       }}>
       <Fade in={open}>
         <Box
@@ -121,10 +266,10 @@ export default function LoginModal() {
               </FTabsListStyled>
               <Box sx={{ position: "relative" }}>
                 <FTabPanel index={loginModalValue} value={0} animate={false}>
-                  <UserModalLogin />
+                  <UserModalLoginForm />
                 </FTabPanel>
                 <FTabPanel index={loginModalValue} value={1} animate={false}>
-                  <UserModalRegistration />
+                  <UserModalRegistrationForm />
                 </FTabPanel>
               </Box>
             </TabsUnstyled>

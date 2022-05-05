@@ -17,6 +17,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@fortawesome/react-native-fontawesome": "^0.2.7",
+    "@hookform/resolvers": "^2.8.8",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.4.4",
     "@mui/styles": "^5.4.4",
@@ -25,10 +26,12 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-google-recaptcha": "^2.1.0",
+    "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-swipeable": "^6.2.1",
     "sass": "^1.49.9",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

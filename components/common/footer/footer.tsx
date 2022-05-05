@@ -5,7 +5,6 @@ import { MainLogoIcon } from "../../../icons/logo";
 import { SocialTwitterButton, SocialVkButton } from "../../../icons/social";
 import FeedbackModal from "./feedbackModal";
 import { TRANSITION_DEFAULT } from "../../../src/constants";
-import { FeedbackModalContext } from "../../../src/context";
 
 const menuItems = [
   {
@@ -21,6 +20,10 @@ const menuItems = [
 
 export default function Footer() {
   const [openFooterModal, setOpenFooterModal] = React.useState<boolean>(false);
+
+  const handlerOpenFooterModal = () => {
+    setOpenFooterModal((prev) => !prev);
+  };
 
   return (
     <Box
@@ -95,9 +98,7 @@ export default function Footer() {
               </Box>
             ))}
           </Box>
-          <FeedbackModalContext.Provider value={[openFooterModal, setOpenFooterModal]}>
-            <FeedbackModal />
-          </FeedbackModalContext.Provider>
+          <FeedbackModal open={openFooterModal} openHandler={handlerOpenFooterModal} />
           <Stack
             component="ul"
             direction="row"
