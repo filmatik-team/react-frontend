@@ -1,209 +1,24 @@
 import React from "react";
-import { Stack, Box, Link, Typography, Fade, Divider } from "@mui/material";
-import { FButton, ContainerStyled, DualColourSpan } from "../components/lib/styling";
-import { FTabPanel, FTabsListStyled } from "../components/ui/tabs";
-import Carousel from "../components/ui/carousel";
-import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
-import { BannerSeparator } from "../icons/mainPage";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
-import { useSwipeable } from "react-swipeable";
-import { TabStyled } from "../components/ui/tabs-styles";
+import { Stack, Box } from "@mui/material";
+import { DualColourSpan } from "../components/lib/styling";
+import { FTabPanel, FTabsListStyled } from "../components/ui/Tabs/Tabs";
+import Carousel from "../components/ui/Carousel/Carousel";
+import { TabStyled } from "../components/ui/Tabs/Tabs-styles";
 import { TabsUnstyled } from "@mui/base";
-import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../src/constants";
-import { UserLoggedInContext, UserLoginModalContext, UserSubscriptionsContext } from "../src/contexts/users/contexts";
+import { NEWS_CAROUSEL_MARGIN, NEWS_CAROUSEL_VISIBLE } from "../constants/constants";
+import { UserLoggedInContext, UserSubscriptionsContext } from "../context/user/UserContexts";
 import {
-  MainPageBannerCarouselData,
   MainPageBannerCarouselViewData,
   newsData,
   topOnlineData,
   topPopularData,
   topPremieresData,
   topSelectionsData,
-} from "../src/data/MainPage";
+} from "../data/mainPage";
+import MainPageMovieCarousel from "../components/pages/MainPage/MainPageMovieCarousel";
+import MainPageBannerCarousel from "../components/pages/MainPage/MainPageBannerCarousel";
 
-interface MainPageBannerCarouselProps {
-  data: MainPageBannerCarouselData[];
-  sx?: SxProps<Theme>;
-  mouseAnimationStop?: boolean;
-}
-
-const MainPageBannerCarousel = ({ data, sx, mouseAnimationStop = false, ...rest }: MainPageBannerCarouselProps) => {
-  const [position, setPosition] = React.useState<number>(0);
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [, setOpenUserModal] = React.useContext(UserLoginModalContext);
-  const pauseRef = React.useRef<boolean>(false);
-  const current = data[position];
-
-  const handleClickRightArrow = () => {
-    setPosition((position + data.length - 1) % data.length);
-  };
-
-  const handleClickLeftArrow = () => {
-    setPosition((position + 1) % data.length);
-  };
-
-  React.useEffect(() => {
-    setOpen(true);
-
-    const interval = setInterval(() => {
-      if (!pauseRef.current) handleClickRightArrow();
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, [position]);
-
-  const swipeable = useSwipeable({
-    onSwipedLeft: () => handleClickRightArrow(),
-    onSwipedRight: () => handleClickLeftArrow(),
-    trackMouse: true,
-    delta: 30,
-  });
-
-  return (
-    <Box
-      onMouseOver={mouseAnimationStop ? () => (pauseRef.current = true) : undefined}
-      onMouseOut={mouseAnimationStop ? () => (pauseRef.current = false) : undefined}
-      sx={{
-        position: "relative",
-        height: { mobileS: "60vh", laptop: "80vh" },
-        minHeight: { mobileS: 320, laptop: 580 },
-        m: "0 0 30px 0",
-        ...sx,
-      }}
-      {...swipeable}
-      {...rest}>
-      <Fade in={open} timeout={500} key={position}>
-        <Box
-          component="img"
-          src={current.image}
-          alt="alt"
-          sx={{
-            width: "100%",
-            height: { mobileS: "60vh", laptop: "80vh" },
-            minHeight: "580px",
-            objectFit: "cover",
-            objectPosition: { mobileS: "50% 50px", mobileL: "50% 20%" },
-          }}
-          loading="lazy"
-        />
-      </Fade>
-      <Box
-        sx={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: 0,
-          top: 0,
-          background:
-            "linear-gradient(180deg, rgba(0, 0, 0, 0.07) 43.71%, rgba(8, 8, 8, 0.35) 77.63%, rgba(3, 3, 3, 0.32) 91.3%)",
-        }}
-      />
-      <Box
-        component={ContainerStyled}
-        sx={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: "14%",
-          width: "100%",
-          zIndex: "10",
-        }}>
-        <BannerSeparator />
-        <Typography
-          component="h1"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            m: { mobileS: "5px 0 20px 0", laptop: "5px 0 45px 0" },
-            color: "#dbdbdb",
-            fontSize: { mobileS: "24px", laptop: "44px" },
-            textShadow: "1px 1px 10px #000",
-            fontWeight: 700,
-            textAlign: "center",
-            whiteSpace: "nowrap",
-          }}>
-          Отслеживай новинки кино
-        </Typography>
-        <FButton
-          text="начать!"
-          uppercase
-          theme="dark"
-          onClick={() => setOpenUserModal(true)}
-          sx={{
-            display: "flex" /*If (User) display: none*/,
-            alignItems: "center",
-            justifyContent: "center",
-            width: { mobileS: "125px", laptop: "155px" },
-            height: { mobileS: "33px", laptop: "44px" },
-            m: "0 auto",
-            borderRadius: "7px",
-            fontSize: { mobileS: "14px", laptop: "20px" },
-            color: "#E6E6E6",
-            textShadow: "1px 1px 3px rgb(0 0 0 / 40%)",
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          position: "absolute",
-          display: { mobileS: "none", mobileL: "block" },
-          bottom: 3,
-          right: 10,
-          color: "#8C8C8C",
-        }}>
-        <Link
-          href={current.url}
-          sx={{
-            color: "#555",
-            fontSize: 14,
-            textShadow: "1px 1px 0 #000",
-          }}>
-          {current.title}
-        </Link>
-      </Box>
-      <LargeForwardNavigationArrow onClick={handleClickRightArrow} />
-      <LargeBackwardNavigationArrow onClick={handleClickLeftArrow} />
-    </Box>
-  );
-};
-
-interface MainPageFilmCarouselProps {
-  children: React.ReactNode;
-  article?: React.ReactNode;
-  divider?: boolean;
-  sx?: SxProps<Theme>;
-}
-
-const MainPageMovieCarousel = ({ children, article, divider = true, ...rest }: MainPageFilmCarouselProps) => {
-  return (
-    <Box {...rest}>
-      <ContainerStyled>
-        <Stack
-          justifyContent="center"
-          sx={{
-            marginBottom: "20px",
-          }}>
-          <Typography
-            component="h2"
-            sx={{
-              fontSize: "26px",
-              fontWeight: "700",
-              color: "#e6e6e6",
-              margin: 0,
-              textAlign: "center",
-            }}>
-            <Link href="">{article}</Link>
-          </Typography>
-        </Stack>
-        {children}
-        {divider && <Divider sx={{ display: { mobileS: "none", laptop: "block" }, borderColor: "#2E3A42" }} />}
-      </ContainerStyled>
-    </Box>
-  );
-};
-
-export default function Home() {
+const Home = () => {
   const [topPremieresValue, setTopPremieresValue] = React.useState<number>(0);
   const [topOnlineValue, setTopOnlineValue] = React.useState<number>(0);
   const [isLoggedIn] = React.useContext(UserLoggedInContext);
@@ -241,12 +56,12 @@ export default function Home() {
       <MainPageBannerCarousel data={MainPageBannerCarouselViewData} sx={isLoggedIn ? { display: "none" } : undefined} />
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="премьер" />}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        sx={{ m: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
         <TabsUnstyled
           component={Box}
           value={topPremieresValue}
           onChange={handleChangeTopPremieres}
-          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
+          sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}>
           <FTabsListStyled>
             <TabStyled>Сейчас</TabStyled>
             <TabStyled>Скоро</TabStyled>
@@ -263,12 +78,12 @@ export default function Home() {
       </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="онлайн" />}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        sx={{ m: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
         <TabsUnstyled
           component={Box}
           value={topOnlineValue}
           onChange={handleChangeTopOnline}
-          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}>
+          sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}>
           <FTabsListStyled>
             {isLoggedIn && userSubscriptions && <TabStyled>Мои подписки</TabStyled>}
             <TabStyled>Все</TabStyled>
@@ -291,26 +106,28 @@ export default function Home() {
       </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="подборок" />}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
-        <Carousel {...topSelectionsData} sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }} />
+        sx={{ m: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        <Carousel {...topSelectionsData} sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }} />
       </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Новости" orangeText="кино" />}
-        sx={{ margin: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
+        sx={{ m: { mobileS: "0 0 40px 0", laptop: "0 0 30px 0" } }}>
         <Carousel
           {...newsData}
           cardsVisible={NEWS_CAROUSEL_VISIBLE}
           cardsMargin={NEWS_CAROUSEL_MARGIN}
           cardsScrollStep={NEWS_CAROUSEL_MARGIN - 1}
-          sx={{ margin: { mobileS: "0", laptop: "0 0 50px 0" } }}
+          sx={{ m: { mobileS: "0", laptop: "0 0 50px 0" } }}
         />
       </MainPageMovieCarousel>
       <MainPageMovieCarousel
         article={<DualColourSpan whiteText="Топ" orangeText="популярных" />}
         divider={false}
-        sx={{ margin: 0 }}>
+        sx={{ m: 0 }}>
         <Carousel {...topPopularData} />
       </MainPageMovieCarousel>
     </Stack>
   );
-}
+};
+
+export default Home;

@@ -1,11 +1,12 @@
 import type { AppProps } from "next/app";
 import { createTheme, CssBaseline, Stack, ThemeOptions, ThemeProvider } from "@mui/material";
-import Header from "../components/common/header/header";
-import { sizeMobileFirst } from "../components/lib/deviceSize";
-import Footer from "../components/common/footer/footer";
+import { sizeMobileFirst } from "../constants/deviceSize";
 import React from "react";
-import { UserLoggedInProvider, UserLoginModalProvider } from "../src/contexts/users/providers";
+import { UserLoggedInProvider, UserLoginModalProvider } from "../context/user/UserProviders";
 import Head from "next/head";
+import "../assets/styles/global.css";
+import Header from "../components/common/Header/Header";
+import Footer from "../components/common/Footer/Footer";
 
 const common = {
   typography: {
@@ -70,15 +71,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           </UserLoginModalProvider>
           <Footer />
         </UserLoggedInProvider>
-        <style global jsx>{`
-          html,
-          body,
-          body > div:first-child,
-          div#__next,
-          div#__next > div {
-            height: 100%;
-          }
-        `}</style>
       </Stack>
       {/* </AppContextProvider> */}
     </ThemeProvider>
