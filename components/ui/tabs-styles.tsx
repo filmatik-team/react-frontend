@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { buttonUnstyledClasses, TabPanelUnstyled, TabsListUnstyled, TabUnstyled, tabUnstyledClasses } from "@mui/base";
 import { TRANSITION_DEFAULT } from "../../src/constants";
