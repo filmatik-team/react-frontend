@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Link } from "@mui/material";
+import { Box, Card, Link, Typography } from "@mui/material";
 import { EyeCounter, HeartCounter, StarCounter } from "../../icons/counters";
 import { GradientCoverGreen, GradientCoverRed, GradientCoverYellow } from "../../icons/movies/movieGradients";
 import { MOVIE_CARD_MOBILE_MARGIN, MOVIE_CARD_MOBILE_WIDTH, TRANSITION_DEFAULT } from "../../src/constants";
@@ -86,6 +86,42 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
           }}
           loading="lazy"
         />
+        {!data.image && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: "5px",
+              left: "5px",
+              width: "calc(100% - 10px)",
+              overflow: "hidden",
+            }}>
+            <Typography
+              variant="h4"
+              sx={{
+                position: "relative",
+                width: "100%",
+                mb: "5px",
+                fontSize: "15px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textAlign: "center",
+                color: "#DBDBDB",
+                transition: TRANSITION_DEFAULT,
+
+                "&:before": {
+                  content: '""',
+                  display: "block",
+                  width: "15px",
+                  height: "24px",
+                  position: "absolute",
+                  right: 0,
+                  backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 0), #4F5D63 100%)",
+                },
+              }}>
+              {data.title}
+            </Typography>
+          </Box>
+        )}
         <Box
           sx={{
             position: "absolute",
@@ -104,7 +140,7 @@ export function MovieCard({ data, width, height, margin }: MovieCardDataProps) {
               opacity: 1,
             },
           }}>
-          {data.rating === 0 ? null : (
+          {data.rating > 0 && (
             <>
               <GradientCoverComponent />
               <Box

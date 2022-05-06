@@ -4,7 +4,6 @@ import { FButton, ContainerStyled, DualColourSpan } from "../components/lib/styl
 import { FTabPanel, FTabsListStyled } from "../components/ui/tabs";
 import Carousel, { CarouselProps } from "../components/ui/carousel";
 import { LargeBackwardNavigationArrow, LargeForwardNavigationArrow } from "../icons/arrows";
-import LoginModal from "../components/common/header/loginModal";
 import { BannerSeparator } from "../icons/mainPage";
 import { MovieCard, MovieCardData } from "../components/ui/movieCard";
 import { NewsCard, NewsCardData } from "../components/ui/newsCard";
@@ -135,7 +134,7 @@ const topPremieresData: CarouselProps[] = [
   },
   {
     component: MovieCard,
-    data: filmCarouselViewData.concat([]).reverse(),
+    data: filmCarouselViewData,
   },
 ];
 
@@ -382,14 +381,7 @@ const MainPageMovieCarousel = ({ children, article, divider = true, ...rest }: M
           </Typography>
         </Stack>
         {children}
-        {divider ? (
-          <Divider
-            sx={{
-              display: { mobileS: "none", laptop: "block" },
-              borderColor: "#2E3A42",
-            }}
-          />
-        ) : null}
+        {divider && <Divider sx={{ display: { mobileS: "none", laptop: "block" }, borderColor: "#2E3A42" }} />}
       </ContainerStyled>
     </Box>
   );
@@ -503,15 +495,6 @@ export default function Home() {
         sx={{ margin: 0 }}>
         <Carousel {...topPopularData} />
       </MainPageMovieCarousel>
-      <style global jsx>{`
-        html,
-        body,
-        body > div:first-child,
-        div#__next,
-        div#__next > div {
-          height: 100%;
-        }
-      `}</style>
     </Stack>
   );
 }
